@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dr6n5xe3bfhj4"]
+
+[ext_resource type="Script" path="res://Entities/GodotShip.cs" id="1_amaij"]
+[ext_resource type="Texture2D" uid="uid://dfkfq426u6740" path="res://Entities/ship.svg" id="2_0m5gt"]
+
+[node name="GodotShip" type="Node2D"]
+script = ExtResource("1_amaij")
+
+[node name="MainSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_0m5gt")
+
+[node name="VelocitySprite" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(200, 100)
+texture = ExtResource("2_0m5gt")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+build_mode = 1
+polygon = PackedVector2Array(0.5, 0.866, 1, 0, 0.5, -0.866, -0.5, -0.866, -1, 0, -0.5, 0.866)

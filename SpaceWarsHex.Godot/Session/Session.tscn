@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://x2a0apntnxcv"]
+
+[ext_resource type="Script" path="res://Session/Session.cs" id="1_mb3nb"]
+
+[node name="Session" type="Node"]
+script = ExtResource("1_mb3nb")

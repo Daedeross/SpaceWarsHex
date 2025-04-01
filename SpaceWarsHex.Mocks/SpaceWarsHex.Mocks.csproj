@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath>..\Assets\lib</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SpaceWarsHex.Contract\SpaceWarsHex.Contract.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
+  </ItemGroup>
+
+</Project>
