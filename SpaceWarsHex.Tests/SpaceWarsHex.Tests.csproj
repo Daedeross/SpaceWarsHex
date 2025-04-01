@@ -20,8 +20,8 @@
     <ProjectReference Include="..\SpaceWarsHex.Contract\SpaceWarsHex.Contract.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Core.Tests\SpaceWarsHex.Core.Tests.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.Godot\SpaceWarsHex.Godot.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Mocks\SpaceWarsHex.Mocks.csproj" />
-    <ProjectReference Include="..\SpaceWarsHex.Godot\SpaceWarHex.Godot.csproj" />
   </ItemGroup>
 
 </Project>

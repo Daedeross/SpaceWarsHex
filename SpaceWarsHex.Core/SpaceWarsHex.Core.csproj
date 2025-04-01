@@ -23,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="SpaceWars.Core.Tests" />
+    <InternalsVisibleTo Include="SpaceWarsHex.Core.Tests" />
+    <InternalsVisibleTo Include="SpaceWarsHex.Mocks" />
   </ItemGroup>
 
 </Project>

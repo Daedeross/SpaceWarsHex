@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWarHex.Godot", "SpaceWarsHex.Godot\SpaceWarHex.Godot.csproj", "{FC498496-8670-4D29-BB5E-7DBBB67417C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWarsHex.Godot", "SpaceWarsHex.Godot\SpaceWarsHex.Godot.csproj", "{FC498496-8670-4D29-BB5E-7DBBB67417C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWarsHex.Contract", "SpaceWarsHex.Contract\SpaceWarsHex.Contract.csproj", "{3012DA27-7C03-4683-95C0-481267020080}"
 EndProject
