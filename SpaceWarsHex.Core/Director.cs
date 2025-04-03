@@ -116,10 +116,9 @@
         public IEnumerable<TEntity> GetEntitiesInHex<TEntity>(HexVector2 hex)
             where TEntity : class, IHexObject
         {
-            return _allEntities.GetCollidingEntities(hex)
-                .Select(x => x as TEntity)
-                .Where(x => x != null)
-                .Cast<TEntity>();
+            var e = _allEntities.GetCollidingEntities(hex);
+            return e
+                .OfType<TEntity>();
         }
 
         /// <inheritdoc />
@@ -168,12 +167,15 @@
 
         private void AddEntity(IHexObject entity)
         {
+            _allEntities.Add(entity);
+            if (entity is IMovingHexObject moveable)
+            {
+                _moveables.AddOrAppend(moveable.MovementPhase, moveable);
+            }
             if (entity is IOrderable orderable)
             {
                 _orderables.Add(orderable);
             }
-
-            _allEntities.Add(entity);
 
             EntityCreated?.Invoke(this, new EntityCreatedEventArgs(entity));
         }
@@ -220,6 +222,8 @@
             {
                 _orderables.Add(orderable);
             }
+
+            EntityCreated?.Invoke(this, new EntityCreatedEventArgs(entity));
         }
 
         #endregion // Internal Methods

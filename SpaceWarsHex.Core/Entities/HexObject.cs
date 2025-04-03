@@ -23,12 +23,20 @@ namespace SpaceWars.Entities
             set => this.RaiseAndSetIfChanged(ref m_Player, value);
         }
 
-        private HexVector2 m_Position = new HexVector2();
+        protected HexVector2 m_Position = new HexVector2();
         /// <inheritdoc />
         public HexVector2 Position
         {
             get => m_Position;
-            set => this.RaiseAndSetIfChanged(ref m_Position, value);
+            set
+            {
+                if (m_Position != value)
+                {
+                    var oldPosition = m_Position;
+                    m_Position = value;
+                    RaisePositionChanged(oldPosition, value);
+                }
+            }
         }
 
         private HexObjectFlags m_Flags;
@@ -52,5 +60,13 @@ namespace SpaceWars.Entities
 
         /// <inheritdoc />
         public abstract bool HandleEndOfTurn(int turnNumber);
+
+
+        protected void RaisePositionChanged(HexVector2 oldPosition, HexVector2 newPosition)
+        {
+            PositionChanged?.Invoke(this, new PositionChangedEventArgs(oldPosition, newPosition));
+        }
+
+        public event PositionChangedEventHandler? PositionChanged;
     }
 }

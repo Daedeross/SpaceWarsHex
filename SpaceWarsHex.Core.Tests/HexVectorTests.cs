@@ -36,7 +36,6 @@ namespace SpaceWars.Tests
             Assert.NotEqual(input, newVector);
         }
 
-
         [Theory]
         [MemberData(nameof(TestVectors))]
         public void HexVectorSerializeTest(HexVector2 input)

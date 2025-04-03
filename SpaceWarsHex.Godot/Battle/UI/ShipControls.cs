@@ -1,8 +1,8 @@
 using Godot;
+using SpaceWars;
 using SpaceWars.Interfaces;
 using SpaceWars.Model;
 using SpaceWars.Orders;
-using System;
 using System.ComponentModel;
 using System.Linq;
 
@@ -21,6 +21,7 @@ namespace SpaceWarsHex
         private Label _emergencyPowerValue;
         private Label _cruiseValue;
         private Label _attackValue;
+        private Label _energyWeaponPower;
         private OptionButton _energyWeaponSelect;
         private HSlider _energyWeaponSlider;
 
@@ -42,8 +43,13 @@ namespace SpaceWarsHex
                     if (_ship != null)
                     {
                         _ship.PropertyChanged += OnShipPropertyChanged;
+                        UpdateUI();
+                        Visible = true;
                     }
-                    UpdateUI();
+                    else
+                    {
+                        Visible = false;
+                    }
                 }
             }
         }
@@ -51,6 +57,7 @@ namespace SpaceWarsHex
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
+            SetProcessInput(false);
             _shipNameText = GetNode<Label>("%ShipNameText");
             _hullBar = GetNode<ResourceBar>("%HullBar");
             _powerBar = GetNode<ResourceBar>("%PowerBar");
@@ -62,6 +69,7 @@ namespace SpaceWarsHex
             _emergencyPowerValue = GetNode<Label>("%EmergencyPowerValue");
             _energyWeaponSelect = GetNode<OptionButton>("%EnergyWeaponSelect");
             _energyWeaponSlider = GetNode<HSlider>("%EnergyWeaponSlider");
+            _energyWeaponPower = GetNode<Label>("%EnergyWeaponPower");
         }
 
         private void UpdateUI()
@@ -84,7 +92,7 @@ namespace SpaceWarsHex
                 _attackValue.LabelSettings.OutlineSize = atAttack ? 2 : 0;
 
                 _emergencyPowerToggle.ButtonPressed = _ship.Reactor.UsingEmergencyPower;
-                _emergencyPowerToggle.Disabled = _ship.Reactor.EmergencyPower == 0;
+                _emergencyPowerToggle.Disabled = _ship.Reactor.EmergencyPower == 0 || _ship.Reactor.UsedEmergencyPowerLastTurn;
                 _cruiseValue.Text = $"{_ship.Reactor.CruisePower}";
                 _attackValue.Text = hasAttackPower ? $"{_ship.Reactor.AttackPower}" : string.Empty;
                 _emergencyPowerValue.Text = _ship.Reactor.EmergencyPower > 0 ? $"+{_ship.Reactor.EmergencyPower}" : string.Empty;
@@ -97,14 +105,16 @@ namespace SpaceWarsHex
         {
             var weapons = _ship.EnergyWeapons.ToArray();
             _energyWeaponSelect.Clear();
+            //_energyWeaponSelect.AddItem($"Clear Order", -1);
             for (int i = 0; i < weapons.Length; i++)
             {
-                _energyWeaponSelect.AddItem(weapons[i].Name, i);
+                _energyWeaponSelect.AddItem($"{weapons[i].Name} ({weapons[i].MaxEnergy()})", i);
             }
 
             var order = _ship.CurrentEnergyWeaponOrder;
             if (order is null)
             {
+                _energyWeaponPower.Text = "";
                 _energyWeaponSelect.Selected = -1;
                 _energyWeaponSlider.Value = 0;
                 _energyWeaponSlider.MaxValue = 0;
@@ -113,6 +123,7 @@ namespace SpaceWarsHex
             else
             {
                 var weapon = _ship.EnergyWeapons[order.WeaponIndex];
+                _energyWeaponPower.Text = $"{order.Power} / {weapon.MaxEnergy()}";
                 _energyWeaponSelect.Selected = order.WeaponIndex;
                 _energyWeaponSlider.MaxValue = weapon.CurrentMaxDice * weapon.EnergyPerDie;
                 _energyWeaponSlider.Step = weapon.EnergyPerDie;
@@ -127,6 +138,16 @@ namespace SpaceWarsHex
         {
             Ship.Reactor.CurrentState = toggled ? ReactorState.Attack : ReactorState.Cruise;
             UpdateUI();
+        }
+
+        public void OnClearEnergyWeapons()
+        {
+            if (Ship.CurrentEnergyWeaponOrder is null)
+            {
+                return;
+            }
+
+            Ship.GiveOrder(new DirectFireEnergyWeaponOrder { Power = 0, WeaponIndex = -1, TargetId = Ship.Id });
         }
 
         public void OnEnergyWeaponSelectItemSelected(int index)
@@ -184,6 +205,11 @@ namespace SpaceWarsHex
             };
 
             Ship.GiveOrder(newOrder);
+        }
+
+        public void OnEmergencyPowerToggled(bool toggled)
+        {
+            Ship.Reactor.UsingEmergencyPower = toggled;
         }
 
         #endregion // Control Callbacks

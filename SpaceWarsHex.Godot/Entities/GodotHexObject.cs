@@ -63,29 +63,6 @@ namespace SpaceWarsHex.Entities
 
         #region IHexObject
 
-        //private IHexObject _entity;
-        //public IHexObject Entity
-        //{
-        //    get => _entity;
-        //    set
-        //    {
-        //        if (_entity != value)
-        //        {
-        //            if (_entity != null)
-        //            {
-        //                _entity.PropertyChanged -= OnEntityPropertyChanged;
-        //            }
-
-        //            _entity = value;
-
-        //            if (_entity != null)
-        //            {
-        //                _entity.PropertyChanged += OnEntityPropertyChanged;
-        //            }
-        //        }
-        //    }
-        //}
-
         public HexVector2 HexPosition
         {
             get => Entity.Position;
@@ -97,18 +74,7 @@ namespace SpaceWarsHex.Entities
             Position = HexPosition.ToVector2();
         }
 
-        #endregion // IHexObject PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        //private void OnEntityPropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    if (sender != Ent)
-        //    {
-        //        GD.PushWarning("HexObject received change notification from unknown entity.");
-        //        return;
-        //    }
-
-        //    OnEntityChanged(e.PropertyName);
-        //}
+        #endregion // IHexObject
 
         /// <summary>
         /// Calback to notify wrapper that a property on the underlying entity has changed.

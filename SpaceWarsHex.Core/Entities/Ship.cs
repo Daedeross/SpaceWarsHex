@@ -76,6 +76,8 @@ namespace SpaceWars.Entities
         {
             _rules = rules ?? throw new ArgumentNullException(nameof(rules));
 
+            Name = shipPrototype.Name;
+
             _hull = SystemFactory.Create(shipPrototype.Hull);
             _hull.PropertyChanged += BubblePropertyChanged;
 
@@ -331,12 +333,18 @@ namespace SpaceWars.Entities
             };
         }
 
+        /// <summary>
+        /// Give the ship an order to fire an energy weapon.
+        /// </summary>
+        /// <param name="order">The <see cref="IEnergyWeaponOrder"/></param>
+        /// <returns><see cref="OrderResult"/></returns>
         public OrderResult GiveOrder(IEnergyWeaponOrder order)
         {
-            // Power of zero is the signal to clear the current order.
-            if (order.Power == 0)
+            // Negative index is the signal to clear the current order.
+            if (order.WeaponIndex < 0)
             {
                 CurrentEnergyWeaponOrder = null;
+                RecalcPowerAllocation();
                 return OrderResult.Ok();
             }
 

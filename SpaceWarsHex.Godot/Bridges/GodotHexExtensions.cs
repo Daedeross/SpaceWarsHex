@@ -1,4 +1,5 @@
 ﻿using Godot;
+using SpaceWars.Interfaces;
 using SpaceWars.Model;
 using System;
 using System.Collections.Generic;
@@ -151,6 +152,11 @@ namespace SpaceWarsHex.Bridges
             }
 
             return validHexes;
+        }
+
+        public static HexVector2 GetHex(this Vector2 v, IHexMath<Vector2> math = null)
+        {
+            return (math ?? HexMath.Default).VectorToHexVector2(v);
         }
     }
 }

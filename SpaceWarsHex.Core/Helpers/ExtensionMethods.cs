@@ -5,6 +5,7 @@ using SpaceWars.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace SpaceWars
@@ -283,6 +284,11 @@ namespace SpaceWars
             where T : IHexObject
         {
             return [.. director.AllEntities.OfType<T>()];
+        }
+
+        public static int MaxEnergy(this IEnergyWeapon weapon)
+        {
+            return weapon.InitialMaxDice * weapon.EnergyPerDie;
         }
     }
 }

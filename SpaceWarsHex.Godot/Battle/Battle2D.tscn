@@ -1,0 +1,59 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5k1n1g5o285u"]
+
+[ext_resource type="Script" path="res://Battle/Battle2D.cs" id="1_ubnrk"]
+[ext_resource type="Script" path="res://Battle/CameraControls.cs" id="2_diocy"]
+[ext_resource type="Shader" path="res://Shaders/Wireframe.gdshader" id="3_x2bic"]
+[ext_resource type="Script" path="res://Battle/HexGrid.cs" id="4_snosn"]
+[ext_resource type="PackedScene" uid="uid://cxg7mxog7ws2w" path="res://Battle/UI/ShipControls.tscn" id="5_cxyq8"]
+[ext_resource type="Script" path="res://Battle/UI/ChooseEntityList.cs" id="6_43xe4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xfn11"]
+render_priority = 0
+shader = ExtResource("3_x2bic")
+shader_parameter/modelColor = null
+shader_parameter/wireframeColor = null
+shader_parameter/width = 1.0
+shader_parameter/modelOpacity = 1.0
+shader_parameter/filtered = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_b4s74"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nt8kd"]
+
+[sub_resource type="SystemFont" id="SystemFont_0y7ps"]
+
+[sub_resource type="Theme" id="Theme_jx3o0"]
+default_font = SubResource("SystemFont_0y7ps")
+default_font_size = 18
+
+[node name="Battle2D" type="Node2D"]
+script = ExtResource("1_ubnrk")
+
+[node name="MainCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("2_diocy")
+
+[node name="GridMesh" type="MeshInstance2D" parent="."]
+material = SubResource("ShaderMaterial_xfn11")
+position = Vector2(0, -1)
+mesh = SubResource("ArrayMesh_b4s74")
+texture = SubResource("CanvasTexture_nt8kd")
+script = ExtResource("4_snosn")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ShipControls" parent="UI" instance=ExtResource("5_cxyq8")]
+
+[node name="ChooseEntityList" type="ItemList" parent="UI"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(50, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_jx3o0")
+allow_search = false
+auto_height = true
+item_count = 2
+item_0/text = "Shiiip 1"
+item_1/text = "Shiiip 2"
+script = ExtResource("6_43xe4")

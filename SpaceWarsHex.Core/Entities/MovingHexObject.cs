@@ -22,7 +22,5 @@ namespace SpaceWars.Entities
             get => m_MovementPhase;
             set => this.RaiseAndSetIfChanged(ref m_MovementPhase, value);
         }
-
-        public event PositionChangedEventHandler PositionChanged;
     }
 }

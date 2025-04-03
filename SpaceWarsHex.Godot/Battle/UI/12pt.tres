@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ofd0pm70q0wp"]
+
+[sub_resource type="SystemFont" id="SystemFont_s1v1o"]
+
+[resource]
+default_font = SubResource("SystemFont_s1v1o")
+default_font_size = 12

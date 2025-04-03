@@ -59,9 +59,9 @@ namespace SpaceWars.Helpers
                 _lookup.AddOrAppend(hex, item);
             }
 
-            if (item is IMovingHexObject mho)
+            if (item is INotifyPositionChanged npc)
             {
-                mho.PositionChanged += OnPositionChanged;
+                npc.PositionChanged += OnPositionChanged;
             }
         }
 
