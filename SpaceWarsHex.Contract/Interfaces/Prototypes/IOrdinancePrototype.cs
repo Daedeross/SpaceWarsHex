@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Prototypes
+﻿namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Public interface for all ordinance-based systems' prototypes.

@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     public interface IHaveDirection6
     {

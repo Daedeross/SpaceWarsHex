@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Public interface for all bomb launcher systems' prototypes

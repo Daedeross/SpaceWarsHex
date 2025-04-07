@@ -1,21 +1,27 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     public abstract class WeaponBase : SystemBase, IWeapon
     {
-        public FireMode FireMode { get; init; }
+
+        /// <inheritdoc />
+        public FireMode FireMode { get; private set; }
+
+        /// <inheritdoc />
+        public TurnPhase FirePhase { get; private set; }
 
         protected WeaponBase(IWeaponPrototype prototype) : base(prototype)
         {
             FireMode = prototype.FireMode;
+            FirePhase = prototype.FirePhase;
         }
     }
 }

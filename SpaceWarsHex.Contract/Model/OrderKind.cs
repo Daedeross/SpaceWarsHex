@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Kinds of orders

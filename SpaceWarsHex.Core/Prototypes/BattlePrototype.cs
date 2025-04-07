@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
     /// <summary>
     /// Serializable class for saving and loading of space battles.

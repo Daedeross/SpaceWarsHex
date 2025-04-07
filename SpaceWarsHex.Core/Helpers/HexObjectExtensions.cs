@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     public static class HexObjectExtensions
     {

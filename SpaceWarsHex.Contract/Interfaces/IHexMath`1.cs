@@ -1,8 +1,8 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// The public interface for a HexMath library that can convert between rectangular vectors <typeparamref name="TVector"/> and

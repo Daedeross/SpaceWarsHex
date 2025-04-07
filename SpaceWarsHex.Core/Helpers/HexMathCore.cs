@@ -1,8 +1,8 @@
 ﻿using System;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     /// <inheritdoc />
     public abstract class HexMathCore : IHexMath
@@ -32,13 +32,18 @@ namespace SpaceWars.Helpers
         /// Create the math library witht the given radius.
         /// </summary>
         /// <param name="radius">The radius (center to corner) of one hex.</param>
+        /// <param name="epsilon">The epsilon for float calulations. If non-positive defaults to <paramref name="radius"/> * 10e-6.</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public HexMathCore(float radius)
+        public HexMathCore(float radius, float epsilon = default)
         {
             if (radius <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(radius));
             }
+
+            Epsilon = epsilon > 0
+                ? radius * 1.0e-6F
+                : epsilon;
 
             r = radius;
             r2 = r / 2;
@@ -52,57 +57,29 @@ namespace SpaceWars.Helpers
         /// <summary>
         /// The radius (from center to any vertex) of a unit hexagon.
         /// </summary>
-        public float R
-        {
-            get
-            {
-                return r;
-            }
-        }
+        public float R => r;
 
         /// <summary>
         /// Half a unit hexagon's height. (from center to middle of any edge)
         /// </summary>
-        public float H1
-        {
-            get
-            {
-                return h1;
-            }
-        }
+        public float H1 => h1;
 
         /// <summary>
         /// A unit hexagon's height. (2 * H1)
         /// </summary>
-        public float H2
-        {
-            get
-            {
-                return h2;
-            }
-        }
+        public float H2 => h2;
 
         /// <summary>
         /// Half a unit hexagon's radius. (R / 2)
         /// </summary>
-        public float R2
-        {
-            get
-            {
-                return r2;
-            }
-        }
+        public float R2 => r2;
 
         /// <summary>
         /// One and one-half a unit hexagon's radius. (1.5 * R)
         /// </summary>
-        public float R3
-        {
-            get
-            {
-                return r3;
-            }
-        }
+        public float R3 => r3;
+
+        public float Epsilon { get; }
 
         #endregion
 

@@ -1,12 +1,12 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
     /// <inheritdoc />
     [Serializable]
@@ -24,13 +24,18 @@ namespace SpaceWars.Prototypes
         static OrdinancePrototype()
         {
             _knownTypes = Assembly.GetAssembly(typeof(OrdinancePrototype))
-                .GetTypes()
-                .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(OrdinancePrototype)));
+                ?.GetTypes()
+                ?.Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(OrdinancePrototype)))
+                ?? [];
         }
 
         /// <inheritdoc />
         [DataMember]
         public FireMode FireMode { get; set; }
+
+        /// <inheritdoc />
+        [DataMember]
+        public TurnPhase FirePhase { get; set; }
 
         /// <inheritdoc />
         [DataMember]

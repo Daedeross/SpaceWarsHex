@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Orders
+namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Interface for orders that change a <see cref="IHexObject"/>'s velocity.

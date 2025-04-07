@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces
+﻿namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Component that can block clicks for certaion screen positions.

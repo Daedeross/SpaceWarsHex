@@ -1,6 +1,6 @@
-﻿using SpaceWars.Interfaces.Orders;
+﻿using SpaceWarsHex.Interfaces.Orders;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Public interface for Torpedos as on-board entities.

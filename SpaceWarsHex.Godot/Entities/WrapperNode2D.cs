@@ -1,5 +1,5 @@
 ﻿using Godot;
-using SpaceWars.Interfaces;
+using SpaceWarsHex.Interfaces;
 using System.ComponentModel;
 
 namespace SpaceWarHex.Entities

@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces.Orders;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Public interface for the manager of the entire battle.
@@ -64,7 +64,7 @@ namespace SpaceWars.Interfaces
         /// <param name="prototype">The prototype to use</param>
         /// <param name="owner">The Player that controls/owns the entity.</param>
         /// <param name="position">The hex the entitiy is created in or it's primary hex if it is a <see cref="IMultiHexObject"/></param>
-        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position);
+        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position);
 
         /// <summary>
         /// Create a new entity that can have one of 6 possible orientations on the board from a prototype.
@@ -73,7 +73,7 @@ namespace SpaceWars.Interfaces
         /// <param name="owner">The Player that controls/owns the entity.</param>
         /// <param name="position">The hex the entitiy is created in or it's primary hex if it is a <see cref="IMultiHexObject"/></param>
         /// <param name="direction">The direction the entity is rotated.</param>
-        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position, Direction6 direction);
+        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction6 direction);
 
         /// <summary>
         /// Create a new entity that can have one of 12 possible orientations on the board from a prototype.
@@ -82,7 +82,7 @@ namespace SpaceWars.Interfaces
         /// <param name="owner">The Player that controls/owns the entity.</param>
         /// <param name="position">The hex the entitiy is created in or it's primary hex if it is a <see cref="IMultiHexObject"/></param>
         /// <param name="direction">The direction the entity is rotated.</param>
-        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position, Direction12 direction);
+        IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction12 direction);
 
         /// <summary>
         /// Gets all entities that are in the target hex.

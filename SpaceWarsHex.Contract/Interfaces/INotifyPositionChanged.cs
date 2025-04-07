@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Object with can change position on the board and can notify subscribers of such.

@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for <see cref="ISystem"/> creating factory.

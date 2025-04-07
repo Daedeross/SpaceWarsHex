@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for a team (i.e. one side of a battle).

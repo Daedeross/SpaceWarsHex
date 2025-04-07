@@ -1,5 +1,5 @@
 ﻿using SpaceWarHex.Entities;
-using SpaceWars.Interfaces;
+using SpaceWarsHex.Interfaces;
 using System.Collections.Generic;
 
 namespace SpaceWarHex.Bridges

@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Orders;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     public class ShipOrderValidator
     {

@@ -1,8 +1,12 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using SpaceWarsHex.Bridges;
+using SpaceWarsHex.Core.Tests;
 using Xunit;
+using Xunit.Sdk;
 
-namespace SpaceWars.Tests
+[assembly: RegisterXunitSerializer(typeof(TestDataSerializer), typeof(HexVector2), typeof(HashSet<HexVector2>))]
+
+namespace SpaceWarsHex.Tests
 {
     public class HexVectorTests
     {
@@ -14,15 +18,14 @@ namespace SpaceWars.Tests
                 { HexVector2.UnitX, HexVector2.UnitX, new HashSet<HexVector2> { HexVector2.UnitX } },
                 { HexVector2.UnitY, HexVector2.UnitY, new HashSet<HexVector2> { HexVector2.UnitY } },
                 { HexVector2.Zero, HexVector2.UnitX, new HashSet<HexVector2> { HexVector2.Zero, HexVector2.UnitX } },
-                { HexVector2.Zero, HexVector2.UnitX, new HashSet<HexVector2> { HexVector2.Zero, HexVector2.UnitX } },
                 { HexVector2.UnitX, HexVector2.Zero, new HashSet<HexVector2> { HexVector2.Zero, HexVector2.UnitX } },
 
                 // line is along hex's edge
                 { HexVector2.Zero, new HexVector2(1, 1), new HashSet<HexVector2> { HexVector2.Zero, new(0, 1), new(1, 0), new(1, 1) } },
-                { new HexVector2(-1, -1), new HexVector2(1, 1), new HashSet<HexVector2> { new(0, -1), new(-1, 0), new(-1, -1), HexVector2.Zero, new(0, 1), new(1, 0), new(1, 1) } },
+                { new HexVector2(-1, -1), new HexVector2(1, 1), new HashSet<HexVector2> { new (-1,-1), new(0, -1), new(-1, 0), HexVector2.Zero, new(0, 1), new(1, 0), new(1, 1) } },
 
                 // complex case
-                { new HexVector2(10, 20), new HexVector2(12, 21), new HashSet<HexVector2> { new(10, 20), new(11, 20), new(11, 21), new(12, 21) } }
+                { new HexVector2(10, 20), new HexVector2(12, 21), new HashSet<HexVector2> { new(10, 20), new(11, 20), new(11, 21), new(12, 21) } },
             };
 
         [Theory]
@@ -31,16 +34,7 @@ namespace SpaceWars.Tests
         {
             var actual = new HashSet<HexVector2>(origin.GetHexesTo(target));
 
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void HashCodeShouldBeOrderDependantTest()
-        {
-            int code1 = HashCode.Combine(0, 1);
-            int code2 = HashCode.Combine(1, 0);
-
-            Assert.NotEqual(code1, code2);
+            Assert.Equal(expected.OrderBy(v => v.X).ThenBy(v => v.Y), actual.OrderBy(v => v.X).ThenBy(v => v.Y));
         }
     }
 }

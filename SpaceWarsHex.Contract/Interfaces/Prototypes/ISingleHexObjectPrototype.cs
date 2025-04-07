@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Base prototype for entities that only have a single location and do not take up entire (one or more) hexes.

@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for a collection of hexes relative to some origin.

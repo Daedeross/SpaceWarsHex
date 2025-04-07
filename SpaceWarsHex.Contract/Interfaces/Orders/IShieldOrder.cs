@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Orders
+﻿namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Interface for ordering an entity to set it's shield strength.

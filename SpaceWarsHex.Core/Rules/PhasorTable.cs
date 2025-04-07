@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces.Rules;
+﻿using SpaceWarsHex.Interfaces.Rules;
 using System;
 
-namespace SpaceWars.Rules
+namespace SpaceWarsHex.Rules
 {
     /// <summary>
     /// Class to implement <see cref="IPhasorTable"/>.

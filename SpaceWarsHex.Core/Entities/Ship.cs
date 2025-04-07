@@ -1,14 +1,14 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Orders;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Rules;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
-using SpaceWars.Systems;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Rules;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Systems;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SpaceWars.Entities
+namespace SpaceWarsHex.Entities
 {
     /// <inheritdoc />
     public partial class Ship : MovingHexObject, IShip
@@ -389,33 +389,38 @@ namespace SpaceWars.Entities
 
         private OrderResult TorpedoOrder(ITorpedoLauncher launcher, IWeaponOrder order)
         {
-            if (order is ITorpedoLoadOrder)
+            if (order is IOrdinanceOrder fullOrder)
             {
-                if (launcher.LoadFire)
+                if (fullOrder.Load == OridinanceLoad.Load || fullOrder.Load == OridinanceLoad.Unload)
                 {
-                    return OrderResult.NotValid("Torpedo Launcher does not need loading.");
-                }
-
-                launcher.Loading = !launcher.Loading;
-
-                return OrderResult.Ok();
-            }
-            else if (order is ITorpedoFireOrder fireOrder)
-            {
-                if (launcher.Loaded || launcher.LoadFire)
-                {
-                    var speed = fireOrder.Velocity.Length();
-                    if (speed < launcher.MinWarp || speed > launcher.MaxWarp)
+                    if (launcher.LoadFire)
                     {
-                        return OrderResult.NotValid("Invalid launch velocity.");
+                        return OrderResult.NotValid("Torpedo Launcher does not need loading.");
                     }
 
-                    launcher.LaunchVelocity = fireOrder.Velocity;
+                    launcher.Loading = !launcher.Loading;
 
                     return OrderResult.Ok();
                 }
+                else if (fullOrder.Load == OridinanceLoad.Fire)
+                {
+                    if (launcher.Loaded || launcher.LoadFire)
+                    {
+#pragma warning disable CS8629 // Nullable value type may be null.
+                        var speed = fullOrder.Velocity.Value.Length();
+#pragma warning restore CS8629 // Nullable value type may be null.
+                        if (speed < launcher.MinWarp || speed > launcher.MaxWarp)
+                        {
+                            return OrderResult.NotValid("Invalid launch velocity.");
+                        }
 
-                return OrderResult.NotValid("Torpedo Launcher not ready to fire");
+                        launcher.LaunchVelocity = fullOrder.Velocity;
+
+                        return OrderResult.Ok();
+                    }
+
+                    return OrderResult.NotValid("Torpedo Launcher not ready to fire");
+                }
             }
 
             return OrderResult.NotValid();

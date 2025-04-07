@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces
+﻿namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// public interface for Bombs and G-Bomb entities.

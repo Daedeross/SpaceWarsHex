@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Status codes for orders. values Based on HTTP response codes.

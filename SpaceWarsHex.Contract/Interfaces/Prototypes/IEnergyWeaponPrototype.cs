@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Inteface for weapon prototypes that require input energy to function.
@@ -12,11 +12,6 @@ namespace SpaceWars.Interfaces.Prototypes
         /// The max dice the energy weapon gets.
         /// </summary>
         int MaxDice { get; set; }
-
-        /// <summary>
-        /// The phase the weapon is fired/launched. Only <see cref="TurnPhase.Weapons1"/> and <see cref="TurnPhase.Weapons2"/> are valid
-        /// </summary>
-        TurnPhase FirePhase { get; }
 
         /// <summary>
         /// True if the weapon is affected by smoke and the like.

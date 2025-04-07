@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Interfaces.Orders
+namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Interface of orders for any energy weapon.

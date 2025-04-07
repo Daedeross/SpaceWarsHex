@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Systems
+﻿namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Public interface for all ordinance-based systems.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Public interface for any object with a unique identifier

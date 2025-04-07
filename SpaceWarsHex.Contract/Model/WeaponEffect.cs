@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// DTO class represinging an effect of a weapon.

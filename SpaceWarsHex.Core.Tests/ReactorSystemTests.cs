@@ -1,11 +1,11 @@
 ﻿using Moq;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
-using SpaceWars.Systems;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Systems;
 using Xunit;
 
-namespace SpaceWars.Tests
+namespace SpaceWarsHex.Core.Tests
 {
     public class ReactorSystemTests
     {

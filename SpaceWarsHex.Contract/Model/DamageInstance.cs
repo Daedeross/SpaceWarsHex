@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Represents a singe insance of damage, after dice are rolled and such.

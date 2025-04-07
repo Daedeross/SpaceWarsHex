@@ -1,6 +1,6 @@
 using Godot;
 using SpaceWarsHex.Entities;
-using SpaceWars.Interfaces;
+using SpaceWarsHex.Interfaces;
 using System;
 using System.ComponentModel;
 

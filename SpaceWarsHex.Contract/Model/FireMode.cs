@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// The differnt modes for fireing a weapon or countermeasure.

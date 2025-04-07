@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
 using System;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// Implementation of <see cref="IShields"/>

@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Systems
+namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Interface for Drive systems.

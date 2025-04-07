@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// The phases that together breakdown of a complete game turn.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Public interface for a serializable space battle

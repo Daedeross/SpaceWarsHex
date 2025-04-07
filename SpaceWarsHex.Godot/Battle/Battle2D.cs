@@ -1,10 +1,10 @@
 using Godot;
-using SpaceWars;
-using SpaceWars.Entities;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
-using SpaceWars.Orders;
-using SpaceWars.Rules;
+using SpaceWarsHex;
+using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Orders;
+using SpaceWarsHex.Rules;
 using SpaceWarsHex.Bridges;
 using System.Linq;
 
@@ -60,7 +60,9 @@ namespace SpaceWarsHex
 
         #region Test Stuff
 
+#pragma warning disable IDE0060 // Remove unused parameter
         private void TestProcess(double delta)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             HexVector2 hv = HexVector2.Zero;
             if (Input.IsActionJustReleased("ui_up"))
@@ -103,8 +105,8 @@ namespace SpaceWarsHex
 
         private void CreateTestStuff()
         {
-            _director.CreateEntity(SpaceWars.Mock.Prototypes.Ship1(), null, new HexVector2(0, 0));
-            _director.CreateEntity(SpaceWars.Mock.Prototypes.Ship2(), null, new HexVector2(3, -2));
+            _director.CreateEntity(SpaceWarsHex.Mock.Prototypes.Ship1(), null, new HexVector2(0, 0));
+            _director.CreateEntity(SpaceWarsHex.Mock.Prototypes.Ship2(), null, new HexVector2(3, -2));
 
             var ships = _director.GetEntities<IShip>();
             _ship1 = ships[0];

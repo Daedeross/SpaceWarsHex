@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Systems
+namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Base type for <see cref="IOrdinance"/> and <see cref="IEnergyWeapon"/>.
@@ -14,5 +14,11 @@ namespace SpaceWars.Interfaces.Systems
         /// <see cref="FireMode"/>
         /// </summary>
         FireMode FireMode { get; }
+
+
+        /// <summary>
+        /// The phase the weapon is fired/launched. Only <see cref="TurnPhase.Weapons1"/> and <see cref="TurnPhase.Weapons2"/> are valid
+        /// </summary>
+        TurnPhase FirePhase { get; }
     }
 }

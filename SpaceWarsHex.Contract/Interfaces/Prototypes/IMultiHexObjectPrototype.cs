@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Interface for prototypes of entities that represent an area of one or more hexes.

@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Represents the various states a reactor can be in.

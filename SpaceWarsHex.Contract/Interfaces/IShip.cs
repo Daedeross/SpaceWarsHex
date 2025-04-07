@@ -1,11 +1,11 @@
-﻿using SpaceWars.Interfaces.Orders;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Rules;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Rules;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for ships
@@ -47,12 +47,12 @@ namespace SpaceWars.Interfaces
         /// </summary>
         public IReadOnlyList<IOrdinance> Ordinances { get; }
 
-        /// <summary>
-        /// DI endpoint since we can't call the constructor directly.
-        /// </summary>
-        /// <param name="shipPrototype">The prototype defining the ship and its systems.</param>
-        /// <param name="rules"><see cref="IRules"/></param>
-        /// <returns>this</returns>
+        // <summary>
+        // DI endpoint since we can't call the constructor directly.
+        // </summary>
+        // <param name="shipPrototype">The prototype defining the ship and its systems.</param>
+        // <param name="rules"><see cref="IRules"/></param>
+        // <returns>this</returns>
         //public IShip Initialize(IShipPrototype shipPrototype, IRules rules);
     }
 }

@@ -1,12 +1,12 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
     /// <inheritdoc/>
     [Serializable]
@@ -20,8 +20,9 @@ namespace SpaceWars.Prototypes
         static SystemPrototypeBase()
         {
             _knownTypes = Assembly.GetAssembly(typeof(SystemPrototypeBase))
-                .GetTypes()
-                .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(SystemPrototypeBase)));
+                ?.GetTypes()
+                ?.Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(SystemPrototypeBase)))
+                ?? [];
         }
 
         /// <inheritdoc/>

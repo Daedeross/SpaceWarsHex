@@ -1,14 +1,14 @@
-﻿using SpaceWars.Helpers;
-using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Helpers;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
-namespace SpaceWars
+namespace SpaceWarsHex
 {
     /// <summary>
     /// Helper extension methods.

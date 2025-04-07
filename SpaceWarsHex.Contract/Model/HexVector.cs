@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Struct for representing vectors and coordinates on a plane of discrete hexagons.
@@ -32,6 +33,7 @@ namespace SpaceWars.Model
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
+        [JsonConstructor]
         public HexVector2(int x, int y)
         {
             X = x;

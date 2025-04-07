@@ -2,11 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>SpaceWars</RootNamespace>
+    <RootNamespace>SpaceWarsHex</RootNamespace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <BaseOutputPath>..\Assets\lib</BaseOutputPath>
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="9.0.3" />
+  </ItemGroup>
 
 
 </Project>

@@ -1,11 +1,11 @@
-﻿using SpaceWars.Entities;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// Abstract base class for all systems

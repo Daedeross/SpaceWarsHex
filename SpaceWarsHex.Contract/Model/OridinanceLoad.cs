@@ -1,6 +1,6 @@
-﻿using SpaceWars.Interfaces.Systems;
+﻿using SpaceWarsHex.Interfaces.Systems;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Enum of ordering ordinance to load/unload or fire.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Struct to define a system's damage thresholds.

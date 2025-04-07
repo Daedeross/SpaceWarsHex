@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Entities
+namespace SpaceWarsHex.Entities
 {
     /// <inheritdoc />
     public abstract class MovingHexObject : HexObject, IMovingHexObject

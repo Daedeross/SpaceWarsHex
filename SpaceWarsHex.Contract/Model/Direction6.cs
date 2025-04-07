@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// For specifying direction or orientation in 6 discrete steps arround the hex (All faces or corners)

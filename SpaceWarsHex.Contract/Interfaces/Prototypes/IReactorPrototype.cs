@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Prototypes
+﻿namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Interface for a ship prototype's reactor. The system that provides power.

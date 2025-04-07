@@ -1,9 +1,9 @@
-﻿using SpaceWars.Entities;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
+﻿using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
 using System;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <inheritdoc />
     public class Hull : NotificationObject, IHull

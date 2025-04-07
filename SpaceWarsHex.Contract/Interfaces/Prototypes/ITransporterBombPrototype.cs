@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Prototypes
+﻿namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Public composite interface for transporter launched (i.e. normal) bomb systems' prototypes.

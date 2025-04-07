@@ -1,10 +1,10 @@
-﻿using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
-using SpaceWars.Prototypes;
-using SpaceWars.Systems;
+﻿using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Prototypes;
+using SpaceWarsHex.Systems;
 using Xunit;
 
-namespace SpaceWars.Core.Tests
+namespace SpaceWarsHex.Core.Tests
 {
     public class EnergyWeaponSystemTests
     {

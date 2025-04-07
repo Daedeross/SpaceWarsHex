@@ -1,6 +1,6 @@
 ﻿using Godot;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace SpaceWarsHex.Bridges
 {
     public static class GodotHexExtensions
     {
-        private const float Epsilon = 1.0e-6F;
+        private const float Epsilon = 1.0e-3F;
 
         public static Vector2 ToVector2(this HexVector2 hv)
         {

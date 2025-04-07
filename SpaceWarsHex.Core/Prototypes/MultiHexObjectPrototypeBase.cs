@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using System;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
     /// <inheritdoc/>
     [Serializable]

@@ -1,8 +1,8 @@
 using Godot;
-using SpaceWars;
-using SpaceWars.Entities;
-using SpaceWars.Interfaces;
-using SpaceWars.Orders;
+using SpaceWarsHex;
+using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Orders;
 using System.Collections.Generic;
 using System.Linq;
 

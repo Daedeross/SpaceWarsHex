@@ -1,7 +1,7 @@
-﻿namespace SpaceWars.Model
+﻿namespace SpaceWarsHex.Model
 {
     /// <summary>
-    /// The kinds of damage that can be applied to <see cref="SpaceWars.Interfaces.IDamageable"/>
+    /// The kinds of damage that can be applied to <see cref="SpaceWarsHex.Interfaces.IDamageable"/>
     /// </summary>
     public enum DamageKind
     {

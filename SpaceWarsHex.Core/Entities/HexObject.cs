@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Entities
+namespace SpaceWarsHex.Entities
 {
     /// <inheritdoc />
     public abstract class HexObject : NotificationObject, IHexObject
@@ -15,9 +15,9 @@ namespace SpaceWars.Entities
             set => this.RaiseAndSetIfChanged(ref m_Name, value);
         }
 
-        private IPlayer m_Player;
+        private IPlayer? m_Player;
         /// <inheritdoc />
-        public IPlayer Player
+        public IPlayer? Player
         {
             get => m_Player;
             set => this.RaiseAndSetIfChanged(ref m_Player, value);
@@ -35,6 +35,7 @@ namespace SpaceWars.Entities
                     var oldPosition = m_Position;
                     m_Position = value;
                     RaisePositionChanged(oldPosition, value);
+                    RaisePropertyChanged(nameof(Position));
                 }
             }
         }

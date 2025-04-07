@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     /// <summary>
     /// Static helepr class for dice rolling

@@ -1,11 +1,11 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// WIP implementation of <see cref="IReactor"/>

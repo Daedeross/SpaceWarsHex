@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Interfaces.Orders
+namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Root type for orders targeting a <see cref="IWeapon"/> system (Inlcudes countermeasures).

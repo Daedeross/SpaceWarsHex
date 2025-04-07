@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces
+﻿namespace SpaceWarsHex.Interfaces
 {
     public interface IWrapper<TEntity>
     {

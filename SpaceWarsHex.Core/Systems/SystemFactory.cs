@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// System Factory

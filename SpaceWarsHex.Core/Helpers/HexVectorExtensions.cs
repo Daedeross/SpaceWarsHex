@@ -1,9 +1,9 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     /// <summary>
     /// Helper methods for the <see cref="HexVector2"/>, <see cref="Direction6"/>, and <see cref="Direction12"/>.

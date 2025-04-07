@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Orders
+﻿namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Blank interface as the base for all orders

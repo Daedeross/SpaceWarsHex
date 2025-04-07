@@ -1,7 +1,7 @@
 ﻿using Godot;
 using SpaceWarsHex.Bridges;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 
 namespace SpaceWarsHex.Entities

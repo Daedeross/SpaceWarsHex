@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     [Serializable]
     [DataContract]
@@ -11,6 +11,6 @@ namespace SpaceWars.Model
         public SingleRenderKind Kind { get; set; }
 
         [DataMember]
-        public string Path { get; set; }
+        public string Path { get; set; } = "";
     }
 }

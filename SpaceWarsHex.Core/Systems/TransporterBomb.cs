@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// Concrete class for a transporter bomb.

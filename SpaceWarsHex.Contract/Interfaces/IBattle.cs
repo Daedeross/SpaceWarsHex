@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces
+﻿namespace SpaceWarsHex.Interfaces
 {
     using System;
     using System.Collections.Generic;

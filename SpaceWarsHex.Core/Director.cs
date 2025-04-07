@@ -1,17 +1,14 @@
-﻿namespace SpaceWars
-{
-    using SpaceWars.Helpers;
-    using SpaceWars.Interfaces;
-    using SpaceWars.Interfaces.Bridges;
-    using SpaceWars.Interfaces.Orders;
-    using SpaceWars.Interfaces.Prototypes;
-    using SpaceWars.Interfaces.Rules;
-    using SpaceWars.Model;
-    using SpaceWars.Rules;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using SpaceWarsHex.Helpers;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Bridges;
+using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Rules;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Rules;
 
+namespace SpaceWarsHex
+{
     /// <summary>
     /// 
     /// </summary>
@@ -80,7 +77,7 @@
         public TurnPhase CurrentPhase { get; private set; }
 
         /// <inheritdoc />
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position);
             AddEntity(entity);
@@ -89,7 +86,7 @@
         }
 
         /// <inheritdoc />
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position, Direction6 direction)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction6 direction)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position, direction);
             AddEntity(entity);
@@ -98,7 +95,7 @@
         }
 
         /// <inheritdoc />
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 position, Direction12 direction)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction12 direction)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position, direction);
             AddEntity(entity);

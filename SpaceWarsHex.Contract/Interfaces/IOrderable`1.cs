@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces.Orders;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for an entity that can recieve orders.

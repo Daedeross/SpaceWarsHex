@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Systems
+﻿namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Interface for a Direct-Fire weapon.

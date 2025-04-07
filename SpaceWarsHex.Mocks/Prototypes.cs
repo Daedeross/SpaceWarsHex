@@ -1,10 +1,10 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Model;
-using SpaceWars.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Prototypes;
 using System;
 using System.Collections.Generic;
 
-namespace SpaceWars.Mock
+namespace SpaceWarsHex.Mock
 {
     public static class Prototypes
     {
@@ -23,24 +23,24 @@ namespace SpaceWars.Mock
                     Name = "Drive",
                     AccelerationClass = 3,
                     MaxWarp = 7,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 _shields = new ShieldsPrototype
                 {
                     MaxPower = 15,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 _reactor = new ReactorPrototype
                 {
@@ -48,41 +48,41 @@ namespace SpaceWars.Mock
                     CruisePower = 12,
                     MaxTurnsAtAttackPower = 4,
                     EmergencyPower = 4,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 Visual = new RenderDefinition
                 {
                     Kind = SingleRenderKind.Sprite,
                     Path = "Assets/Sprites/SimpleShip.png"
                 },
-                _energyWeapons = new List<EnergyWeaponPrototype>
-                {
-                    new EnergyWeaponPrototype
+                _energyWeapons =
+                [
+                    new()
                     {
                         Name = "Visual Phasor",
                         FireMode = FireMode.DirectFire,
                         FirePhase = TurnPhase.Weapons1,
                         MaxDice = 12,
                         EnergyPerDie = 1,
-                        _effects = new List<WeaponEffect>
-                        {
-                            new WeaponEffect { DamageKind = DamageKind.Energy, DamageValue = 1 }
-                        },
-                        _damageThresholds = new List<DamageThreshold>
-                        {
+                        _effects =
+                        [
+                            new() { DamageKind = DamageKind.Energy, DamageValue = 1 }
+                        ],
+                        _damageThresholds =
+                        [
                             new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                             new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                             new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                             new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                        }
+                        ]
                     },
-                    new EnergyWeaponPrototype
+                    new()
                     {
                         Name = "Visual Photon Torpedo",
                         FireMode = FireMode.DirectFire,
@@ -91,18 +91,18 @@ namespace SpaceWars.Mock
                         EnergyPerDie = 2,
                         _effects = new List<WeaponEffect>
                         {
-                            new WeaponEffect { DamageKind = DamageKind.Physical, DamageValue = 1 },
-                            new WeaponEffect { DamageKind = DamageKind.Energy, DamageValue = 1 }
+                            new() { DamageKind = DamageKind.Physical, DamageValue = 1 },
+                            new() { DamageKind = DamageKind.Energy, DamageValue = 1 }
                         },
-                        _damageThresholds = new List<DamageThreshold>
-                        {
+                        _damageThresholds =
+                        [
                             new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                             new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                             new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                             new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                        }
+                        ]
                     },
-                }
+                ]
             };
 
             return ship;
@@ -123,24 +123,24 @@ namespace SpaceWars.Mock
                     Name = "Drive",
                     AccelerationClass = 2,
                     MaxWarp = 6,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 _shields = new ShieldsPrototype
                 {
                     MaxPower = 20,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 _reactor = new ReactorPrototype
                 {
@@ -148,53 +148,51 @@ namespace SpaceWars.Mock
                     CruisePower = 20,
                     MaxTurnsAtAttackPower = 0,
                     EmergencyPower = 4,
-                    _damageThresholds = new List<DamageThreshold>
-                    {
+                    _damageThresholds =
+                    [
                         new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                         new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                         new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                         new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                    }
+                    ]
                 },
                 Visual = new RenderDefinition
                 {
                     Kind = SingleRenderKind.Sprite,
                     Path = "Assets/Sprites/SimpleShip.png"
                 },
-                _energyWeapons = new List<EnergyWeaponPrototype>
-                {
-                    new EnergyWeaponPrototype
-                    {
+                _energyWeapons =
+                [
+                    new() {
                         Name = "Visual Quantum Torpedo",
                         FireMode = FireMode.DirectFire,
                         FirePhase = TurnPhase.Weapons1,
                         MaxDice = 9,
                         EnergyPerDie = 3,
-                        _effects = new List<WeaponEffect>
-                        {
-                            new WeaponEffect { DamageKind = DamageKind.Energy, DamageValue = 1 },
-                            new WeaponEffect { DamageKind = DamageKind.Physical, DamageValue = 1 }
-                        },
-                        _damageThresholds = new List<DamageThreshold>
-                        {
+                        _effects =
+                        [
+                            new() { DamageKind = DamageKind.Energy, DamageValue = 1 },
+                            new() { DamageKind = DamageKind.Physical, DamageValue = 1 }
+                        ],
+                        _damageThresholds =
+                        [
                             new() { HullStrength = 1f   , SystemMultiplier = 1f     },
                             new() { HullStrength = 0.75f, SystemMultiplier = 0.875f },
                             new() { HullStrength = 0.5f , SystemMultiplier = 0.75f  },
                             new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
-                        }
+                        ]
                     },
-                    new EnergyWeaponPrototype
-                    {
+                    new() {
                         Name = "Visual Photon Torpedo",
                         FireMode = FireMode.DirectFire,
                         FirePhase = TurnPhase.Weapons1,
                         MaxDice = 10,
                         EnergyPerDie = 2,
-                        _effects = new List<WeaponEffect>
-                        {
-                            new WeaponEffect { DamageKind = DamageKind.Physical, DamageValue = 1 },
-                            new WeaponEffect { DamageKind = DamageKind.Energy, DamageValue = 1 }
-                        },
+                        _effects =
+                        [
+                            new() { DamageKind = DamageKind.Physical, DamageValue = 1 },
+                            new() { DamageKind = DamageKind.Energy, DamageValue = 1 }
+                        ],
                         _damageThresholds = new List<DamageThreshold>
                         {
                             new() { HullStrength = 1f   , SystemMultiplier = 1f     },
@@ -203,7 +201,7 @@ namespace SpaceWars.Mock
                             new() { HullStrength = 0.25f, SystemMultiplier = 0.5f   }
                         }
                     },
-                }
+                ]
             };
 
             return ship;

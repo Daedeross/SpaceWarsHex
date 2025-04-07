@@ -1,27 +1,22 @@
-﻿using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Helpers;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 
-namespace SpaceWars.Systems
+namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// Abstract base class for all energy weapons.
     /// </summary>
-    public abstract class EnergyWeapon : SystemBase, IEnergyWeapon
+    public abstract class EnergyWeapon : WeaponBase, IEnergyWeapon
     {
         /// <inheritdoc />
         public int InitialMaxDice { get; private set; }
 
         /// <inheritdoc />
         public int CurrentMaxDice { get; private set; }
-
-        /// <inheritdoc />
-        public FireMode FireMode { get; private set; }
-
-        /// <inheritdoc />
-        public TurnPhase FirePhase { get; private set; }
 
         /// <inheritdoc />
         public bool Visual { get; private set; }
@@ -42,8 +37,6 @@ namespace SpaceWars.Systems
             Name = prototype.Name;
             InitialMaxDice = prototype.MaxDice;
             CurrentMaxDice = prototype.MaxDice;
-            FireMode = prototype.FireMode;
-            FirePhase = prototype.FirePhase;
             Visual = prototype.Visual;
             EnergyPerDie = prototype.EnergyPerDie;
             Effects = prototype.Effects;

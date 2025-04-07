@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
 #pragma warning disable CS8618 // Null-checking will be done uing comprehensive Validators
     /// <inheritdoc />

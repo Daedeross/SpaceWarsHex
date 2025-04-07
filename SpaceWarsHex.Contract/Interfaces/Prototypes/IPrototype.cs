@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Prototypes
+﻿namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Base interface for all prototypes

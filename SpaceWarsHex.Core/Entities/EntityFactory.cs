@@ -1,11 +1,11 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Bridges;
-using SpaceWars.Interfaces.Prototypes;
-using SpaceWars.Interfaces.Rules;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Bridges;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Interfaces.Rules;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Entities
+namespace SpaceWarsHex.Entities
 {
     public class EntityFactory<TWrapper> : IEntityFactory
          where TWrapper : IWrapper<IHexObject>
@@ -24,7 +24,7 @@ namespace SpaceWars.Entities
             _rules = rules;
         }
 
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 Position)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 Position)
         {
             IHexObject entity = prototype switch
             {
@@ -41,7 +41,7 @@ namespace SpaceWars.Entities
             return entity;
         }
 
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 Position, Direction6 direction)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 Position, Direction6 direction)
         {
             IHexObject entity = CreateEntity(prototype, owner, Position);
             if (entity is IHaveDirection6 d6)
@@ -52,7 +52,7 @@ namespace SpaceWars.Entities
             return entity;
         }
 
-        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer owner, HexVector2 Position, Direction12 direction)
+        public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 Position, Direction12 direction)
         {
 
             IHexObject entity = CreateEntity(prototype, owner, Position);

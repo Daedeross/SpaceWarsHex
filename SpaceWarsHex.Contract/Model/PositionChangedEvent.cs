@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces;
+﻿using SpaceWarsHex.Interfaces;
 using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     public class PositionChangedEventArgs: EventArgs
     {

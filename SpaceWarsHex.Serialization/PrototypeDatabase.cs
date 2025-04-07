@@ -1,9 +1,9 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Prototypes;
 using System;
 using System.Collections.Concurrent;
 
-namespace SpaceWars.Serialization
+namespace SpaceWarsHex.Serialization
 {
     public class PrototypeDatabase
     {

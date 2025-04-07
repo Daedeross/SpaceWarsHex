@@ -1,11 +1,11 @@
-﻿using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
 #pragma warning disable CS8618
     /// <inheritdoc/>
@@ -27,8 +27,9 @@ namespace SpaceWars.Prototypes
         static HexObjectPrototypeBase()
         {
             KnownTypes = Assembly.GetAssembly(typeof(HexObjectPrototypeBase))
-                .GetTypes()
-                .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(HexObjectPrototypeBase)));
+                ?.GetTypes()
+                ?.Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(HexObjectPrototypeBase)))
+                ?? [];
         }
 #pragma warning restore CS8618
     }

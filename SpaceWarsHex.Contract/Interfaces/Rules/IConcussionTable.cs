@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Rules
+﻿namespace SpaceWarsHex.Interfaces.Rules
 {
     /// <summary>
     /// Interface for getting the results of concussion/physical damage.

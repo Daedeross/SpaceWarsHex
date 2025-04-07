@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Flags that can be combined to signal to the director that the object needs special handiling for something.

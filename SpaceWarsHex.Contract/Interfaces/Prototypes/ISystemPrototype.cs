@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces.Prototypes
+namespace SpaceWarsHex.Interfaces.Prototypes
 {
     /// <summary>
     /// Root interface for all system prototypes.

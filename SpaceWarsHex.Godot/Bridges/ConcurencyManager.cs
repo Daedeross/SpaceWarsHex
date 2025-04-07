@@ -1,4 +1,4 @@
-﻿using SpaceWars.Interfaces.Bridges;
+﻿using SpaceWarsHex.Interfaces.Bridges;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

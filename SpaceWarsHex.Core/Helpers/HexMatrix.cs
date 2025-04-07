@@ -1,11 +1,11 @@
-﻿using SpaceWars.Interfaces;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SpaceWars.Helpers
+namespace SpaceWarsHex.Helpers
 {
     /// <summary>
     /// Sparse Matrix to hold a collections of <see cref="IHexObject"/>s sorted by their hex position(s).

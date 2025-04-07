@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.Collections.Generic;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for entities that take up or affect multiple hexes on the board.

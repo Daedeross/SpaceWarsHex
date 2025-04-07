@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces.Orders;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Systems
+namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Public interface defining a torpedo tube

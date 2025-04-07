@@ -1,7 +1,7 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.ComponentModel;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Base interface for all entities that exist on the game board.
@@ -16,7 +16,7 @@ namespace SpaceWars.Interfaces
         /// <summary>
         /// The owning player, if any
         /// </summary>
-        IPlayer Player { get; set; }
+        IPlayer? Player { get; set; }
 
         /// <summary>
         /// The position of the entity.

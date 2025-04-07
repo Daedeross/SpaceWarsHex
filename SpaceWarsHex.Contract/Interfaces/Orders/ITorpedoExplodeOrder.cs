@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces.Orders
+namespace SpaceWarsHex.Interfaces.Orders
 {
     /// <summary>
     /// Order to detonate an existing torpedo.

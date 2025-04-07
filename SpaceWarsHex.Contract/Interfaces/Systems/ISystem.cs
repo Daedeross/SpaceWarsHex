@@ -1,8 +1,8 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace SpaceWars.Interfaces.Systems
+namespace SpaceWarsHex.Interfaces.Systems
 {
     /// <summary>
     /// Base interface for all systems.

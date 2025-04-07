@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SpaceWars.Entities
+namespace SpaceWarsHex.Entities
 {
     /// <summary>
     /// Root class for entities and any other object that fires <see cref="INotifyPropertyChanged.PropertyChanged"/> events.

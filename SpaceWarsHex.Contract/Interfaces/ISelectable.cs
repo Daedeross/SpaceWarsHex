@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces
+﻿namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for an entity that is player selectable.

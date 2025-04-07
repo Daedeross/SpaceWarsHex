@@ -1,5 +1,5 @@
 using Godot;
-using SpaceWars.Interfaces;
+using SpaceWarsHex.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;

@@ -1,6 +1,6 @@
-﻿using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Root interface for factories that take in prototypes and spit out an in-game object

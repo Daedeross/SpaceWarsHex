@@ -1,11 +1,11 @@
-﻿using SpaceWars.Entities;
-using SpaceWars.Interfaces;
-using SpaceWars.Interfaces.Orders;
-using SpaceWars.Interfaces.Systems;
-using SpaceWars.Model;
+﻿using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.Model;
 using System;
 
-namespace SpaceWars.Orders
+namespace SpaceWarsHex.Orders
 {
     /// <summary>
     /// Class to hold any parial weapon order.
@@ -145,7 +145,11 @@ namespace SpaceWars.Orders
         {
             if (Valid)
             {
-                return Ship.GiveOrder(CreateOrder());
+                var order = CreateOrder();
+                if (order != null)
+                {
+                    return Ship.GiveOrder(order);
+                }
             }
             else
             {
@@ -153,8 +157,8 @@ namespace SpaceWars.Orders
                 {
                     return Ship.GiveOrder(EnergyWeaponOrder.Clear());
                 }
-                return OrderResult.NotValid();
             }
+            return OrderResult.NotValid();
         }
 
         public void ChangeWeapon(int index)

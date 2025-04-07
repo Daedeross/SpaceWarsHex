@@ -1,8 +1,8 @@
-﻿using SpaceWars.Interfaces.Rules;
+﻿using SpaceWarsHex.Interfaces.Rules;
 using System;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Rules
+namespace SpaceWarsHex.Rules
 {
     /// <inheritdoc />
     [Serializable]

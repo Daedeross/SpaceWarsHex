@@ -1,7 +1,7 @@
-﻿using SpaceWars.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces.Prototypes;
 using System.Runtime.Serialization;
 
-namespace SpaceWars.Prototypes
+namespace SpaceWarsHex.Prototypes
 {
     /// <inheritdoc />
     [DataContract]

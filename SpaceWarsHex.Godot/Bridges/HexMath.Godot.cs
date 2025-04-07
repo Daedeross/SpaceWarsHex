@@ -1,7 +1,7 @@
 ﻿using Godot;
-using SpaceWars.Helpers;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
+using SpaceWarsHex.Helpers;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
 using System;
 using System.Collections.Generic;
 

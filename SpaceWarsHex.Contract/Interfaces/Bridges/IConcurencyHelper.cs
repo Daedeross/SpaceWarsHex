@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Bridges
+﻿namespace SpaceWarsHex.Interfaces.Bridges
 {
     /// <summary>
     /// Helper to manage a collection of entities that are each executing something concurrently.

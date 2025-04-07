@@ -1,8 +1,8 @@
 using Godot;
-using SpaceWars;
-using SpaceWars.Interfaces;
-using SpaceWars.Model;
-using SpaceWars.Orders;
+using SpaceWarsHex;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Orders;
 using SpaceWarsHex.Godot;
 using System.ComponentModel;
 using System.Linq;

@@ -1,6 +1,6 @@
-﻿using SpaceWars.Model;
+﻿using SpaceWarsHex.Model;
 
-namespace SpaceWars.Interfaces
+namespace SpaceWarsHex.Interfaces
 {
     /// <summary>
     /// Interface for helper classes for <see cref="HexVector2"/> to implement.
@@ -31,6 +31,11 @@ namespace SpaceWars.Interfaces
         /// One and one-half a unit hexagon's radius. (1.5 * R)
         /// </summary>
         float R3 { get; }
+
+        /// <summary>
+        /// The epsilon for float values. Based on radius.
+        /// </summary>
+        float Epsilon { get; }
 
         /// <summary>
         /// Takes in a square (Euclidian) vector and returns the oblique

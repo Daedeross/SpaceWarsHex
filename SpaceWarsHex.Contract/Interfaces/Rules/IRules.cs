@@ -1,4 +1,4 @@
-﻿namespace SpaceWars.Interfaces.Rules
+﻿namespace SpaceWarsHex.Interfaces.Rules
 {
     public interface IRules
     {

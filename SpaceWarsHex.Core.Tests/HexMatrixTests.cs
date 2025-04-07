@@ -1,14 +1,8 @@
-﻿using SpaceWars.Entities;
-using SpaceWars.Helpers;
-using SpaceWars.Interfaces;
-using SpaceWars.Mock;
-using SpaceWars.Model;
-using SpaceWars.Rules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceWarsHex.Entities;
+using SpaceWarsHex.Helpers;
+using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Model;
+using SpaceWarsHex.Rules;
 using Xunit;
 
 namespace SpaceWarsHex.Core.Tests
@@ -18,21 +12,21 @@ namespace SpaceWarsHex.Core.Tests
         public static TheoryData<HexVector2> TestVectors =
             new()
             {
-                new(0, 0)   ,
-                new(0, 1)   ,
-                new(1, 0)   ,
-                new(0, -5)  ,
-                new(-5, 0)  ,
-                new(7, 13)  ,
-                new(7, 3)   ,
-                new(-10, -5),
+                new HexVector2(0, 0)   ,
+                new HexVector2(0, 1)   ,
+                new HexVector2(1, 0)   ,
+                new HexVector2(0, -5)  ,
+                new HexVector2(-5, 0)  ,
+                new HexVector2(7, 13)  ,
+                new HexVector2(7, 3)   ,
+                new HexVector2(-10, -5),
             };
 
         [Theory]
         [MemberData(nameof(TestVectors))]
         public void HexMatrixGetsShipInHexTest(HexVector2 input)
         {
-            var ship = new Ship(Prototypes.Ship1(), new BoardRules());
+            var ship = new Ship(Mock.Prototypes.Ship1(), new BoardRules());
             ship.Position = input;
 
             var matrix = new HexMatrix<IHexObject>
@@ -48,7 +42,7 @@ namespace SpaceWarsHex.Core.Tests
         [MemberData(nameof(TestVectors))]
         public void HexMatrixHandlesMovingObjectsTest(HexVector2 input)
         {
-            var ship = new Ship(Prototypes.Ship1(), new BoardRules());
+            var ship = new Ship(Mock.Prototypes.Ship1(), new BoardRules());
             ship.Position = HexVector2.Zero;
 
             var matrix = new HexMatrix<IHexObject>

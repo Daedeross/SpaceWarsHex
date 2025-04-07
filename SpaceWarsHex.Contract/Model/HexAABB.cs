@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpaceWars.Model
+namespace SpaceWarsHex.Model
 {
     /// <summary>
     /// Hex-coordinate based Axialy Aligned Bounding Box
