@@ -9,7 +9,7 @@ namespace SpaceWars.Systems
     /// <summary>
     /// Implementation of standard ammo-based torpedo launcher
     /// </summary>
-    public class TorpedoTube : SystemBase, IOrdinance, ITorpedoLauncher
+    public class TorpedoTube : WeaponBase, IOrdinance, ITorpedoLauncher
     {
         private static OrderKind[] _validOrders = new[] { OrderKind.TorpedoOrder };
 

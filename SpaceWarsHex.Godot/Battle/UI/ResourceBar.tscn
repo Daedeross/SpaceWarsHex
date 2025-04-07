@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbp2g0vx0rx1l"]
 
-[ext_resource type="Script" path="res://Battle/UI/ResourceBar.cs" id="1_lwd86"]
+[ext_resource type="Script" uid="uid://4kcydd2ycxnl" path="res://Battle/UI/ResourceBar.cs" id="1_lwd86"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xqh8l"]
 outline_size = 3

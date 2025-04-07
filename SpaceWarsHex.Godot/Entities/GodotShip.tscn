@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dr6n5xe3bfhj4"]
 
-[ext_resource type="Script" path="res://Entities/GodotShip.cs" id="1_amaij"]
+[ext_resource type="Script" uid="uid://cxkq8hdo4rsu4" path="res://Entities/GodotShip.cs" id="1_amaij"]
 [ext_resource type="Texture2D" uid="uid://dfkfq426u6740" path="res://Entities/ship.svg" id="2_0m5gt"]
 
 [node name="GodotShip" type="Node2D"]

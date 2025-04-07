@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxg7mxog7ws2w"]
+[gd_scene load_steps=8 format=3 uid="uid://cxg7mxog7ws2w"]
 
-[ext_resource type="Script" path="res://Battle/UI/ShipControls.cs" id="1_uyj8y"]
+[ext_resource type="Script" uid="uid://c8lbhiedmfjii" path="res://Battle/UI/ShipControls.cs" id="1_uyj8y"]
 [ext_resource type="PackedScene" uid="uid://cbp2g0vx0rx1l" path="res://Battle/UI/ResourceBar.tscn" id="2_pgcnr"]
+[ext_resource type="Script" uid="uid://53vomdwpnvyi" path="res://Battle/UI/EnergyWeapons.cs" id="3_42hb6"]
 
 [sub_resource type="SystemFont" id="SystemFont_gysru"]
 subpixel_positioning = 0
@@ -73,13 +74,12 @@ MaxValue = 20.0
 
 [node name="ShieldsLabel" type="Label" parent="ColorRect/VBoxContainer/CoreSystems"]
 layout_mode = 2
-text = "Shields
-"
+text = "Shields"
 
 [node name="ShieldsBar" parent="ColorRect/VBoxContainer/CoreSystems" instance=ExtResource("2_pgcnr")]
 unique_name_in_owner = true
 layout_mode = 2
-MaxValue = 10.0
+MaxValue = 20.0
 
 [node name="PowerLabel" type="Label" parent="ColorRect/VBoxContainer/CoreSystems"]
 layout_mode = 2
@@ -145,25 +145,27 @@ layout_mode = 2
 text = "Weapons"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="ColorRect/VBoxContainer/VBoxContainer"]
+[node name="EnergyWeapons" type="GridContainer" parent="ColorRect/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 2
+script = ExtResource("3_42hb6")
 
-[node name="ClearEnergyWeapon" type="Button" parent="ColorRect/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="ClearEnergyWeapon" type="Button" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 layout_mode = 2
-text = "Clear"
+text = "Cancel"
 
-[node name="EnergyWeaponSelect" type="OptionButton" parent="ColorRect/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="EnergyWeaponSelect" type="OptionButton" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EnergyWeaponPower" type="Label" parent="ColorRect/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="EnergyWeaponPower" type="Label" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 
-[node name="EnergyWeaponSlider" type="HSlider" parent="ColorRect/VBoxContainer/VBoxContainer/GridContainer"]
+[node name="EnergyWeaponSlider" type="HSlider" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -171,6 +173,6 @@ size_flags_vertical = 1
 
 [connection signal="toggled" from="ColorRect/VBoxContainer/CoreSystems/PowerSettings/ReactorToggle" to="." method="OnReactorToggleToggled"]
 [connection signal="toggled" from="ColorRect/VBoxContainer/CoreSystems/PowerSettings/EmergencyPowerToggle" to="." method="OnEmergencyPowerToggled"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/VBoxContainer/GridContainer/ClearEnergyWeapon" to="." method="OnClearEnergyWeapons"]
-[connection signal="item_selected" from="ColorRect/VBoxContainer/VBoxContainer/GridContainer/EnergyWeaponSelect" to="." method="OnEnergyWeaponSelectItemSelected"]
-[connection signal="value_changed" from="ColorRect/VBoxContainer/VBoxContainer/GridContainer/EnergyWeaponSlider" to="." method="OnEnergyWeaponSliderValueChanged"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/ClearEnergyWeapon" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnClearEnergyWeapons"]
+[connection signal="item_selected" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/EnergyWeaponSelect" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnEnergyWeaponSelectItemSelected"]
+[connection signal="value_changed" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/EnergyWeaponSlider" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnEnergyWeaponSliderValueChanged"]

@@ -7,7 +7,7 @@ namespace SpaceWars.Systems
     /// <summary>
     /// Concrete class for a transporter bomb.
     /// </summary>
-    public class TransporterBomb : SystemBase, IOrdinance, IBombLauncher
+    public class TransporterBomb : WeaponBase, IOrdinance, IBombLauncher
     {
         #region IOrdinance
         /// <inheritdoc />

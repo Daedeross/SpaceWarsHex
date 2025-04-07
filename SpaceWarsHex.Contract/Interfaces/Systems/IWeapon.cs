@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpaceWars.Model;
 
 namespace SpaceWars.Interfaces.Systems
 {
@@ -14,5 +10,9 @@ namespace SpaceWars.Interfaces.Systems
     /// </remarks>
     public interface IWeapon : ISystem
     {
+        /// <summary>
+        /// <see cref="FireMode"/>
+        /// </summary>
+        FireMode FireMode { get; }
     }
 }

@@ -7,6 +7,6 @@ namespace SpaceWars.Interfaces
         /// <summary>
         /// The 6-direction orientation
         /// </summary>
-        Direction6 Orientation { get; set; }
+        Direction6 Orientation6 { get; set; }
     }
 }

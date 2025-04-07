@@ -46,7 +46,7 @@ namespace SpaceWars.Entities
             IHexObject entity = CreateEntity(prototype, owner, Position);
             if (entity is IHaveDirection6 d6)
             {
-                d6.Orientation = direction;
+                d6.Orientation6 = direction;
             }
 
             return entity;
@@ -58,7 +58,7 @@ namespace SpaceWars.Entities
             IHexObject entity = CreateEntity(prototype, owner, Position);
             if (entity is IHaveDirection12 d12)
             {
-                d12.Orientation = direction;
+                d12.Orientation12 = direction;
             }
 
             return entity;

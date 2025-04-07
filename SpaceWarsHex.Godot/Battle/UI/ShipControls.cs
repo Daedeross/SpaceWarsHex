@@ -3,6 +3,7 @@ using SpaceWars;
 using SpaceWars.Interfaces;
 using SpaceWars.Model;
 using SpaceWars.Orders;
+using SpaceWarsHex.Godot;
 using System.ComponentModel;
 using System.Linq;
 
@@ -19,11 +20,9 @@ namespace SpaceWarsHex
         private CheckButton _reactorToggle;
         private CheckButton _emergencyPowerToggle;
         private Label _emergencyPowerValue;
+        private EnergyWeapons _energyWeapons;
         private Label _cruiseValue;
         private Label _attackValue;
-        private Label _energyWeaponPower;
-        private OptionButton _energyWeaponSelect;
-        private HSlider _energyWeaponSlider;
 
         #endregion
 
@@ -67,9 +66,7 @@ namespace SpaceWarsHex
             _reactorToggle = GetNode<CheckButton>("%ReactorToggle");
             _emergencyPowerToggle = GetNode<CheckButton>("%EmergencyPowerToggle");
             _emergencyPowerValue = GetNode<Label>("%EmergencyPowerValue");
-            _energyWeaponSelect = GetNode<OptionButton>("%EnergyWeaponSelect");
-            _energyWeaponSlider = GetNode<HSlider>("%EnergyWeaponSlider");
-            _energyWeaponPower = GetNode<Label>("%EnergyWeaponPower");
+            _energyWeapons = GetNode<EnergyWeapons>("%EnergyWeapons");
         }
 
         private void UpdateUI()
@@ -97,38 +94,7 @@ namespace SpaceWarsHex
                 _attackValue.Text = hasAttackPower ? $"{_ship.Reactor.AttackPower}" : string.Empty;
                 _emergencyPowerValue.Text = _ship.Reactor.EmergencyPower > 0 ? $"+{_ship.Reactor.EmergencyPower}" : string.Empty;
 
-                UpdateEnergyWeapons();
-            }
-        }
-
-        private void UpdateEnergyWeapons()
-        {
-            var weapons = _ship.EnergyWeapons.ToArray();
-            _energyWeaponSelect.Clear();
-            //_energyWeaponSelect.AddItem($"Clear Order", -1);
-            for (int i = 0; i < weapons.Length; i++)
-            {
-                _energyWeaponSelect.AddItem($"{weapons[i].Name} ({weapons[i].MaxEnergy()})", i);
-            }
-
-            var order = _ship.CurrentEnergyWeaponOrder;
-            if (order is null)
-            {
-                _energyWeaponPower.Text = "";
-                _energyWeaponSelect.Selected = -1;
-                _energyWeaponSlider.Value = 0;
-                _energyWeaponSlider.MaxValue = 0;
-                _energyWeaponSlider.Editable = false;
-            }
-            else
-            {
-                var weapon = _ship.EnergyWeapons[order.WeaponIndex];
-                _energyWeaponPower.Text = $"{order.Power} / {weapon.MaxEnergy()}";
-                _energyWeaponSelect.Selected = order.WeaponIndex;
-                _energyWeaponSlider.MaxValue = weapon.CurrentMaxDice * weapon.EnergyPerDie;
-                _energyWeaponSlider.Step = weapon.EnergyPerDie;
-                _energyWeaponSlider.Editable = true;
-                _energyWeaponSlider.Value = order.Power;
+                _energyWeapons.SetShip(_ship);
             }
         }
 
@@ -138,73 +104,6 @@ namespace SpaceWarsHex
         {
             Ship.Reactor.CurrentState = toggled ? ReactorState.Attack : ReactorState.Cruise;
             UpdateUI();
-        }
-
-        public void OnClearEnergyWeapons()
-        {
-            if (Ship.CurrentEnergyWeaponOrder is null)
-            {
-                return;
-            }
-
-            Ship.GiveOrder(new DirectFireEnergyWeaponOrder { Power = 0, WeaponIndex = -1, TargetId = Ship.Id });
-        }
-
-        public void OnEnergyWeaponSelectItemSelected(int index)
-        {
-            // TODO: Support other fire modes.
-            var oldOrder = Ship.CurrentEnergyWeaponOrder as DirectFireEnergyWeaponOrder;
-            var power = oldOrder?.Power ?? 0;
-            var oldIndex = oldOrder?.WeaponIndex ?? -1;
-            if (Equals(oldIndex, index))
-            {
-                return;
-            }
-
-            if (index >= Ship.EnergyWeapons.Count)
-            {
-                GD.PushWarning("Tried to select an Energy Weapon with invalid index.");
-            }
-
-            var weapon = Ship.EnergyWeapons[index];
-            power = power / weapon.EnergyPerDie * weapon.EnergyPerDie;              // power must be a multiple of EnergyPerDie
-            power = Mathf.Max(power, weapon.EnergyPerDie);                          // must be at least one die.
-            power = Mathf.Min(power, weapon.EnergyPerDie * weapon.CurrentMaxDice);  // clamp power to max capable
-
-            var newOrder = new DirectFireEnergyWeaponOrder
-            {
-                Power = power,
-                TargetId = oldOrder?.TargetId ?? Ship.Id, // TODO: design targeting workflow
-                WeaponIndex = index
-            };
-
-            var result = Ship.GiveOrder(newOrder);
-            GD.Print(result);
-        }
-
-        public void OnEnergyWeaponSliderValueChanged(float value)
-        {
-            int power = (int)value;
-            var oldOrder = Ship.CurrentEnergyWeaponOrder as DirectFireEnergyWeaponOrder;
-            if (oldOrder is null || oldOrder.Power == power)
-            {
-                return;
-            }
-
-            var weapon = Ship.EnergyWeapons[oldOrder.WeaponIndex];
-            power = power / weapon.EnergyPerDie * weapon.EnergyPerDie;              // power must be a multiple of EnergyPerDie
-            power = Mathf.Max(power, weapon.EnergyPerDie);                          // must be at least one die.
-            power = Mathf.Min(power, weapon.EnergyPerDie * weapon.CurrentMaxDice);  // clamp power to max capable
-
-
-            var newOrder = new DirectFireEnergyWeaponOrder
-            {
-                Power = power,
-                TargetId = oldOrder.TargetId,
-                WeaponIndex = oldOrder.WeaponIndex
-            };
-
-            Ship.GiveOrder(newOrder);
         }
 
         public void OnEmergencyPowerToggled(bool toggled)

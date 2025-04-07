@@ -1,4 +1,5 @@
 ﻿using SpaceWars.Interfaces.Prototypes;
+using SpaceWars.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ namespace SpaceWars.Prototypes
                 .GetTypes()
                 .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(OrdinancePrototype)));
         }
+
+        /// <inheritdoc />
+        [DataMember]
+        public FireMode FireMode { get; set; }
 
         /// <inheritdoc />
         [DataMember]

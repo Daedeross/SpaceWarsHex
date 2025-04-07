@@ -5,11 +5,8 @@ using SpaceWars.Interfaces.Rules;
 using SpaceWars.Interfaces.Systems;
 using SpaceWars.Model;
 using SpaceWars.Systems;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace SpaceWars.Entities
 {
@@ -243,7 +240,7 @@ namespace SpaceWars.Entities
                 IMoveOrder moveOrder => GiveOrder(moveOrder),
                 IReactorOrder reactorOrder => GiveOrder(reactorOrder),
                 IShieldOrder shieldOrder => GiveOrder(shieldOrder),
-                IEnergyWeaponOrder energyWeaponOrder => GiveOrder(energyWeaponOrder),
+                IWeaponOrder weaponOrder => GiveOrder(weaponOrder),
                 _ => new OrderResult { Message = $"Unsupported order type: {typeof(TOrder)}", Status = OrderStatus.NotAllowed }
             };
         }
@@ -254,17 +251,17 @@ namespace SpaceWars.Entities
             if (order.UseEmergencyPower && _reactor.UsingEmergencyPower
              && order.State == _reactor.CurrentState)
             {
-                return new OrderResult { Message = Accepted, Status = OrderStatus.NotModified };
+                return OrderResult.NotModified(Accepted);
             }
 
             // validate
             if (order.UseEmergencyPower && _reactor.UsedEmergencyPowerLastTurn)
             {
-                return new OrderResult { Message = "Cannot use emergency power two turns in a row.", Status = OrderStatus.NotValid };
+                return OrderResult.NotValid("Cannot use emergency power two turns in a row.");
             }
             if (order.State == ReactorState.Attack && _reactor.TurnsSpentAtAttackPower >= _reactor.MaxTurnsAtAttackPower)
             {
-                return new OrderResult { Message = "Ship has spent its maximum number of turns at attack power.", Status = OrderStatus.NotValid };
+                return OrderResult.NotValid("Ship has spent its maximum number of turns at attack power.");
             }
 
             _reactor.CurrentState = order.State;
@@ -279,25 +276,25 @@ namespace SpaceWars.Entities
         {
             if (order.Acceleration == _drive.Acceleration)
             {
-                return new OrderResult { Message = Accepted, Status = OrderStatus.NotModified };
+                return OrderResult.NotModified(Accepted);
             }
 
             // validate
             if (order.Acceleration.Length() > _drive.AccelerationClass)
             {
-                return new OrderResult { Message = "Cannot exceed Accerlation Class", Status = OrderStatus.NotValid };
+                return OrderResult.NotValid("Cannot exceed Accerlation Class");
             }
 
             var newVelocity = _drive.Velocity + order.Acceleration;
             if (newVelocity.Length() > _drive.MaxWarp)
             {
-                return new OrderResult { Message = "Cannot exceed Max Marp", Status = OrderStatus.NotValid };
+                return OrderResult.NotValid("Cannot exceed Max Marp");
             }
 
             _drive.Acceleration = order.Acceleration;
             RecalcPowerAllocation();
 
-            return new OrderResult { Message = Accepted, Status = OrderStatus.Ok };
+            return OrderResult.Ok(Accepted);
         }
 
         public OrderResult GiveOrder(IShieldOrder order)
@@ -323,7 +320,9 @@ namespace SpaceWars.Entities
             return new OrderResult { Message = Accepted, Status = OrderStatus.Ok };
         }
 
-        public OrderResult GiveOrder(IWeaponOrder weaponOrder)
+        #region Private Order Handlers
+
+        private OrderResult GiveOrder(IWeaponOrder weaponOrder)
         {
             return weaponOrder switch
             {
@@ -333,12 +332,7 @@ namespace SpaceWars.Entities
             };
         }
 
-        /// <summary>
-        /// Give the ship an order to fire an energy weapon.
-        /// </summary>
-        /// <param name="order">The <see cref="IEnergyWeaponOrder"/></param>
-        /// <returns><see cref="OrderResult"/></returns>
-        public OrderResult GiveOrder(IEnergyWeaponOrder order)
+        private OrderResult GiveOrder(IEnergyWeaponOrder order)
         {
             // Negative index is the signal to clear the current order.
             if (order.WeaponIndex < 0)
@@ -348,14 +342,11 @@ namespace SpaceWars.Entities
                 return OrderResult.Ok();
             }
 
-            // TODO: add propper range-check and log error instead of throw once game is Alpha-ready.
-            IEnergyWeapon weapon = _energyWeapons[order.WeaponIndex]; // Can throw exception if index out of bounds.
-                                                                      // Not range checking here because that should be done before this point
-                                                                      // If exception is thrown here, then that means something else messed up and 
-                                                                      // should be fixed.
+            IEnergyWeapon weapon = _energyWeapons[order.WeaponIndex];
+
             if (!ValidateEnergyWeaponOrder(weapon, order))
             {
-                return OrderResult.NotValid("Invalid energy allocated.");
+                return OrderResult.NotValid();
             }
 
             var result = WeaponOrder(weapon, order);
@@ -432,19 +423,18 @@ namespace SpaceWars.Entities
 
         private OrderResult BombOrder(IBombLauncher bomb, IWeaponOrder order)
         {
-            var bombOrder = order as IBombOrder;
-            if (bombOrder is null)
+            if (!order.TargetHex.HasValue)
             {
                 return OrderResult.NotValid();
             }
 
-            var distance = (bombOrder.TargetHex - Position).Length();
+            var distance = (order.TargetHex.Value - Position).Length();
             if (distance > bomb.MaxRange)
             {
                 return OrderResult.NotValid();
             }
 
-            bomb.TargetHex = bombOrder.TargetHex;
+            bomb.TargetHex = order.TargetHex;
 
             return OrderResult.Ok();
         }
@@ -486,6 +476,8 @@ namespace SpaceWars.Entities
                 StateMessage = ValidStateMessage;
             }
         }
+
+        #endregion // Private Order Handlers
 
         #endregion // Order Handling
 
@@ -607,7 +599,7 @@ namespace SpaceWars.Entities
 
         #endregion // IShip
 
-        #region TODO
+        #region TODO : Move to engine-specific wrapper
         private void HideArrows()
         {
             //_accArrow.gameObject.SetActive(false);

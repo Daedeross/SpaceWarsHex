@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://chy0rarj8rub3"]
 
-[ext_resource type="Script" path="res://MainMenu/Lobby.cs" id="1_aifpy"]
+[ext_resource type="Script" uid="uid://dxre05lonn5vt" path="res://MainMenu/Lobby.cs" id="1_aifpy"]
 [ext_resource type="PackedScene" uid="uid://x2a0apntnxcv" path="res://Session/Session.tscn" id="2_va4fx"]
 
 [node name="Lobby" type="Control"]

@@ -6,17 +6,12 @@ namespace SpaceWars.Interfaces.Prototypes
     /// <summary>
     /// Inteface for weapon prototypes that require input energy to function.
     /// </summary>
-    public interface IEnergyWeaponPrototype : ISystemPrototype
+    public interface IEnergyWeaponPrototype : IWeaponPrototype
     {
         /// <summary>
         /// The max dice the energy weapon gets.
         /// </summary>
         int MaxDice { get; set; }
-
-        /// <summary>
-        /// <see cref="FireMode"/>
-        /// </summary>
-        FireMode FireMode { get; }
 
         /// <summary>
         /// The phase the weapon is fired/launched. Only <see cref="TurnPhase.Weapons1"/> and <see cref="TurnPhase.Weapons2"/> are valid

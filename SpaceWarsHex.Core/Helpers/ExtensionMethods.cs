@@ -290,5 +290,10 @@ namespace SpaceWars
         {
             return weapon.InitialMaxDice * weapon.EnergyPerDie;
         }
+
+        public static int CurrentMaxEnergy(this IEnergyWeapon weapon)
+        {
+            return weapon.CurrentMaxDice * weapon.EnergyPerDie;
+        }
     }
 }

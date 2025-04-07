@@ -6,6 +6,7 @@
     <RootNamespace>SpaceWars</RootNamespace>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <ImplicitUsings>true</ImplicitUsings>
     <BaseOutputPath>..\Assets\lib</BaseOutputPath>
   </PropertyGroup>
 

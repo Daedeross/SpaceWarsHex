@@ -92,7 +92,7 @@ namespace SpaceWarsHex
             if (Input.IsActionJustReleased("test_damage"))
             {
                 //_ship1.Ship.Hull.CurrentIntegrity -= 1;
-                _ship1.GiveOrder(new DirectFireEnergyWeaponOrder { WeaponIndex = 0, Power = 9, TargetId = _ship2.Id });
+                _ship1.GiveOrder(new EnergyWeaponOrder { WeaponIndex = 0, Power = 9, TargetId = _ship2.Id });
             }
 
             if (Input.IsActionJustReleased("test_heal"))

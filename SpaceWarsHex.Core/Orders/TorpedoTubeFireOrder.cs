@@ -8,7 +8,7 @@ namespace SpaceWars.Orders
     /// <inheritdoc />
     [Serializable]
     [DataContract]
-    public class TorpedoTubeFireOrder : IOrdinanceOrder, ITorpedoFireOrder
+    public class TorpedoTubeFireOrder : OrdinanceOrder, ITorpedoFireOrder
     {
         /// <inheritdoc />
         [DataMember]

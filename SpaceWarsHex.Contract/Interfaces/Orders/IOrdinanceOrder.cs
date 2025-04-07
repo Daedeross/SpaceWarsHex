@@ -1,4 +1,6 @@
-﻿namespace SpaceWars.Interfaces.Orders
+﻿using SpaceWars.Model;
+
+namespace SpaceWars.Interfaces.Orders
 {
     /// <summary>
     /// Interface of orders for any ordinance.
@@ -6,13 +8,13 @@
     public interface IOrdinanceOrder : IWeaponOrder
     {
         /// <summary>
-        /// The index of the energy weapon to fire.
-        /// </summary>
-        int WeaponIndex { get; }
-
-        /// <summary>
-        /// If true, clears any order for the given <see cref="WeaponIndex"/>
+        /// If true, clears any order for the given <see cref="IWeaponOrder.WeaponIndex"/>
         /// </summary>
         bool Clear { get; }
+
+        /// <summary>
+        /// <see cref="OridinanceLoad"/>
+        /// </summary>
+        OridinanceLoad Load { get; }
     }
 }

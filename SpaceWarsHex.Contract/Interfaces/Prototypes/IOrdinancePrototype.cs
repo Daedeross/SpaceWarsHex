@@ -3,7 +3,7 @@
     /// <summary>
     /// Public interface for all ordinance-based systems' prototypes.
     /// </summary>
-    public interface IOrdinancePrototype : ISystemPrototype
+    public interface IOrdinancePrototype : IWeaponPrototype
     {
         /// <summary>
         /// The numerical power/strength of the system.
@@ -16,7 +16,7 @@
         int Strength { get; }
 
         /// <summary>
-        /// The maximum numver of uses the system has.
+        /// The maximum number of uses the system has.
         /// </summary>
         int MaxUses { get; }
     }
