@@ -1,8 +1,8 @@
-﻿using SpaceWarHex.Entities;
+﻿using SpaceWarsHex.Entities;
 using SpaceWarsHex.Interfaces;
 using System.Collections.Generic;
 
-namespace SpaceWarHex.Bridges
+namespace SpaceWarsHex.Bridges
 {
     public class WrapperMap
     {

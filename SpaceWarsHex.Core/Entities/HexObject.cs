@@ -23,6 +23,20 @@ namespace SpaceWarsHex.Entities
             set => this.RaiseAndSetIfChanged(ref m_Player, value);
         }
 
+        private IHexObject? m_Owner;
+        public IHexObject? Owner
+        {
+            get => m_Owner;
+            set => this.RaiseAndSetIfChanged(ref m_Owner, value);
+        }
+
+        private int m_TeamNumber = -1;
+        public int TeamNumber
+        {
+            get => m_TeamNumber;
+            set => this.RaiseAndSetIfChanged(ref m_TeamNumber, value);
+        }
+
         protected HexVector2 m_Position = new HexVector2();
         /// <inheritdoc />
         public HexVector2 Position
@@ -61,7 +75,6 @@ namespace SpaceWarsHex.Entities
 
         /// <inheritdoc />
         public abstract bool HandleEndOfTurn(int turnNumber);
-
 
         protected void RaisePositionChanged(HexVector2 oldPosition, HexVector2 newPosition)
         {

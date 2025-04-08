@@ -1,6 +1,7 @@
 ﻿using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceWarsHex.Interfaces
@@ -83,6 +84,14 @@ namespace SpaceWarsHex.Interfaces
         /// <param name="position">The hex the entitiy is created in or it's primary hex if it is a <see cref="IMultiHexObject"/></param>
         /// <param name="direction">The direction the entity is rotated.</param>
         IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction12 direction);
+
+        /// <summary>
+        /// Try to get a specific entity by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        bool TryGetEntity(Guid id, out IHexObject? entity);
 
         /// <summary>
         /// Gets all entities that are in the target hex.

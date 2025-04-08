@@ -1,7 +1,7 @@
 ﻿//using Injact;
-//using SpaceWarHex.Bridges;
+//using SpaceWarsHex.Bridges;
 
-//namespace SpaceWarHex.Installers
+//namespace SpaceWarsHex.Installers
 //{
 //    public class AppicationInstaller : Installer
 //    {

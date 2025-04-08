@@ -4,7 +4,7 @@ using SpaceWarsHex.Model;
 using System.Collections.Generic;
 using System.ComponentModel;
 using SpaceWarsHex.Interfaces;
-using SpaceWarHex.Entities;
+using SpaceWarsHex.Entities;
 
 namespace SpaceWarsHex.Entities
 {

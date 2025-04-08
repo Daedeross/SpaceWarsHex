@@ -143,6 +143,7 @@ namespace SpaceWarsHex.Orders
 
         public OrderResult GiveOrder()
         {
+            Validate();
             if (Valid)
             {
                 var order = CreateOrder();
@@ -171,7 +172,8 @@ namespace SpaceWarsHex.Orders
                 power = power / EnergyWeapon.EnergyPerDie * EnergyWeapon.EnergyPerDie;              // power must be a multiple of EnergyPerDie
                 power = Math.Max(power, EnergyWeapon.EnergyPerDie);                                 // must be at least one die.
                 power = Math.Min(power, EnergyWeapon.EnergyPerDie * EnergyWeapon.CurrentMaxDice);   // clamp power to max capable
-                Power = power; ;
+                Power = power;
+                ClearInvalidProperties();
                 Validate();
                 return;
             }
@@ -234,6 +236,65 @@ namespace SpaceWarsHex.Orders
                 default:
                     throw new NotSupportedException("Non-supported FireMode");
             }
+        }
+
+        private void ClearInvalidProperties()
+        {
+            switch (TargetMode)
+            {
+                case FireMode.DirectFire:
+                    m_TargetHex = null;
+                    m_Velocity = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    break;
+                case FireMode.Beam:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Velocity = null;
+                    m_Orientation6 = null;
+                    break;
+                case FireMode.Bomb:
+                    m_TargetId = null;
+                    m_Velocity = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    break;
+                case FireMode.Torpedo:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    break;
+                case FireMode.Wall:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Orientation12 = null;
+                    break;
+                case FireMode.Pulse:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Velocity = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    break;
+                case FireMode.Wave:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Velocity = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    break;
+                default:
+                    m_TargetId = null;
+                    m_TargetHex = null;
+                    m_Velocity = null;
+                    m_Orientation12 = null;
+                    m_Orientation6 = null;
+                    m_Power = null;
+                    break;
+            }
+
         }
 
         #region OrderGenerators

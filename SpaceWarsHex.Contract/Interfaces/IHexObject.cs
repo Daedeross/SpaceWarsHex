@@ -19,6 +19,17 @@ namespace SpaceWarsHex.Interfaces
         IPlayer? Player { get; set; }
 
         /// <summary>
+        /// The entity that 'owns' this entity. e.g. a Torpedo is owned by the ship that fires it.
+        /// Null for independant objects (like ships).
+        /// </summary>
+        IHexObject? Owner { get; }
+
+        /// <summary>
+        /// The team number this entity belongs to. Negative numbers are for non-player/neutral teams.
+        /// </summary>
+        int TeamNumber { get; set; }
+
+        /// <summary>
         /// The position of the entity.
         /// </summary>
         /// <remarks>

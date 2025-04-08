@@ -1,6 +1,4 @@
 using Godot;
-using SpaceWarsHex;
-using SpaceWarsHex.Entities;
 using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Orders;
 using System.Collections.Generic;
@@ -13,6 +11,7 @@ namespace SpaceWarsHex.Godot
         #region Child Nodes
 
         private Label _energyWeaponPower;
+        private Button _energyWeaponFire;
         private OptionButton _energyWeaponSelect;
         private HSlider _energyWeaponSlider;
 
@@ -22,12 +21,19 @@ namespace SpaceWarsHex.Godot
 
         private Dictionary<IShip, PendingEnergyWeaponOrder> _orders = [];
 
+        private bool isTargeting = false;
+
+        private Battle2D _battle;
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             _energyWeaponSelect = GetNode<OptionButton>("%EnergyWeaponSelect");
             _energyWeaponSlider = GetNode<HSlider>("%EnergyWeaponSlider");
             _energyWeaponPower = GetNode<Label>("%EnergyWeaponPower");
+            _energyWeaponFire = GetNode<Button>("%EnergyWeaponFire");
+            _energyWeaponFire.SetPressedNoSignal(false);
+            _battle = FindParent("Battle2D") as Battle2D;
         }
 
         public void SetShip(IShip ship)
@@ -65,6 +71,7 @@ namespace SpaceWarsHex.Godot
             {
                 _energyWeaponSelect.AddItem($"{weapons[i].Name} ({weapons[i].MaxEnergy()})", i);
             }
+            _energyWeaponSelect.AddItem("None");
 
             if (_currentOrder is null || _currentOrder.WeaponIndex < 0)
             {
@@ -73,6 +80,7 @@ namespace SpaceWarsHex.Godot
                 _energyWeaponSlider.Value = 0;
                 _energyWeaponSlider.MaxValue = 0;
                 _energyWeaponSlider.Editable = false;
+                _energyWeaponFire.Disabled = true;
             }
             else
             {
@@ -83,6 +91,8 @@ namespace SpaceWarsHex.Godot
                 _energyWeaponSlider.Step = weapon.EnergyPerDie;
                 _energyWeaponSlider.Editable = true;
                 _energyWeaponSlider.Value = (double)_currentOrder.Power;
+                _energyWeaponFire.Disabled = false;
+                _energyWeaponFire.ButtonPressed = false;
             }
         }
 
@@ -104,6 +114,11 @@ namespace SpaceWarsHex.Godot
             // TODO: Support other fire modes.
             var oldOrder = _currentOrder;
             var oldIndex = oldOrder?.WeaponIndex ?? -1;
+            if (index >= _energyWeaponSelect.ItemCount)
+            {
+                index = -1;
+            }
+
             if (Equals(oldIndex, index))
             {
                 return;
@@ -136,6 +151,27 @@ namespace SpaceWarsHex.Godot
             GD.Print(result);
 
             UpdateEnergyWeapons();
+        }
+
+        public void OnFireToggled(bool toggled_on)
+        {
+            if (toggled_on && _currentOrder.Ship != null)
+            {
+                _energyWeaponFire.Text = "Cancel Target";
+                _battle.SelectTarget(_currentOrder.Ship, SetDirectFireTarget);
+            }
+            else
+            {
+                _energyWeaponFire.Text = "Set Target";
+                _battle.CancelContext();
+            }
+        }
+
+        private void SetDirectFireTarget(ITargetable target)
+        {
+            _currentOrder.TargetId = target.Id;
+            _currentOrder.GiveOrder();
+            _energyWeaponFire.ButtonPressed = false;
         }
     }
 }

@@ -2,7 +2,7 @@
 using SpaceWarsHex.Interfaces;
 using System.ComponentModel;
 
-namespace SpaceWarHex.Entities
+namespace SpaceWarsHex.Entities
 {
     public abstract partial class WrapperNode2D<T> : Node2D, IWrapper<T>
         where T : INotifyPropertyChanged

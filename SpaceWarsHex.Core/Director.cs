@@ -25,6 +25,7 @@ namespace SpaceWarsHex
         private const string ShipPrefabKey = @"Assets/Sprites/BlankArrow.png";
 
         private readonly HexMatrix<IHexObject> _allEntities = new();
+        private readonly Dictionary<Guid, IHexObject> _idMap = new();
 
         private readonly IRules _rules = new BoardRules();
         private readonly List<ITeam> _teams = new();
@@ -103,6 +104,11 @@ namespace SpaceWarsHex
             return entity;
         }
 
+        public bool TryGetEntity(Guid id, out IHexObject? entity)
+        {
+            return _idMap.TryGetValue(id, out entity);
+        }
+
         /// <inheritdoc />
         public IEnumerable<IHexObject> GetEntitiesInHex(HexVector2 hex)
         {
@@ -165,6 +171,7 @@ namespace SpaceWarsHex
         private void AddEntity(IHexObject entity)
         {
             _allEntities.Add(entity);
+            _idMap.Add(entity.Id, entity);
             if (entity is IMovingHexObject moveable)
             {
                 _moveables.AddOrAppend(moveable.MovementPhase, moveable);
@@ -391,6 +398,7 @@ namespace SpaceWarsHex
                     _orderables.Remove(orderable);
                 }
                 _allEntities.Remove(entity);
+                _idMap.Remove(entity.Id);
             }
         }
 
@@ -398,7 +406,7 @@ namespace SpaceWarsHex
         {
             if (_moveables.TryGetValue(phase, out var entities))
             {
-                //_ = CoroutineHelper.Start(entities, (e, a) => e.StartMovement(a), onComplete); // TODO: Change do GODOT version
+                //_ = CoroutineHelper.Start(entities, (e, a) => e.StartMovement(a), onComplete); // TODO: Change to GODOT version
             }
             else
             {

@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5k1n1g5o285u"]
+[gd_scene load_steps=13 format=3 uid="uid://b5k1n1g5o285u"]
 
 [ext_resource type="Script" uid="uid://dlm0tveqab8dv" path="res://Battle/Battle2D.cs" id="1_ubnrk"]
 [ext_resource type="Script" uid="uid://df27v1sdsxm1j" path="res://Battle/CameraControls.cs" id="2_diocy"]
 [ext_resource type="Shader" uid="uid://bmpb6svngmmth" path="res://Shaders/Wireframe.gdshader" id="3_x2bic"]
 [ext_resource type="Script" uid="uid://c28w11sdoac57" path="res://Battle/HexGrid.cs" id="4_snosn"]
+[ext_resource type="Script" uid="uid://cqgid8ulabdw6" path="res://Battle/TargetLine.cs" id="5_cx44a"]
 [ext_resource type="PackedScene" uid="uid://cxg7mxog7ws2w" path="res://Battle/UI/ShipControls.tscn" id="5_cxyq8"]
 [ext_resource type="Script" uid="uid://dfsbuwn7jh008" path="res://Battle/UI/ChooseEntityList.cs" id="6_43xe4"]
 
@@ -40,6 +41,10 @@ mesh = SubResource("ArrayMesh_b4s74")
 texture = SubResource("CanvasTexture_nt8kd")
 script = ExtResource("4_snosn")
 
+[node name="TargetLine" type="Line2D" parent="."]
+visible = false
+script = ExtResource("5_cx44a")
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ShipControls" parent="UI" instance=ExtResource("5_cxyq8")]
@@ -57,3 +62,14 @@ item_count = 2
 item_0/text = "Shiiip 1"
 item_1/text = "Shiiip 2"
 script = ExtResource("6_43xe4")
+
+[node name="EndTurn" type="Button" parent="UI"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 78.0
+grow_vertical = 0
+text = "End Turn"
+
+[connection signal="pressed" from="UI/EndTurn" to="." method="OnEndTurnPressed"]

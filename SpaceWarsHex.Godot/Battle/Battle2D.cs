@@ -7,6 +7,8 @@ using SpaceWarsHex.Orders;
 using SpaceWarsHex.Rules;
 using SpaceWarsHex.Bridges;
 using System.Linq;
+using System;
+using Godot.NativeInterop;
 
 namespace SpaceWarsHex
 {
@@ -24,6 +26,10 @@ namespace SpaceWarsHex
         private ISelectable _selected;
 
         private ChooseEntityList _selectList;
+        private TargetLine _targetLine;
+
+        private Action<ITargetable> _onTarget;
+        private Func<ITargetable, bool> _targetFilter;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -56,6 +62,7 @@ namespace SpaceWarsHex
             _director = new Director(new EntityFactory<Entities.GodotHexObject>(_godotEntityFactory, new BoardRules()));
             _shipControls = GetNode<ShipControls>("UI/ShipControls");
             _selectList = GetNode<ChooseEntityList>("UI/ChooseEntityList");
+            _targetLine = GetNode<TargetLine>("TargetLine");
         }
 
         #region Test Stuff
@@ -113,7 +120,9 @@ namespace SpaceWarsHex
             _ship2 = ships[1];
 
             _ship1.Velocity = new HexVector2(0, 2);
+            _ship1.TeamNumber = 0;
             _ship2.Velocity = new HexVector2(1, 2);
+            _ship2.TeamNumber = 1;
 
             _shipControls.Ship = _ship1;
         }
@@ -146,6 +155,7 @@ namespace SpaceWarsHex
                 case InputContext.Move:
                     break;
                 case InputContext.DirectFire:
+                    SelectTarget(pos);
                     break;
                 case InputContext.Beam:
                     break;
@@ -165,8 +175,7 @@ namespace SpaceWarsHex
 
         private void NormalSelect(Vector2 pos)
         {
-            var worldPos = GetViewport().CanvasTransform.AffineInverse() * pos;
-            var hex = worldPos.GetHex();
+            var hex = GetHex(pos);
             var seletables = _director.GetEntitiesInHex<ISelectable>(hex).ToList();
             if (seletables.Count > 0)
             {
@@ -204,13 +213,93 @@ namespace SpaceWarsHex
                 default:
                     break;
             }
+
+            TargetLine(selectable as IShip);
+        }
+
+        private void SelectTarget(Vector2 pos)
+        {
+            var hex = GetHex(pos);
+            var targetables = _director.GetEntitiesInHex<ITargetable>(hex)
+                .Where(_targetFilter)
+                .ToList();
+
+            if (targetables.Count > 0)
+            {
+                if (targetables.Count == 1)
+                {
+                    TargetDirectFire(targetables[0]);
+                }
+                else
+                {
+                    _selectList.QueueSelect(pos, targetables, TargetDirectFire);
+                }
+            }
+            else
+            {
+                //CancelContext();
+            }
         }
 
         private void TargetDirectFire(ITargetable targetable)
         {
-
+            _onTarget(targetable);
+            TargetLine(_selected as IShip);
+            CancelContext();
         }
 
+        #region InputContext Change
+
+        public void SelectTarget(IHexObject source, Action<ITargetable> onTarget, Func<ITargetable, bool> filter = null)
+        {
+            _targetFilter = filter is null
+                ? obj => obj.TeamNumber != source.TeamNumber
+                : filter;
+
+            _onTarget = onTarget;
+            _inputContext = InputContext.DirectFire;
+        }
+
+        public void CancelContext()
+        {
+            _onTarget = x => { };
+            _inputContext = InputContext.Normal;
+        }
+
+        #endregion
+
         #endregion // Input Handling
+
+        public void OnEndTurnPressed()
+        {
+            ChangeSelection(null);
+            //_director.PlayerEndPhase(null);
+        }
+
+        #region Helpers
+
+        private HexVector2 GetHex(Vector2 viewPos, Viewport viewport = null)
+        {
+            viewport = viewport ?? GetViewport();
+            var worldPos = viewport.CanvasTransform.AffineInverse() * viewPos;
+            return worldPos.GetHex();
+        }
+
+        private void TargetLine(IShip? ship)
+        {
+            var order = ship?.CurrentEnergyWeaponOrder;
+            if (order?.TargetId != null)
+            {
+                if (_director.TryGetEntity(order.TargetId.Value, out var target))
+                {
+                    _targetLine.SetPoints(ship.Position, target.Position);
+                    _targetLine.Visible = true;
+                    return;
+                }
+            }
+            _targetLine.Visible = false;
+        }
+
+        #endregion
     }
 }

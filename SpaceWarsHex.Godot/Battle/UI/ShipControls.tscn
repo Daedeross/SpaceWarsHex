@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxg7mxog7ws2w"]
+[gd_scene load_steps=9 format=3 uid="uid://cxg7mxog7ws2w"]
 
 [ext_resource type="Script" uid="uid://c8lbhiedmfjii" path="res://Battle/UI/ShipControls.cs" id="1_uyj8y"]
 [ext_resource type="PackedScene" uid="uid://cbp2g0vx0rx1l" path="res://Battle/UI/ResourceBar.tscn" id="2_pgcnr"]
 [ext_resource type="Script" uid="uid://53vomdwpnvyi" path="res://Battle/UI/EnergyWeapons.cs" id="3_42hb6"]
+[ext_resource type="Texture2D" uid="uid://buepvfc5doubq" path="res://icons/targeted.svg" id="4_2g00k"]
 
 [sub_resource type="SystemFont" id="SystemFont_gysru"]
 subpixel_positioning = 0
@@ -109,6 +110,7 @@ label_settings = SubResource("LabelSettings_020d1")
 [node name="ReactorToggle" type="CheckButton" parent="ColorRect/VBoxContainer/CoreSystems/PowerSettings"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 
 [node name="AttackValue" type="Label" parent="ColorRect/VBoxContainer/CoreSystems/PowerSettings"]
 unique_name_in_owner = true
@@ -123,6 +125,7 @@ size_flags_horizontal = 3
 [node name="EmergencyPowerToggle" type="CheckButton" parent="ColorRect/VBoxContainer/CoreSystems/PowerSettings"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 text = "Emergency"
 
 [node name="EmergencyPowerValue" type="Label" parent="ColorRect/VBoxContainer/CoreSystems/PowerSettings"]
@@ -142,7 +145,7 @@ layout_mode = 2
 
 [node name="Weapons" type="Label" parent="ColorRect/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-text = "Weapons"
+text = "Energy Weapons"
 horizontal_alignment = 1
 
 [node name="EnergyWeapons" type="GridContainer" parent="ColorRect/VBoxContainer/VBoxContainer"]
@@ -151,14 +154,15 @@ layout_mode = 2
 columns = 2
 script = ExtResource("3_42hb6")
 
-[node name="ClearEnergyWeapon" type="Button" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
+[node name="EnergyWeapon" type="Label" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 layout_mode = 2
-text = "Cancel"
+text = "Weapon:"
 
 [node name="EnergyWeaponSelect" type="OptionButton" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 
 [node name="EnergyWeaponPower" type="Label" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
 unique_name_in_owner = true
@@ -170,9 +174,23 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+focus_mode = 0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
+layout_mode = 2
+
+[node name="EnergyWeaponFire" type="Button" parent="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+disabled = true
+toggle_mode = true
+text = "Set Target"
+icon = ExtResource("4_2g00k")
+expand_icon = true
 
 [connection signal="toggled" from="ColorRect/VBoxContainer/CoreSystems/PowerSettings/ReactorToggle" to="." method="OnReactorToggleToggled"]
 [connection signal="toggled" from="ColorRect/VBoxContainer/CoreSystems/PowerSettings/EmergencyPowerToggle" to="." method="OnEmergencyPowerToggled"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/ClearEnergyWeapon" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnClearEnergyWeapons"]
 [connection signal="item_selected" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/EnergyWeaponSelect" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnEnergyWeaponSelectItemSelected"]
 [connection signal="value_changed" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/EnergyWeaponSlider" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnEnergyWeaponSliderValueChanged"]
+[connection signal="toggled" from="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons/EnergyWeaponFire" to="ColorRect/VBoxContainer/VBoxContainer/EnergyWeapons" method="OnFireToggled"]
