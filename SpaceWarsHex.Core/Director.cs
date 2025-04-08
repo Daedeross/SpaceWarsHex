@@ -81,7 +81,7 @@ namespace SpaceWarsHex
         public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position);
-            AddEntity(entity);
+            AddEntity(owner, entity);
 
             return entity;
         }
@@ -90,7 +90,7 @@ namespace SpaceWarsHex
         public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction6 direction)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position, direction);
-            AddEntity(entity);
+            AddEntity(owner, entity);
 
             return entity;
         }
@@ -99,7 +99,7 @@ namespace SpaceWarsHex
         public IHexObject CreateEntity(IHexObjectPrototype prototype, IPlayer? owner, HexVector2 position, Direction12 direction)
         {
             var entity = _entityFactory.CreateEntity(prototype, owner, position, direction);
-            AddEntity(entity);
+            AddEntity(owner, entity);
 
             return entity;
         }
@@ -168,22 +168,6 @@ namespace SpaceWarsHex
 
         public event EntityCreatedEventHandler? EntityCreated;
 
-        private void AddEntity(IHexObject entity)
-        {
-            _allEntities.Add(entity);
-            _idMap.Add(entity.Id, entity);
-            if (entity is IMovingHexObject moveable)
-            {
-                _moveables.AddOrAppend(moveable.MovementPhase, moveable);
-            }
-            if (entity is IOrderable orderable)
-            {
-                _orderables.Add(orderable);
-            }
-
-            EntityCreated?.Invoke(this, new EntityCreatedEventArgs(entity));
-        }
-
         #endregion // IDirector
 
         #region Internal Methods
@@ -206,7 +190,7 @@ namespace SpaceWarsHex
             }
         }
 
-        private void AddEntity(IPlayer player, IHexObject entity)
+        private void AddEntity(IPlayer? player, IHexObject entity)
         {
             if (player != null)
             {
@@ -215,9 +199,11 @@ namespace SpaceWarsHex
                 if (player.TeamNumber > 0)
                 {
                     _teams[player.TeamNumber - 1].AddEntity(entity);
+                    entity.TeamNumber = player.TeamNumber;
                 }
             }
             _allEntities.Add(entity);
+            _idMap.Add(entity.Id, entity);
             if (entity is IMovingHexObject moveable)
             {
                 _moveables.AddOrAppend(moveable.MovementPhase, moveable);
