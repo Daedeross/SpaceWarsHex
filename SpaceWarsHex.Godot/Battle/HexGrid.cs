@@ -16,17 +16,6 @@ public partial class HexGrid : MeshInstance2D
     public override void _Ready()
     {
         _camera = GetNode<Camera2D>("../MainCamera");
-
-        //Godot.Collections.Array surfaceArray = [];
-        //surfaceArray.Resize((int)Mesh.ArrayType.Max);
-
-        //var verts = HexMath.Default.HexagonVertices.ToArray();
-        //var indices = new Vector2[] = {
-        //    new Vector2()
-        //};
-
-        //surfaceArray[(int)Mesh.ArrayType.Vertex] = verts.ToArray();
-        //surfaceArray[(int)Mesh.ArrayType.Index] = indices.ToArray();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

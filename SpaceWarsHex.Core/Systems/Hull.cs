@@ -1,14 +1,15 @@
 ﻿using SpaceWarsHex.Entities;
+using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
-using System;
+using SpaceWarsHex.States.Systems;
 
 namespace SpaceWarsHex.Systems
 {
     /// <inheritdoc />
-    public class Hull : NotificationObject, IHull
+    public class Hull : NotificationObject, IHull, IHaveState<HullState>
     {
-        private int _pendingDamage = 0;
+        private HullState _state;
 
         private int m_MaxIntegrity;
         /// <inheritdoc />
@@ -18,12 +19,18 @@ namespace SpaceWarsHex.Systems
             set => this.RaiseAndSetIfChanged(ref m_MaxIntegrity, value);
         }
 
-        private int m_CurrentIntegrity;
         /// <inheritdoc />
         public int CurrentIntegrity
         {
-            get => m_CurrentIntegrity;
-            set => this.RaiseAndSetIfChanged(ref m_CurrentIntegrity, value);
+            get => _state.CurrentIntegrity;
+            set
+            {
+                if (_state.CurrentIntegrity != value)
+                {
+                    _state.CurrentIntegrity = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
         /// <summary>
@@ -33,20 +40,48 @@ namespace SpaceWarsHex.Systems
         public Hull(IHullPrototype prototype)
         {
             m_MaxIntegrity = prototype.MaxIntegrity;
-            m_CurrentIntegrity = MaxIntegrity;
+
+            _state = new HullState
+            {
+                Id = Guid.NewGuid(),
+                //PrototypeId = prototype.Id,   // TODO: Should Hull have a prototypeId?
+                Name = "Hull",                  //       Or name?
+                CurrentIntegrity = m_MaxIntegrity,
+                PendingDamage = 0,
+            };
         }
 
         /// <inheritdoc />
         public void ApplyDamage()
         {
-            CurrentIntegrity = Math.Max(0, MaxIntegrity - _pendingDamage);
-            _pendingDamage = 0;
+            CurrentIntegrity = Math.Max(0, MaxIntegrity - _state.PendingDamage);
+            _state.PendingDamage = 0;
         }
 
         /// <inheritdoc />
         public void AssignDamage(int damage)
         {
-            _pendingDamage += damage;
+            _state.PendingDamage += damage;
         }
+
+        #region IHaveState
+
+        public HullState GetState()
+        {
+            _state.Hash = _state.GetHashCode();
+            return _state;
+        }
+
+        public void SetState(HullState state)
+        {
+            _state = state;
+        }
+
+        public int GetStateHash()
+        {
+            return _state.GetHashCode();
+        }
+
+        #endregion
     }
 }

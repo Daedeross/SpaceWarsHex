@@ -1,4 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Orders;
+using SpaceWarsHex.Model;
 
 namespace SpaceWarsHex.Interfaces
 {
@@ -8,11 +9,6 @@ namespace SpaceWarsHex.Interfaces
     public interface ITorpedo : IMovingHexObject, IOrderable<ITorpedoExplodeOrder>, IOrderable<IMoveOrder>
     {
         /// <summary>
-        /// The ship that fired the torpedo.
-        /// </summary>
-        IShip Owner { get; }
-
-        /// <summary>
         /// The strength of the torpedo when it explodes.
         /// </summary>
         int Power { get; }
@@ -20,6 +16,17 @@ namespace SpaceWarsHex.Interfaces
         /// <summary>
         /// True if the torpedo is homing Capable.
         /// </summary>
-        bool Homing { get; }
+        HomingType Homing { get; }
+
+        /// <summary>
+        /// The Max-Warp lost each time the torpedo manoeuvres.
+        /// Only maningful if torpedo is homing.
+        /// </summary>
+        int HomingLoss { get; }
+
+        /// <summary>
+        /// The maximum distance, in hexes, the entity can change velocity in one turn.
+        /// </summary>
+        int AccelerationClass { get; }
     }
 }

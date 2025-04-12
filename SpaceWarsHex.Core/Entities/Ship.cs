@@ -51,7 +51,7 @@ namespace SpaceWarsHex.Entities
 
         #region Orders
 
-        protected IOrdinanceOrder?[] _ordinanceOrders;
+        protected IOrdinanceOrder?[] _ordinanceOrders = [];
 
         private IEnergyWeaponOrder? m_CurrentEnergyWeaponOrder;
         public IEnergyWeaponOrder? CurrentEnergyWeaponOrder
@@ -233,6 +233,22 @@ namespace SpaceWarsHex.Entities
                 .ToList();
         }
 
+        public IReadOnlyCollection<IOrder> GetCurrentTurnOrders()
+        {
+            List<IOrder> result = [];
+
+            if (CurrentEnergyWeaponOrder != null)
+            {
+                result.Add(CurrentEnergyWeaponOrder);
+            }
+
+#pragma warning disable CS8620 // Just look at it, the analyzer is stupod.
+            result.AddRange(_ordinanceOrders.Where(o => o != null));
+#pragma warning restore CS8620
+
+            return result;
+        }
+
         public OrderResult GiveOrder<TOrder>(TOrder order) where TOrder : IOrder
         {
             return order switch
@@ -380,7 +396,7 @@ namespace SpaceWarsHex.Entities
         {
             return system switch
             {
-                IDirectFire => OrderResult.Ok(),
+                IEnergyWeapon => OrderResult.Ok(),
                 ITorpedoLauncher torepdo => TorpedoOrder(torepdo, order),
                 IBombLauncher bomb => BombOrder(bomb, order),
                 _ => throw new NotImplementedException()
@@ -484,6 +500,33 @@ namespace SpaceWarsHex.Entities
 
         #endregion // Private Order Handlers
 
+        #region IFireWeapons
+
+        public IReadOnlyCollection<(IWeapon, IWeaponOrder)> GetFiringWeapons(TurnPhase turnPhase)
+        {
+            var result = new List<(IWeapon, IWeaponOrder)> ();
+            if (CurrentEnergyWeaponOrder != null)
+            {
+                var weapon = EnergyWeapons[CurrentEnergyWeaponOrder.WeaponIndex];
+                result.Add((weapon, CurrentEnergyWeaponOrder));
+            }
+
+            for (int i = 0; i < _ordinanceOrders.Length; i++)
+            {
+                var order = _ordinanceOrders[i];
+                if (order != null)
+                {
+                    result.Add((Ordinances[i], order));
+                }
+            }
+
+            return result
+                .Where(x => x.Item1.FirePhase == turnPhase)
+                .ToList();
+        }
+
+        #endregion // IFireWeapons
+
         #endregion // Order Handling
 
         #region TurnPhase Handling
@@ -559,6 +602,9 @@ namespace SpaceWarsHex.Entities
             }
         }
 
+        /// <summary>
+        /// Finalize Orders
+        /// </summary>
         private void OrdersEnd()
         {
             _shields.CurrentPower = _shields.AllocatedPower;

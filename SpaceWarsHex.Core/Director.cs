@@ -4,6 +4,7 @@ using SpaceWarsHex.Interfaces.Bridges;
 using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Rules;
+using SpaceWarsHex.Interfaces.Systems;
 using SpaceWarsHex.Model;
 using SpaceWarsHex.Rules;
 
@@ -24,18 +25,18 @@ namespace SpaceWarsHex
 
         private const string ShipPrefabKey = @"Assets/Sprites/BlankArrow.png";
 
-        private readonly HexMatrix<IHexObject> _allEntities = new();
-        private readonly Dictionary<Guid, IHexObject> _idMap = new();
+        private readonly HexMatrix<IHexObject> _allEntities = [];
+        private readonly Dictionary<Guid, IHexObject> _idMap = [];
 
         private readonly IRules _rules = new BoardRules();
-        private readonly List<ITeam> _teams = new();
-        private readonly List<IPlayer> _players = new();
-        private readonly List<IOrderable> _orderables = new();
-        private readonly Dictionary<TurnPhase, List<IMovingHexObject>> _moveables = new();
+        private readonly List<ITeam> _teams = [];
+        private readonly List<IPlayer> _players = [];
+        private readonly List<IOrderable> _orderables = [];
+        private readonly Dictionary<TurnPhase, List<IMovingHexObject>> _moveables = [];
 
         #region Damage Handling
 
-        private Dictionary<IDamageable, List<WeaponDamageInstance>> _pendingDamage = new Dictionary<IDamageable, List<WeaponDamageInstance>>();
+        private readonly Dictionary<IDamageable, List<WeaponDamageInstance>> _pendingDamage = [];
 
         #endregion
 
@@ -304,7 +305,7 @@ namespace SpaceWarsHex
 
         private void Weapons1()
         {
-            // TODO: Fire weapons!
+            FireWeapons(CurrentPhase);
             QueueMovement(CurrentPhase, HandleEndOfPhase);
         }
 
@@ -316,7 +317,7 @@ namespace SpaceWarsHex
 
         private void Weapons2()
         {
-            // TODO: Fire weapons!
+            FireWeapons(CurrentPhase);
             QueueMovement(CurrentPhase, HandleEndOfPhase);
         }
 
@@ -402,10 +403,38 @@ namespace SpaceWarsHex
 
         private void FireWeapons(TurnPhase phase)
         {
-            //var weaponOrders  = _orderables.SelectMany(orderable => orderable.GetOrders<IWeaponOrder>(CurrentTurn))
-            //    .Where(order => order.phas;
+            var weaponOrders = _orderables
+                .OfType<IFireWeapons>()
+                .SelectMany(entity => entity.GetFiringWeapons(phase), (e, o) => new { Entity = e, Order = o })
+                .GroupBy(a => a.Entity);
+
+            foreach (var entity in weaponOrders)
+            {
+                
+            }
         }
 
         #endregion // Turn Phase Handling
+
+        #region Weapon Spawing
+
+        private void SpawnTorpedo(IHexObject source, ITorpedoLauncher launcher, IWeaponOrder order)
+        {
+
+        }
+
+        #endregion // Weapon Spawing
+
+        public override int GetHashCode()
+        {
+            var hash = new HashCode();
+
+            foreach (var entity in _allEntities)
+            {
+                hash.Add(entity.GetHashCode());
+            }
+
+            return hash.ToHashCode();
+        }
     }
 }

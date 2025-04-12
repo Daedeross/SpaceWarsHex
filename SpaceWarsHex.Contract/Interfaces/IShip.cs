@@ -10,7 +10,7 @@ namespace SpaceWarsHex.Interfaces
     /// <summary>
     /// Interface for ships
     /// </summary>
-    public interface IShip : IMovingHexObject, IOrderable, IDamageable, IOrderable<IReactorOrder>, IOrderable<IMoveOrder>, IOrderable<IShieldOrder>, ISelectable, ITargetable
+    public interface IShip : IMovingHexObject, IOrderable, IDamageable, IOrderable<IReactorOrder>, IOrderable<IMoveOrder>, IOrderable<IShieldOrder>, ISelectable, ITargetable, IFireWeapons
     {
         /// <summary>
         /// The ship's <see cref="IReactor"/>

@@ -1,7 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SpaceWarsHex.Prototypes
@@ -33,7 +31,7 @@ namespace SpaceWarsHex.Prototypes
 
         /// <inheritdoc />
         [DataMember]
-        public int? MaxRange { get; set; }
+        public int MaxRange { get; set; }
 
         /// <inheritdoc />
         [IgnoreDataMember]

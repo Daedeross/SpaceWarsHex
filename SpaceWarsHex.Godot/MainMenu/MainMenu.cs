@@ -1,16 +1,17 @@
 using Godot;
+using SpaceWarsHex;
 using System;
 
 public partial class MainMenu : Control
 {
-    private CanvasItem _lobby;
-    private CanvasItem _mainPanel;
+    private Lobby _lobby;
+    private Control _mainPanel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _lobby = GetNode<CanvasItem>("Lobby");
-        _mainPanel = GetNode<CanvasItem>("MainPanel");
+        _lobby = GetNode<Lobby>("Lobby");
+        _mainPanel = GetNode<Control>("MainPanel");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

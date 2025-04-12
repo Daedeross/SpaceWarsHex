@@ -54,5 +54,11 @@ namespace SpaceWarsHex.Interfaces
         /// <returns><see cref="IReadOnlyDictionary{TKey, TValue}"/> where the key is the turn number and the values
         /// are the orders given that turn.</returns>
         IReadOnlyDictionary<int, IReadOnlyCollection<IOrder>> GetAllOrders();
+
+        /// <summary>
+        /// Gets the orders for the current turn.
+        /// </summary>
+        /// <returns></returns>
+        IReadOnlyCollection<IOrder> GetCurrentTurnOrders();
     }
 }

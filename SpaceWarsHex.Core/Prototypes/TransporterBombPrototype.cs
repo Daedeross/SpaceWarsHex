@@ -12,10 +12,6 @@ namespace SpaceWarsHex.Prototypes
     {
         /// <inheritdoc />
         [DataMember]
-        public int MaxRange { get; set; }
-
-        /// <inheritdoc />
-        [DataMember]
         public int DetonationDelay { get; set; }
 
         /// <inheritdoc />

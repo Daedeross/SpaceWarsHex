@@ -10,12 +10,12 @@ namespace SpaceWarsHex
 
         Session _currentSession;
 
-        Node _connectPanel = null;
+        Control _connectPanel = null;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            _connectPanel = GetNode("Connect");
+            _connectPanel = GetNode<Control>("Connect");
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.

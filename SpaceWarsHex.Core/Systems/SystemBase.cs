@@ -12,6 +12,8 @@ namespace SpaceWarsHex.Systems
     /// </summary>
     public abstract class SystemBase : NotificationObject, ISystem
     {
+        protected readonly Guid _prototypeId;
+
         /// <summary>
         /// The name of the system, for display purposes.
         /// TODO: Figure out if and how to do localization.
@@ -37,6 +39,7 @@ namespace SpaceWarsHex.Systems
         /// <param name="prototype"><see cref="ISystemPrototype"/></param>
         public SystemBase(ISystemPrototype prototype)
         {
+            _prototypeId = prototype.Id;
             Name = prototype.Name;
             _damageThresholds = prototype.DamageThresholds.ToList();
             _damageThresholds.Sort();

@@ -25,7 +25,7 @@
      inkscape:document-units="px"
      showgrid="true"
      inkscape:zoom="1.7852694"
-     inkscape:cx="275.3086"
+     inkscape:cx="166.36145"
      inkscape:cy="267.18657"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
@@ -47,8 +47,8 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#ff0000;stroke:#000000;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
-       d="M 64,448 256,64 448,448 256,320 Z"
+       style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:16;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 64,64 448,256 64,448 192,256 Z"
        id="path234" />
   </g>
 </svg>

@@ -20,5 +20,10 @@ namespace SpaceWarsHex.Interfaces.Systems
         /// The phase the weapon is fired/launched. Only <see cref="TurnPhase.Weapons1"/> and <see cref="TurnPhase.Weapons2"/> are valid
         /// </summary>
         TurnPhase FirePhase { get; }
+
+        /// <summary>
+        /// The max range of the weapon. Non-Positive = infinite.
+        /// </summary>
+        int MaxRange { get; }
     }
 }

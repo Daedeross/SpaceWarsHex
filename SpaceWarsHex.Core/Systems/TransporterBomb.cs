@@ -21,8 +21,6 @@ namespace SpaceWarsHex.Systems
 
         #region IBombLauncher
         /// <inheritdoc />
-        public int MaxRange { get; private set; }
-        /// <inheritdoc />
         public int DetonationDelay { get; private set; }
         /// <inheritdoc />
         public TurnPhase DetonationPhase { get; private set; }
@@ -49,7 +47,6 @@ namespace SpaceWarsHex.Systems
             Strength = prototype.Strength;
             MaxUses = prototype.MaxUses;
             UsesRemaining = MaxUses;
-            MaxRange = prototype.MaxRange;
             DetonationDelay = prototype.DetonationDelay;
             DetonationPhase = prototype.DetonationPhase;
             RevealDelay = prototype.RevealDelay;

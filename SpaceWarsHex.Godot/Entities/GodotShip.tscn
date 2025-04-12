@@ -11,10 +11,20 @@ texture = ExtResource("2_0m5gt")
 
 [node name="VelocitySprite" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
 position = Vector2(200, 100)
 texture = ExtResource("2_0m5gt")
 
+[node name="VelocityLine" type="Line2D" parent="."]
+z_index = -2
+points = PackedVector2Array(0, 0, 200, 100)
+width = 20.0
+default_color = Color(0, 0.705882, 0.705882, 1)
+begin_cap_mode = 2
+end_cap_mode = 2
+
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 build_mode = 1

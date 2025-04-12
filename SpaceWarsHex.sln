@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceWarsHex.Serialization.Tests", "SpaceWarsHex.Serialization.Tests\SpaceWarsHex.Serialization.Tests.csproj", "{C70D9054-53D2-4B9C-85CC-D8AA90350335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,14 @@ Global
 		{EF559E78-DD4E-41BF-917D-83868948E192}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{EF559E78-DD4E-41BF-917D-83868948E192}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF559E78-DD4E-41BF-917D-83868948E192}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.ExportDebug|Any CPU.ActiveCfg = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.ExportDebug|Any CPU.Build.0 = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C70D9054-53D2-4B9C-85CC-D8AA90350335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

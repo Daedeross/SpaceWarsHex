@@ -7,7 +7,7 @@ namespace SpaceWarsHex.Serialization
 {
     public class PrototypeDatabase
     {
-        private readonly ConcurrentDictionary<Guid, IPrototype> _cache = new ConcurrentDictionary<Guid, IPrototype>();
+        private readonly ConcurrentDictionary<Guid, IPrototype> _cache = new();
 
         /// <summary>
         /// Adds a prototype to the DB if it does not exist yet,
@@ -27,6 +27,28 @@ namespace SpaceWarsHex.Serialization
             }
             else throw new InvalidCastException(
                 $"The existing prototype with id {prototype.Id} is not of type {typeof(TPrototype)}");
+        }
+
+        public bool TryGetValue(Guid id, out IPrototype prototype)
+        {
+            return _cache.TryGetValue(id, out prototype);
+        }
+
+
+        public bool TryGetValue<TPrototype>(Guid id, out TPrototype prototype)
+            where TPrototype: IPrototype, IHaveId
+        {
+            if (_cache.TryGetValue(id, out IPrototype value))
+            {
+                if (value is TPrototype prototype2)
+                {
+                    prototype = prototype2;
+                    return true;
+                }
+            }
+
+            prototype = default;
+            return false;
         }
     }
 }

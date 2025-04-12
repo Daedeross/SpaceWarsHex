@@ -9,7 +9,7 @@ namespace SpaceWarsHex.Core.Tests
 {
     public class HexMatrixTests
     {
-        public static TheoryData<HexVector2> TestVectors =
+        public static readonly TheoryData<HexVector2> TestVectors =
             new()
             {
                 new HexVector2(0, 0)   ,

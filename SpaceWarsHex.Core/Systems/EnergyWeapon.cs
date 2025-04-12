@@ -10,7 +10,7 @@ namespace SpaceWarsHex.Systems
     /// <summary>
     /// Abstract base class for all energy weapons.
     /// </summary>
-    public abstract class EnergyWeapon : WeaponBase, IEnergyWeapon
+    public class EnergyWeapon : WeaponBase, IEnergyWeapon
     {
         /// <inheritdoc />
         public int InitialMaxDice { get; private set; }

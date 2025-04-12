@@ -1,7 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
-using SpaceWarsHex.Model;
-using System;
 
 namespace SpaceWarsHex.Systems
 {
@@ -37,17 +35,7 @@ namespace SpaceWarsHex.Systems
         /// <inheritdoc />
         public static IEnergyWeapon Create(IEnergyWeaponPrototype prototype)
         {
-            return prototype.FireMode switch
-            {
-                FireMode.DirectFire => new DirectFireEnergyWeapon(prototype),
-                FireMode.Beam       => throw new NotImplementedException("Beam Weapons"),
-                FireMode.Bomb       => throw new NotImplementedException("Bombs"),
-                FireMode.Torpedo    => throw new NotImplementedException("Energy Torpedo Tube"),
-                FireMode.Wall       => throw new NotImplementedException("Wall"),
-                FireMode.Pulse      => throw new NotImplementedException("Pulse"),
-                FireMode.Wave       => throw new NotImplementedException("Wave"),
-                _ => throw new NotImplementedException($"Fire Mode {prototype.FireMode} not yet implemented for Energy Weapons" )
-            };
+            return new EnergyWeapon(prototype);
         }
 
         /// <inheritdoc />

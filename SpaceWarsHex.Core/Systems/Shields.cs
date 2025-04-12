@@ -1,5 +1,6 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
+using SpaceWarsHex.States.Systems;
 using System;
 
 namespace SpaceWarsHex.Systems
@@ -9,6 +10,8 @@ namespace SpaceWarsHex.Systems
     /// </summary>
     public class Shields : SystemBase, IShields
     {
+        private ShieldsState _state;
+
         /// <inheritdoc />
         public int MaxPower { get; protected set; }
 
@@ -31,6 +34,16 @@ namespace SpaceWarsHex.Systems
         {
             MaxPower = prototype.MaxPower;
             _maxPowerAvailable = MaxPower;
+
+            _state = new ShieldsState
+            {
+                Id = Guid.NewGuid(),
+                PrototypeId = prototype.Id,
+                Name = prototype.Name,
+                AllocatedPower = 0,
+                CurrentPower = 0,
+                MaxPowerAvailable = MaxPower,
+            };
 
             AllocatedPower = 0;
             CurrentPower = 0;

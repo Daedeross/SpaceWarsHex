@@ -6,11 +6,6 @@
     public interface IBomb : IHexObject
     {
         /// <summary>
-        /// The team that launcehd the bomb.
-        /// </summary>
-        ITeam Owner { get; }
-
-        /// <summary>
         /// The explosive power of the bomb.
         /// </summary>
         int Power { get; }

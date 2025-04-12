@@ -1,16 +1,20 @@
-﻿using SpaceWarsHex.Interfaces.Orders;
+﻿using ProtoBuf;
 using SpaceWarsHex.Model;
 using System;
-using System.Runtime.Serialization;
 
-namespace SpaceWarsHex.Orders
+namespace SpaceWarsHex.States.Orders
 {
-    [Serializable]
-    [DataContract]
-    public class EnergyWeaponOrder : WeaponOrderBase, IEnergyWeaponOrder
+    [ProtoContract]
+    public class EnergyWeaponOrder : WeaponOrder
     {
-        [DataMember]
+        [ProtoMember(1)]
         public int Power { get; set; }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(TurnNumber, WeaponIndex, TargetId, TargetHex,
+                Velocity, Orientation6, Orientation12, Power);
+        }
 
         #region Factories
 

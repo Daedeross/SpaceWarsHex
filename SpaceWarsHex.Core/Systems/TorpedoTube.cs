@@ -2,7 +2,6 @@
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
 using SpaceWarsHex.Model;
-using System.Collections.Generic;
 
 namespace SpaceWarsHex.Systems
 {

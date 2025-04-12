@@ -1,14 +1,13 @@
 using Godot;
-using SpaceWarsHex;
+using SpaceWarsHex.Bridges;
 using SpaceWarsHex.Entities;
+using SpaceWarsHex.Godot;
 using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Model;
-using SpaceWarsHex.Orders;
 using SpaceWarsHex.Rules;
-using SpaceWarsHex.Bridges;
-using System.Linq;
+using SpaceWarsHex.States.Orders;
 using System;
-using Godot.NativeInterop;
+using System.Linq;
 
 namespace SpaceWarsHex
 {
@@ -27,7 +26,7 @@ namespace SpaceWarsHex
 
         private ChooseEntityList _selectList;
         private TargetLine _targetLine;
-
+        private SelectionReticle _selectReticle;
         private Action<ITargetable> _onTarget;
         private Func<ITargetable, bool> _targetFilter;
 
@@ -63,6 +62,7 @@ namespace SpaceWarsHex
             _shipControls = GetNode<ShipControls>("UI/ShipControls");
             _selectList = GetNode<ChooseEntityList>("UI/ChooseEntityList");
             _targetLine = GetNode<TargetLine>("TargetLine");
+            _selectReticle = GetNode<SelectionReticle>("%SelectionReticle");
         }
 
         #region Test Stuff
@@ -214,7 +214,17 @@ namespace SpaceWarsHex
                     break;
             }
 
-            TargetLine(selectable as IShip);
+            if (_selected is null)
+            {
+                _selectReticle.Visible = false;
+            }
+            else
+            {
+                _selectReticle.HexPosition = _selected.Position;
+                _selectReticle.Visible = true;
+            }
+
+                TargetLine(selectable as IShip);
         }
 
         private void SelectTarget(Vector2 pos)
@@ -285,7 +295,7 @@ namespace SpaceWarsHex
             return worldPos.GetHex();
         }
 
-        private void TargetLine(IShip? ship)
+        private void TargetLine(IShip ship)
         {
             var order = ship?.CurrentEnergyWeaponOrder;
             if (order?.TargetId != null)

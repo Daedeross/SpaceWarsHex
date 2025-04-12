@@ -8,11 +8,6 @@ namespace SpaceWarsHex.Interfaces.Systems
     public interface IBombLauncher : IWeapon
     {
         /// <summary>
-        /// The maximum range of the bomb, in hexes.
-        /// </summary>
-        int MaxRange { get; }
-
-        /// <summary>
         /// The number of turns before the bomb explodes.
         /// </summary>
         int DetonationDelay { get; }

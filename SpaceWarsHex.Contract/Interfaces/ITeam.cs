@@ -28,12 +28,12 @@ namespace SpaceWarsHex.Interfaces
         IReadOnlyList<IShip> Ships { get; }
 
         /// <summary>
-        /// All entities controlled by the player that can be selected.
+        /// All entities controlled by the team that can be selected.
         /// </summary>
         IReadOnlyCollection<ISelectable> Selectables { get; }
 
         /// <summary>
-        /// All entities controlled/owned by the player.
+        /// All entities controlled/owned by the team.
         /// </summary>
         IReadOnlyCollection<IHexObject> ControlledEntities { get; }
 

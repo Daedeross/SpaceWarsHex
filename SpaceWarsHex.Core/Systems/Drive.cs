@@ -1,12 +1,15 @@
-﻿using SpaceWarsHex.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
 using SpaceWarsHex.Model;
+using SpaceWarsHex.States.Systems;
 
 namespace SpaceWarsHex.Systems
 {
     /// <inheritdoc />
-    public class Drive : SystemBase, IDrive
+    public class Drive : SystemBase, IDrive, IHaveState<SystemStateBase>
     {
+        private SystemStateBase _state;
         /// <summary>
         /// TODO: replace with localized strings later.
         /// </summary>
@@ -32,6 +35,13 @@ namespace SpaceWarsHex.Systems
             AccelerationClass = prototype.AccelerationClass;
 
             Velocity = HexVector2.Zero;
+
+            _state = new()
+            {
+                Id = Guid.NewGuid(),
+                PrototypeId = prototype.Id,
+                Name = prototype.Name,
+            };
         }
 
         /// <inheritdoc />
@@ -44,5 +54,25 @@ namespace SpaceWarsHex.Systems
         public override void HandleEndOfTurn(int turnNumber)
         {
         }
+
+        #region IHaveState
+
+        public SystemStateBase GetState()
+        {
+            _state.Hash = _state.GetHashCode();
+            return _state;
+        }
+
+        public void SetState(SystemStateBase state)
+        {
+            _state = state;
+        }
+
+        public int GetStateHash()
+        {
+            return _state.GetHashCode();
+        }
+
+        #endregion
     }
 }

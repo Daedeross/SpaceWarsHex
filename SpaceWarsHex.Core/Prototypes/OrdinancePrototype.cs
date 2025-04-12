@@ -1,8 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 
@@ -36,6 +33,10 @@ namespace SpaceWarsHex.Prototypes
         /// <inheritdoc />
         [DataMember]
         public TurnPhase FirePhase { get; set; }
+
+        /// <inheritdoc />
+        [DataMember]
+        public int MaxRange { get; set; }
 
         /// <inheritdoc />
         [DataMember]

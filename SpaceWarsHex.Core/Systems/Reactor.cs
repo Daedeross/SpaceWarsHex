@@ -1,17 +1,17 @@
-﻿using SpaceWarsHex.Interfaces.Prototypes;
+﻿using SpaceWarsHex.Interfaces;
+using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Interfaces.Systems;
 using SpaceWarsHex.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SpaceWarsHex.Systems
 {
     /// <summary>
     /// WIP implementation of <see cref="IReactor"/>
     /// </summary>
-    public class Reactor : SystemBase, IReactor
+    public class Reactor : SystemBase, IReactor, IHaveState<States.Systems.ReactorState>
     {
+        private States.Systems.ReactorState _state;
+
         /// <summary>
         /// TODO: replace with localized strings later.
         /// </summary>
@@ -46,65 +46,65 @@ namespace SpaceWarsHex.Systems
         }
 
         /// <inheritdoc />
-        private int m_EmergencyPower;
-        public int EmergencyPower
-        {
-            get => m_EmergencyPower;
-            protected set
-            {
-                if (RaiseAndSetIfChanged(ref m_EmergencyPower, value))
-                {
-                    RaisePropertyChanged(nameof(CurrentAvailablePower));
-                }
-            }
-        }
+        public int EmergencyPower { get; }
 
         /// <inheritdoc />
         public int MaxTurnsAtAttackPower { get; protected set; }
 
         /// <inheritdoc />
-        private ReactorState m_CurrentState;
         public ReactorState CurrentState
         {
-            get => m_CurrentState;
+            get => _state.CurrentState;
             set
             {
-                if (RaiseAndSetIfChanged(ref m_CurrentState, value))
+                if (value != _state.CurrentState)
                 {
+                    _state.CurrentState = value;
                     RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <inheritdoc />
-        private bool m_UsingEmergencyPower;
-        public bool UsingEmergencyPower
-        {
-            get => m_UsingEmergencyPower;
-            set
-            {
-                if(RaiseAndSetIfChanged(ref m_UsingEmergencyPower, value))
-                {
                     RaisePropertyChanged(nameof(CurrentAvailablePower));
                 }
             }
         }
 
         /// <inheritdoc />
-        public ReactorState PreviousState { get; set; }
-
-        /// <inheritdoc />
-        public bool UsedEmergencyPowerLastTurn { get; set; }
-
-        /// <inheritdoc />
-        private int m_CurrentTurnPenalty;
-        public int CurrentTurnPenalty
+        public bool UsingEmergencyPower
         {
-            get => m_CurrentTurnPenalty;
+            get => _state.UsingEmergencyPower;
             set
             {
-                if (RaiseAndSetIfChanged(ref m_CurrentTurnPenalty, value))
+                if (value != _state.UsingEmergencyPower)
                 {
+                    _state.UsingEmergencyPower = value;
+                    RaisePropertyChanged();
+                    RaisePropertyChanged(nameof(CurrentAvailablePower));
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public ReactorState PreviousState
+        {
+            get => _state.PreviousState;
+            set => _state.PreviousState = value;
+        }
+
+        /// <inheritdoc />
+        public bool UsedEmergencyPowerLastTurn
+        {
+            get => _state.UsedEmergencyPowerLastTurn;
+            set => _state.UsedEmergencyPowerLastTurn = value;
+        }
+
+        /// <inheritdoc />
+        public int CurrentTurnPenalty
+        {
+            get => _state.CurrentTurnPenalty;
+            set
+            {
+                if (_state.CurrentTurnPenalty != value)
+                {
+                    _state.CurrentTurnPenalty = value;
+                    RaisePropertyChanged();
                     RaisePropertyChanged(nameof(CurrentAvailablePower));
                 }
             }
@@ -114,14 +114,15 @@ namespace SpaceWarsHex.Systems
         public int NextTurnPenalty { get; set; }
 
         /// <inheritdoc />
-        private int m_CurrentMaxPower;
         public int CurrentMaxPower
         {
-            get => m_CurrentMaxPower;
+            get => _state.CurrentMaxPower;
             protected set
             {
-                if (RaiseAndSetIfChanged(ref m_CurrentMaxPower, value))
+                if (_state.CurrentMaxPower != value)
                 {
+                    _state.CurrentMaxPower = value;
+                    RaisePropertyChanged();
                     RaisePropertyChanged(nameof(CurrentAvailablePower));
                 }
             }
@@ -144,15 +145,32 @@ namespace SpaceWarsHex.Systems
         }
 
         /// <inheritdoc />
-        private int m_PowerAllocated;
         public int PowerAllocated
         {
-            get => m_PowerAllocated;
-            set => this.RaiseAndSetIfChanged(ref m_PowerAllocated, value);
+            get => _state.PowerAllocated;
+            set
+            {
+                if (value != _state.PowerAllocated)
+                {
+                    _state.PowerAllocated = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
 
         /// <inheritdoc />
-        public int TurnsSpentAtAttackPower { get; set; }
+        public int TurnsSpentAtAttackPower
+        {
+            get => _state.TurnsSpentAtAttackPower;
+            set
+            {
+                if (value != _state.TurnsSpentAtAttackPower)
+                {
+                    _state.TurnsSpentAtAttackPower = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// Public constructor.
@@ -166,15 +184,21 @@ namespace SpaceWarsHex.Systems
             EmergencyPower = prototype.EmergencyPower;
             MaxTurnsAtAttackPower = prototype.MaxTurnsAtAttackPower;
 
-            CurrentState = ReactorState.Cruise;
-            UsingEmergencyPower = false;
-            PreviousState = ReactorState.Cruise;
-            UsedEmergencyPowerLastTurn = false;
-            CurrentMaxPower = Math.Max(AttackPower, CruisePower);
-            CurrentTurnPenalty = 0;
-            NextTurnPenalty = 0;
-            PowerAllocated = 0;
-            TurnsSpentAtAttackPower = 0;
+            _state = new()
+            {
+                Id                         = Guid.NewGuid(),
+                PrototypeId                = prototype.Id,
+                Name                       = prototype.Name,
+                CurrentState               = ReactorState.Cruise,
+                PreviousState              = ReactorState.Cruise,
+                UsingEmergencyPower        = false,
+                UsedEmergencyPowerLastTurn = false,
+                CurrentTurnPenalty         = 0,
+                NextTurnPenalty            = 0,
+                TurnsSpentAtAttackPower    = 0,
+                PowerAllocated             = 0,
+                CurrentMaxPower            = Math.Max(AttackPower, CruisePower)
+            };
         }
 
         /// <inheritdoc />
@@ -205,5 +229,32 @@ namespace SpaceWarsHex.Systems
                 CurrentState = ReactorState.Cruise;
             }
         }
+
+        #region IHaveState
+        public States.Systems.ReactorState GetState()
+        {
+            _state.Hash = _state.GetHashCode();
+            return _state;
+        }
+
+        public void SetState(States.Systems.ReactorState state)
+        {
+            _state = state;
+            RaisePropertyChanged(nameof(CurrentState));
+            RaisePropertyChanged(nameof(PreviousState));
+            RaisePropertyChanged(nameof(UsingEmergencyPower));
+            RaisePropertyChanged(nameof(UsedEmergencyPowerLastTurn));
+            RaisePropertyChanged(nameof(CurrentTurnPenalty));
+            RaisePropertyChanged(nameof(NextTurnPenalty));
+            RaisePropertyChanged(nameof(TurnsSpentAtAttackPower));
+            RaisePropertyChanged(nameof(PowerAllocated));
+            RaisePropertyChanged(nameof(CurrentMaxPower));
+        }
+
+        public int GetStateHash()
+        {
+            return _state.GetHashCode();
+        }
+        #endregion // IHaveState
     }
 }

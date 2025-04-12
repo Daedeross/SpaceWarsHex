@@ -24,11 +24,6 @@ namespace SpaceWarsHex.Interfaces.Prototypes
         int EnergyPerDie { get; }
 
         /// <summary>
-        /// For direct fire weapons that have  a limited range.
-        /// </summary>
-        int? MaxRange { get; }
-
-        /// <summary>
         /// The ordered list of effects that one "hit" will cause.
         /// </summary>
         /// <remarks>

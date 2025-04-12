@@ -64,6 +64,8 @@ namespace SpaceWarsHex.Entities
             return entity;
         }
 
+        //public ITorpedo CreateTorpedo(IHexObject owner, HexVector2 velocity, bool )
+
         public void Destroy(IHexObject hexObject)
         {
             throw new NotImplementedException();

@@ -3,6 +3,7 @@ using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Interfaces.Systems;
 using SpaceWarsHex.Model;
+using SpaceWarsHex.States.Orders;
 using System;
 
 namespace SpaceWarsHex.Orders

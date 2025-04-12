@@ -7,10 +7,12 @@
     <BaseOutputPath>..\Assets\lib</BaseOutputPath>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
+    <NoWarn>CS8618</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="9.0.3" />
+    <PackageReference Include="protobuf-net.Core" Version="3.2.46" />
+    <PackageReference Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
 
 
