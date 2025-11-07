@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface for a ship prototype's hull.
     /// </summary>
-    public interface IHullPrototype
+    public interface IHullPrototype: IPrototype
     {
         /// <summary>
         /// The Max HP (Hull Points?) for a ship.

@@ -13,7 +13,7 @@ namespace SpaceWarsHex.Systems
         private static OrderKind[] _validOrders = new[] { OrderKind.TorpedoOrder };
 
         private readonly Dictionary<int, IReadOnlyCollection<IOrder>> _allOrders = new Dictionary<int, IReadOnlyCollection<IOrder>>();
-        private IOrder? _currentOrder;
+        private IOrder? _currentOrder = null;
 
         #region IOrdinance
         /// <inheritdoc />

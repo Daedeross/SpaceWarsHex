@@ -4,13 +4,13 @@ using System;
 
 public partial class MainMenu : Control
 {
-    private Lobby _lobby;
+    private Networking _lobby;
     private Control _mainPanel;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _lobby = GetNode<Lobby>("Lobby");
+        _lobby = GetNode<Networking>("Networking");
         _mainPanel = GetNode<Control>("MainPanel");
     }
 

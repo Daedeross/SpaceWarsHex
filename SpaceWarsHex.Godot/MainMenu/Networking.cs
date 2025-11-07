@@ -3,7 +3,7 @@ using System;
 
 namespace SpaceWarsHex
 {
-    public partial class Lobby : Control
+    public partial class Networking : Control
     {
         [Export]
         public PackedScene SessionScene { get; set; }

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://chy0rarj8rub3"]
 
-[ext_resource type="Script" uid="uid://dxre05lonn5vt" path="res://MainMenu/Lobby.cs" id="1_aifpy"]
+[ext_resource type="Script" uid="uid://dl7gdtfnw1mg" path="res://MainMenu/Networking.cs" id="1_ryk2m"]
 [ext_resource type="PackedScene" uid="uid://x2a0apntnxcv" path="res://Session/Session.tscn" id="2_va4fx"]
 
-[node name="Lobby" type="Control"]
+[node name="Networking" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ offset_left = 4.0
 offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_aifpy")
+script = ExtResource("1_ryk2m")
 SessionScene = ExtResource("2_va4fx")
 
 [node name="Connect" type="Panel" parent="."]
@@ -23,64 +23,74 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -170.0
-offset_top = -100.0
+offset_top = -150.0
 offset_right = 170.0
-offset_bottom = 100.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NameLabel" type="Label" parent="Connect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="PlayerNameLabel" type="Label" parent="Connect"]
+layout_mode = 0
 offset_left = 14.0
 offset_top = 14.0
-offset_right = 2.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Session Name:
-"
+offset_right = 118.0
+offset_bottom = 37.0
+text = "Player Name:"
+
+[node name="PlayerName" type="LineEdit" parent="Connect"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 46.0
+offset_right = 222.0
+offset_bottom = 77.0
+placeholder_text = "Awesome Player"
+
+[node name="NameLabel" type="Label" parent="Connect"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 94.0
+offset_right = 127.0
+offset_bottom = 117.0
+text = "Session Name:"
 
 [node name="SessionName" type="LineEdit" parent="Connect"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 38.0
+offset_top = 126.0
 offset_right = 222.0
-offset_bottom = 69.0
+offset_bottom = 157.0
 text = "Awesom Session"
 
 [node name="JoinLabel" type="Label" parent="Connect"]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 94.0
+offset_top = 174.0
 offset_right = 177.0
-offset_bottom = 120.0
+offset_bottom = 200.0
 text = "Join Session Address:"
 
 [node name="SessionAddress" type="LineEdit" parent="Connect"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 126.0
+offset_top = 206.0
 offset_right = 222.0
-offset_bottom = 157.0
+offset_bottom = 237.0
 text = "127.0.0.1"
 
 [node name="Host" type="Button" parent="Connect"]
 layout_mode = 0
 offset_left = 238.0
-offset_top = 38.0
+offset_top = 126.0
 offset_right = 288.0
-offset_bottom = 69.0
+offset_bottom = 157.0
 text = "Host"
 
 [node name="Join" type="Button" parent="Connect"]
 layout_mode = 0
 offset_left = 238.0
-offset_top = 126.0
+offset_top = 206.0
 offset_right = 288.0
-offset_bottom = 157.0
+offset_bottom = 237.0
 text = "Join"
 
 [connection signal="pressed" from="Connect/Host" to="." method="OnHostPressed"]

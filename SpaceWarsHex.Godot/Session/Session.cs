@@ -11,6 +11,11 @@ namespace SpaceWarsHex
         public const int ServerPort = 6500;
         public const int MaxPlayers = 64;
 
+        [Export]
+        public PackedScene LobbyScene { get; set; }
+
+        [Export]
+        public PackedScene BattleScene { get; set; }
 
         [Signal]
         public delegate void PlayerListChangedEventHandler();
