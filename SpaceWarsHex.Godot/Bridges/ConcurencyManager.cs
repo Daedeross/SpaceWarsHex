@@ -7,10 +7,11 @@ using System.Linq;
 namespace SpaceWarsHex.Bridges
 {
     public class ConcurencyManager<TEntity> : IConcurencyManager<TEntity>
+        where TEntity : notnull
     {
 
         private readonly Action<TEntity, Action> _start;
-        private readonly Action<TEntity> _onEntityComplete;
+        private readonly Action<TEntity>? _onEntityComplete;
         private readonly Action _onComplete;
         private readonly ConcurrentDictionary<TEntity, byte> _pending;
 
@@ -38,6 +39,9 @@ namespace SpaceWarsHex.Bridges
             if (entities is null || entities.Count == 0)
             {
                 onAllComplete();
+                _start = (_, __) => { };
+                _onComplete = () => { };
+                _pending = new ConcurrentDictionary<TEntity, byte>();
             }
             else
             {

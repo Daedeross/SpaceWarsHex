@@ -36,7 +36,7 @@ namespace SpaceWarsHex.Core.Tests
 
             var system = SystemFactory.Create(prototype);
 
-            Assert.IsAssignableFrom<DirectFireEnergyWeapon>(system);
+            Assert.IsAssignableFrom<EnergyWeapon>(system);
         }
 
         [Fact(Skip = "Not yet implemented")]

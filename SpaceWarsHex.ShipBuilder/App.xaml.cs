@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
 namespace SpaceWarsHex.ShipBuilder
 {
@@ -9,6 +7,23 @@ namespace SpaceWarsHex.ShipBuilder
     /// </summary>
     public partial class App : Application
     {
-    }
+        private readonly Bootstrapper _bootstrapper;
 
+        public App()
+        {
+            _bootstrapper = new Bootstrapper().Setup();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            _bootstrapper.DisplayRootView();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            _bootstrapper.Dispose();
+        }
+    }
 }

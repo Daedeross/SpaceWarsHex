@@ -1,18 +1,20 @@
-﻿using DynamicData.Binding;
+﻿using Avalonia.Controls.ApplicationLifetimes;
+using DynamicData.Binding;
 using ReactiveUI.SourceGenerators;
+using SpaceWarsHex.ShipBuilder.ViewModels;
 
-namespace SpaceWarsHex.ShipBuilder.ViewModels
+namespace SpaceWarsHex.Avalonia.ViewModels
 {
-    public partial class WorkspaceViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
-        public WorkspaceViewModel()
-        {
-        }
-
-        public IObservableCollection<ShipViewModel> Ships { get; } = new ObservableCollectionExtended<ShipViewModel>();
+        public ObservableCollectionExtended<ShipViewModel> Ships { get; set; } = new();
 
         [Reactive]
         private ShieldsViewModel? _currentShip;
+
+        public MainViewModel()
+        {
+        }
 
         #region Commands
 
@@ -56,8 +58,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand]
         private void Exit()
         {
-            App.Current?.Shutdown();
-        }
+            if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+            {
+                lifetime.Shutdown();
+            }
+        } 
 
         #endregion
     }

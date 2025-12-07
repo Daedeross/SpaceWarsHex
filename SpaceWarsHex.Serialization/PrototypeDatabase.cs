@@ -29,16 +29,16 @@ namespace SpaceWarsHex.Serialization
                 $"The existing prototype with id {prototype.Id} is not of type {typeof(TPrototype)}");
         }
 
-        public bool TryGetValue(Guid id, out IPrototype prototype)
+        public bool TryGetValue(Guid id, out IPrototype? prototype)
         {
             return _cache.TryGetValue(id, out prototype);
         }
 
 
-        public bool TryGetValue<TPrototype>(Guid id, out TPrototype prototype)
+        public bool TryGetValue<TPrototype>(Guid id, out TPrototype? prototype)
             where TPrototype: IPrototype, IHaveId
         {
-            if (_cache.TryGetValue(id, out IPrototype value))
+            if (_cache.TryGetValue(id, out IPrototype? value))
             {
                 if (value is TPrototype prototype2)
                 {

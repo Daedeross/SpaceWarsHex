@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SpaceWarsHex.ShipBuilder</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="3.2.56" />
+    <PackageReference Include="ReactiveUI" Version="22.3.1" />
   </ItemGroup>
 
   <ItemGroup>

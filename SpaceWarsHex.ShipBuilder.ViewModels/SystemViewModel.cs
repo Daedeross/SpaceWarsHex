@@ -4,6 +4,8 @@ using SpaceWarsHex.Prototypes;
 using System;
 using System.Reactive;
 
+#nullable enable
+
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public abstract class SystemViewModel : ViewModelBase
@@ -46,7 +48,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         /// </summary>
         public virtual void LoadFrom(ISystemPrototype prototype)
         {
-            if (prototype is null) throw new ArgumentNullException(nameof(prototype));
+            ArgumentNullException.ThrowIfNull(prototype);
             _savedPrototype = prototype;
             Id = prototype.Id;
             Name = prototype.Name ?? string.Empty;
@@ -57,7 +59,8 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         /// </summary>
         public virtual void SaveTo(ISystemPrototype prototype)
         {
-            if (prototype is null) throw new ArgumentNullException(nameof(prototype));
+            ArgumentNullException.ThrowIfNull(prototype);
+            ArgumentNullException.ThrowIfNull(prototype);
 
             if (prototype is SystemPrototypeBase spb)
             {

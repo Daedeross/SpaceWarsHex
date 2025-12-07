@@ -4,6 +4,8 @@ using SpaceWarsHex.Prototypes;
 using System;
 using System.Reactive;
 
+#nullable enable
+
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class HullViewModel : ViewModelBase, IViewModel<IHullPrototype>

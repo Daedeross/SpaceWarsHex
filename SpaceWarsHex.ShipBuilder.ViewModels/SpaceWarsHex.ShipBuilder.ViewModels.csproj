@@ -7,17 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+    <PackageReference Include="ReactiveUI" Version="22.3.1" />
+    <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.5.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.v3" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SpaceWarsHex.Mocks\SpaceWarsHex.Mocks.csproj" />
-    <ProjectReference Include="..\SpaceWarsHex.Serialization\SpaceWarsHex.Serialization.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.Contract\SpaceWarsHex.Contract.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.ShipBuilder.Contract\SpaceWarsHex.ShipBuilder.Contract.csproj" />
   </ItemGroup>
 
 </Project>

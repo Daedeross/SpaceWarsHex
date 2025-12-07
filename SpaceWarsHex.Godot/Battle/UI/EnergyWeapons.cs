@@ -33,7 +33,7 @@ namespace SpaceWarsHex.Godot
             _energyWeaponPower = GetNode<Label>("%EnergyWeaponPower");
             _energyWeaponFire = GetNode<Button>("%EnergyWeaponFire");
             _energyWeaponFire.SetPressedNoSignal(false);
-            _battle = FindParent("Battle2D") as Battle2D;
+            _battle = (Battle2D)FindParent("Battle2D");
         }
 
         public void SetShip(IShip ship)

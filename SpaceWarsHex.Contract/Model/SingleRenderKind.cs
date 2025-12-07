@@ -1,5 +1,11 @@
 ﻿namespace SpaceWarsHex.Model
 {
+    /// <summary>
+    /// Specifies the rendering type for a single renderable object.
+    /// </summary>
+    /// <remarks>This enumeration defines the various rendering modes that can be applied to an object, such
+    /// as sprites, animations, and meshes. The values indicate the specific rendering behavior, including variations
+    /// for directional rendering (e.g., 6-way or 12-way).</remarks>
     public enum SingleRenderKind
     {
         NA = 0,

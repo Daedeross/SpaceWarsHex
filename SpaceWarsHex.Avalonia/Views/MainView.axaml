@@ -1,0 +1,43 @@
+<rxui:ReactiveUserControl xmlns="https://github.com/avaloniaui"
+                          x:TypeArguments="vm:MainViewModel"  
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:scg="clr-namespace:System.Collections.Generic;assembly=netstandard"
+                          xmlns:vm="using:SpaceWarsHex.Avalonia.ViewModels"
+                          xmlns:rxui="http://reactiveui.net/"
+                          mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                          x:Class="SpaceWarsHex.Avalonia.Views.MainView"
+                          x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Ship" Command="{Binding NewShipCommand}"/>
+                <MenuItem Header="_Open Ship" Command="{Binding OpenShipCommand}"/>
+                <MenuItem Header="_Save Ship" Command="{Binding SaveShipCommand}"/>
+                <MenuItem Header="Save Ship _As" Command="{Binding SaveShipAsCommand}"/>
+                <MenuItem Header="_Close Ship" Command="{Binding CloseShipCommand}"/>
+                <MenuItem Header="Close All" Command="{Binding CloseAllCommand}"/>
+                <Separator/>
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}"/>
+            </MenuItem>
+        </Menu>
+        <TabControl Name="ShipTabs" Grid.Row="1" ItemsSource="{Binding Ships}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <rxui:ViewModelViewHost ViewModel="{Binding}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+    </Grid>
+</rxui:ReactiveUserControl>

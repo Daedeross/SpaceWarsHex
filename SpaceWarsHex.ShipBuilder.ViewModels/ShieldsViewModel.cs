@@ -3,6 +3,8 @@ using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
 using System;
 
+#nullable enable
+
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class ShieldsViewModel : SystemViewModel, IViewModel<IShieldsPrototype>

@@ -1,11 +1,12 @@
 ﻿using ReactiveUI;
+using System;
 using System.Reactive.Disposables;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public abstract class ViewModelBase : ReactiveObject, IDisposable
+    public abstract class ViewModelBase : ReactiveObject, IDisposable, IViewModel
     {
-        protected readonly CompositeDisposable _disposables = new();
+        protected readonly CompositeDisposable _disposables = [];
 
         private bool _disposedValue;
 

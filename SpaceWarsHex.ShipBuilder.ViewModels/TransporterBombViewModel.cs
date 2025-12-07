@@ -4,6 +4,8 @@ using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
 using System;
 
+#nullable enable
+
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class TransporterBombViewModel : OrdinanceViewModel, IViewModel<ITransporterBombPrototype>

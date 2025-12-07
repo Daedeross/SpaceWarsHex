@@ -2,7 +2,8 @@
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public interface IViewModel<T> where T : class, IPrototype
+    public interface IViewModel<T> : IViewModel
+        where T : class, IPrototype
     {
     }
 }

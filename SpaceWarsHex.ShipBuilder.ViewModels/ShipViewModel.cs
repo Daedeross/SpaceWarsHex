@@ -1,13 +1,16 @@
 using DynamicData.Binding;
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
-using System.Reactive;
 using System.Reactive.Linq;
+
+#nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class ShipViewModel : ViewModelBase, IViewModel<IShipPrototype>
+    public partial class ShipViewModel : ViewModelBase, IViewModel<IShipPrototype>, IDocumentViewModel
     {
         private ShipPrototype? _saved = null;
         private ShipPrototype _current;
@@ -18,6 +21,10 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public ShipViewModel(ShipPrototype prototype)
         {
+            _visual = prototype.Visual;
+            _name = prototype.Name;
+            _visualKey = prototype.VisualKey;
+
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             _current = _saved;
 
@@ -38,28 +45,42 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 .Select(o => new OrdinanceViewModel(o))
             );
 
-            SaveCommand = ReactiveCommand.Create(Save);
-            ResetCommand = ReactiveCommand.Create(Reset);
+            //SaveCommand = ReactiveCommand.Create(Save);
+            //ResetCommand = ReactiveCommand.Create(Reset);
         }
 
-        [ReactiveUI.SourceGenerators.Reactive]
+        #region Base Properties
+
+        [Reactive]
+        private RenderDefinition _visual;
+
+        [Reactive]
+        private string _name;
+
+        [Reactive]
+        private string _visualKey;
+
+        #endregion
+
+        [Reactive]
         private ReactorViewModel _reactor;
 
-        [ReactiveUI.SourceGenerators.Reactive]
+        [Reactive]
         private DriveViewModel _drive;
 
-        [ReactiveUI.SourceGenerators.Reactive]
+        [Reactive]
         private ShieldsViewModel _shields;
 
-        [ReactiveUI.SourceGenerators.Reactive]
+        [Reactive]
         private HullViewModel _hull;
 
         public IObservableCollection<OrdinanceViewModel> EnergyWeapons { get; }
         public IObservableCollection<OrdinanceViewModel> Ordinances { get; }
 
-        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
+        //public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+        //public ReactiveCommand<Unit, Unit> ResetCommand { get; }
 
+        [ReactiveCommand]
         private void Save()
         {
             if (_saved == null) throw new InvalidOperationException("No saved prototype available to save into.");
@@ -76,6 +97,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             foreach (var o in Ordinances) o.SaveCommand.Execute().Subscribe();
         }
 
+        [ReactiveCommand]
         private void Reset()
         {
             if (_saved == null) throw new InvalidOperationException("No saved prototype available to reset from.");

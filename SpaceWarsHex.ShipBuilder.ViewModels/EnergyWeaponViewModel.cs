@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
+#nullable enable
+
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class EnergyWeaponViewModel : SystemViewModel, IViewModel<IEnergyWeaponPrototype>
@@ -52,7 +54,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         {
             base.SaveTo(prototype);
 
-            if (prototype is IEnergyWeaponPrototype ep)
+            if (prototype is IEnergyWeaponPrototype)
             {
                 // Save basic properties via the concrete type when possible
                 if (prototype is EnergyWeaponPrototype concrete)
@@ -78,7 +80,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                     var field = prototype.GetType().GetField("_effects", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                     if (field != null)
                     {
-                        var list = Effects?.ToList() ?? new System.Collections.Generic.List<WeaponEffect>();
+                        var list = Effects?.ToList() ?? [];
                         field.SetValue(prototype, list);
                     }
                 }

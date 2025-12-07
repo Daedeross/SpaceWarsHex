@@ -12,4 +12,13 @@
     <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Mocks\SpaceWarsHex.Mocks.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Godot.SourceGenerators" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="GodotSharp" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="GodotSharpEditor" Version="4.5.1" />
+  </ItemGroup>
 </Project>
