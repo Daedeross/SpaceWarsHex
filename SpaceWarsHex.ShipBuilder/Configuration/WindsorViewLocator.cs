@@ -60,7 +60,7 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
             {
                 actualType = type.GetInterfaces()
                     .Where(x => string.Equals(x.Name, $"I{type.Name}"))
-                    .Single();
+                    .SingleOrDefault(type);
             }
             else
             {
@@ -78,7 +78,6 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
                     typeof(IViewFor)
                     )
                 ).Compile();
-
         }
     }
 }

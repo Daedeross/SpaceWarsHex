@@ -12,14 +12,15 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         public IObservableCollection<ShipViewModel> Ships { get; } = new ObservableCollectionExtended<ShipViewModel>();
 
         [Reactive]
-        private ShieldsViewModel? _currentShip;
+        private ShipViewModel? _currentShip;
 
         #region Commands
 
         [ReactiveCommand]
         private void NewShip()
         {
-            Ships.Add(new ShipViewModel());
+            Ships.Add(new ShipViewModel() {  Name = "New Ship" });
+            CurrentShip = Ships[^1];
         }
 
         [ReactiveCommand]
@@ -56,7 +57,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand]
         private void Exit()
         {
-            App.Current?.Shutdown();
+            // TODO
         }
 
         #endregion

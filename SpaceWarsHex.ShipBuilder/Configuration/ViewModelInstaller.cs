@@ -16,9 +16,10 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Classes.FromAssemblyNamed("SpaceWarsHex.ShipBuilder.ViewModels")
+                Classes.FromAssemblyContaining<WorkspaceViewModel>()
                         .BasedOn<IViewModel>()
-                        .WithServiceDefaultInterfaces()
+                        .WithServiceSelf()
+                        //.WithServiceDefaultInterfaces()
                         .LifestyleTransient(),
                 Component.For<IViewModelFactory>()
                         .AsFactory()

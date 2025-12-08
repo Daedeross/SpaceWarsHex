@@ -4,6 +4,7 @@ using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.ModelBuilder.Inspectors;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
+using Castle.Services.Logging.NLogIntegration;
 using Castle.Windsor;
 using SpaceWarsHex.Interfaces.Rules;
 using SpaceWarsHex.ShipBuilder.ViewModels;
@@ -25,13 +26,7 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
 
             container.AddFacility<TypedFactoryFacility>();
 
-            container.AddFacility<LoggingFacility>(f => f.LogUsing<NullLogFactory>());
-
-            //container.Register(
-            //    Component.For<IRoller>()
-            //        .ImplementedBy<Roller>()
-            //        .LifestyleSingleton());
-
+            container.AddFacility<LoggingFacility>(f => f.LogUsing<NLogFactory>());
 
             container.Register(
                 Classes.FromAssemblyContaining<MainWindow>()

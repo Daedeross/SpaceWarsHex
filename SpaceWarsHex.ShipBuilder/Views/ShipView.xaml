@@ -7,10 +7,21 @@
                           xmlns:local="clr-namespace:SpaceWarsHex.ShipBuilder.Views"
                           xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
                           xmlns:rxui="http://reactiveui.net"
-                          xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels"
+                          xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels;assembly=SpaceWarsHex.ShipBuilder.ViewModels"
                           mc:Ignorable="d" 
                           d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label>Name</Label>
+        <TextBox Name="NameText" Grid.Column="1" />
     </Grid>
 </rxui:ReactiveUserControl>

@@ -6,10 +6,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
         xmlns:rxui="http://reactiveui.net"
-        xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels"
+        xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels;assembly=SpaceWarsHex.ShipBuilder.ViewModels"
         xmlns:local="clr-namespace:SpaceWarsHex.ShipBuilder"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem Header="_New Ship" Name="NewShipBtn" />
+                <MenuItem Header="_Open Ship" Name="OpenShipBtn" />
+                <MenuItem Header="_Save Ship" Name="SaveShipBtn" />
+                <MenuItem Header="Save Ship _As" Name="SaveShipAsBtn" />
+                <MenuItem Header="_Close Ship" Name="CloseShipBtn" />
+                <MenuItem Header="Close All" Name="CloseAllBtn" />
+                <Separator/>
+                <MenuItem Header="E_xit" Name="ExitBtn" />
+            </MenuItem>
+        </Menu>
+        <TabControl Name="ShipsItemsControl" Grid.Row="1" ItemsSource="{Binding Ships}">
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <rxui:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+        </TabControl>
+        <!--<rxui:ViewModelViewHost Name="VMHost" />-->
     </Grid>
 </rxui:ReactiveWindow>  

@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using SpaceWarsHex.ShipBuilder.ViewModels;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,9 +19,61 @@ namespace SpaceWarsHex.ShipBuilder
     /// </summary>
     public partial class MainWindow : ReactiveWindow<WorkspaceViewModel>
     {
-        public MainWindow()
+        public MainWindow(WorkspaceViewModel viewModel)
         {
             InitializeComponent();
+
+            ViewModel = viewModel;
+
+            this.WhenActivated(disposables =>
+            {
+                this.OneWayBind(ViewModel,
+                    vm => vm.Ships,
+                    v => v.ShipsItemsControl.ItemsSource)
+                    .DisposeWith(disposables);
+
+                this.Bind(ViewModel,
+                    vm => vm.CurrentShip,
+                    v => v.ShipsItemsControl.SelectedItem)
+                    .DisposeWith(disposables);
+
+                //this.OneWayBind(ViewModel,
+                //    vm => vm.CurrentShip,
+                //    v => v.VMHost.ViewModel)
+                //    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.NewShipCommand,
+                    v => v.NewShipBtn)
+                    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.SaveShipCommand,
+                    v => v.SaveShipBtn)
+                    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.SaveShipAsCommand,
+                    v => v.SaveShipAsBtn)
+                    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.CloseShipCommand,
+                    v => v.CloseShipBtn)
+                    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.CloseAllCommand,
+                    v => v.CloseAllBtn)
+                    .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.ExitCommand,
+                    v => v.ExitBtn)
+                    .DisposeWith(disposables);
+            });
+
+            DataContext = viewModel;
         }
     }
 }

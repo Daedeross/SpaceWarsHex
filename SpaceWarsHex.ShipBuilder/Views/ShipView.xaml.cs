@@ -3,6 +3,7 @@ using SpaceWarsHex.ShipBuilder.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,14 @@ namespace SpaceWarsHex.ShipBuilder.Views
         public ShipView()
         {
             InitializeComponent();
+
+            this.WhenActivated(disposables =>
+            {
+                this.Bind(ViewModel,
+                    vm => vm.Name,
+                    v => v.NameText.Text)
+                .DisposeWith(disposables);
+            });
         }
     }
 }

@@ -12,17 +12,24 @@
     <PackageReference Include="Castle.Core-NLog" Version="5.2.1" />
     <PackageReference Include="Castle.LoggingFacility" Version="6.0.0" />
     <PackageReference Include="Castle.Windsor" Version="6.0.0" />
+    <PackageReference Include="NLog" Version="4.5.0" />
     <PackageReference Include="ReactiveUI.SourceGenerators" Version="2.5.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="ReactiveUI.WPF" Version="22.3.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="19.6.12" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Serialization\SpaceWarsHex.Serialization.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.ShipBuilder.ViewModels\SpaceWarsHex.ShipBuilder.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
