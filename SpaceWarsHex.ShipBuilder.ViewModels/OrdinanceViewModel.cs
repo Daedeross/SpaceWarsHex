@@ -23,6 +23,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         { }
 
         public OrdinanceViewModel(OrdinancePrototype prototype)
+            : base(prototype)
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             LoadFrom(_saved);

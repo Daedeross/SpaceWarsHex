@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
 using System;
@@ -7,18 +8,21 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class DriveViewModel : SystemViewModel, IViewModel<IDrivePrototype>
+    public partial class DriveViewModel : SystemViewModel, IViewModel<IDrivePrototype>
     {
         private IDrivePrototype? _saved;
 
+        [Reactive]
         private int _maxWarp;
+        [Reactive]
         private int _accelerationClass;
 
         public DriveViewModel()
-            : this(new DrivePrototype())
+            : this(new DrivePrototype() { Name = "Drive", Id = Guid.NewGuid(), MaxWarp = 1, AccelerationClass = 1 })
         { }
 
         public DriveViewModel(DrivePrototype prototype)
+            : base(prototype)
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             LoadFrom(_saved);
@@ -45,18 +49,6 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 dp.MaxWarp = MaxWarp;
                 dp.AccelerationClass = AccelerationClass;
             }
-        }
-
-        public int MaxWarp
-        {
-            get => _maxWarp;
-            set => this.RaiseAndSetIfChanged(ref _maxWarp, value);
-        }
-
-        public int AccelerationClass
-        {
-            get => _accelerationClass;
-            set => this.RaiseAndSetIfChanged(ref _accelerationClass, value);
         }
     }
 }

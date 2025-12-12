@@ -1,5 +1,8 @@
-﻿using ReactiveUI;
+﻿using DynamicData.Binding;
+using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
 using System;
 using System.Reactive;
@@ -8,39 +11,23 @@ using System.Reactive;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public abstract class SystemViewModel : ViewModelBase
+    public abstract partial class SystemViewModel : ViewModelBase
     {
         protected ISystemPrototype? _savedPrototype;
 
+        [Reactive]
         private Guid _id;
+        [Reactive]
         private string _name = string.Empty;
+        [Reactive]
+        private ThresholdsViewModel _damageThresholds;
 
-        public SystemViewModel()
+        public SystemViewModel(ISystemPrototype systemPrototype)
         {
-            SaveCommand = ReactiveCommand.Create(Save);
-            ResetCommand = ReactiveCommand.Create(Reset);
-        }
-
-        /// <summary>
-        /// Save changes from ViewModel into the saved prototype instance.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-
-        /// <summary>
-        /// Reset ViewModel properties to the last saved prototype state.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
-
-        public Guid Id
-        {
-            get => _id;
-            set => this.RaiseAndSetIfChanged(ref _id, value);
-        }
-
-        public string Name
-        {
-            get => _name;
-            set => this.RaiseAndSetIfChanged(ref _name, value);
+            _savedPrototype = systemPrototype.GetOrThrow();
+            _id = systemPrototype.Id;
+            _name = systemPrototype.Name ?? string.Empty;
+            _damageThresholds = new ThresholdsViewModel(systemPrototype.DamageThresholds ?? []);
         }
 
         /// <summary>
@@ -49,9 +36,12 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         public virtual void LoadFrom(ISystemPrototype prototype)
         {
             ArgumentNullException.ThrowIfNull(prototype);
+
             _savedPrototype = prototype;
             Id = prototype.Id;
             Name = prototype.Name ?? string.Empty;
+            _damageThresholds.Dispose();
+            _damageThresholds = new ThresholdsViewModel(prototype.DamageThresholds ?? []);
         }
 
         /// <summary>
@@ -59,7 +49,6 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         /// </summary>
         public virtual void SaveTo(ISystemPrototype prototype)
         {
-            ArgumentNullException.ThrowIfNull(prototype);
             ArgumentNullException.ThrowIfNull(prototype);
 
             if (prototype is SystemPrototypeBase spb)
@@ -69,6 +58,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
+        [ReactiveCommand]
         private void Save()
         {
             if (_savedPrototype != null)
@@ -77,6 +67,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
+        [ReactiveCommand]
         private void Reset()
         {
             if (_savedPrototype != null)

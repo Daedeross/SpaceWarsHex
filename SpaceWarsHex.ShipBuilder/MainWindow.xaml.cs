@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 using SpaceWarsHex.ShipBuilder.ViewModels;
-using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +27,9 @@ namespace SpaceWarsHex.ShipBuilder
 
             this.WhenActivated(disposables =>
             {
+                // Interactions
+                Interactions.Initialize(this);
+
                 this.OneWayBind(ViewModel,
                     vm => vm.Ships,
                     v => v.ShipsItemsControl.ItemsSource)

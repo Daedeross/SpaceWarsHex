@@ -21,7 +21,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public ShipViewModel(ShipPrototype prototype)
         {
-            _visual = prototype.Visual;
+            _visual = prototype.Visual ?? new RenderDefinition
+            {
+                Kind = SingleRenderKind.Sprite,
+                Path = "Assets/Sprites/SimpleShip.png"
+            };
             _name = prototype.Name;
             _visualKey = prototype.VisualKey;
 

@@ -40,6 +40,7 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
     using Splat;
     using Castle.Windsor;
     using Castle.MicroKernel.Registration;
+    using ReactiveUI;
 
     public class CastleWindsorDependencyResolver : IDependencyResolver, IMutableDependencyResolver
     {
@@ -52,12 +53,12 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
 
         public object GetService(Type serviceType, string contract = null)
         {
-            return string.IsNullOrEmpty(contract) ? this._windsorContainer.Resolve(serviceType) : this._windsorContainer.Resolve(contract, serviceType);
+            return string.IsNullOrEmpty(contract) ? _windsorContainer.Resolve(serviceType) : _windsorContainer.Resolve(contract, serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType, string contract = null)
         {
-            return (IEnumerable<object>)this._windsorContainer.ResolveAll(serviceType);
+            return (IEnumerable<object>)_windsorContainer.ResolveAll(serviceType);
         }   
 
         public bool HasRegistration(Type serviceType, string contract = null)
@@ -67,6 +68,12 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
 
         public void Register(Func<object> factory, Type serviceType, string contract = null)
         {
+            // Don't register IViewLocator to avoid conflicts
+            var name = serviceType.Name;
+            if (name == nameof(IViewLocator))
+            {
+                return;
+            }
             _windsorContainer.Register(Component.For(serviceType)
                 .Instance(factory())
                 .IsDefault()

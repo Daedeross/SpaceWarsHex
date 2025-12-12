@@ -18,6 +18,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         { }
 
         public ShieldsViewModel(ShieldsPrototype prototype)
+            : base(prototype)
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             LoadFrom(_saved);

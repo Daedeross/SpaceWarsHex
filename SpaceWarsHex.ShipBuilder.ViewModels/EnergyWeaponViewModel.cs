@@ -27,6 +27,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         { }
 
         public EnergyWeaponViewModel(EnergyWeaponPrototype prototype)
+            : base(prototype)
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             LoadFrom(_saved);
