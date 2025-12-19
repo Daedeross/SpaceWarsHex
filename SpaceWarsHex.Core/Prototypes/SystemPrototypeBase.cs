@@ -38,5 +38,14 @@ namespace SpaceWarsHex.Prototypes
 
         [DataMember(Name = "DamageThresholds")]
         internal List<DamageThreshold> _damageThresholds = [];
+
+        public abstract object Clone();
+
+        protected virtual void CopyTo(SystemPrototypeBase target)
+        {
+            target.Id = Id;
+            target.Name = Name;
+            target._damageThresholds = [.. _damageThresholds.Select(dt => new DamageThreshold { HullStrength = dt.HullStrength, SystemMultiplier = dt.SystemMultiplier })];
+        }
     }
 }

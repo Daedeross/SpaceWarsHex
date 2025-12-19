@@ -26,6 +26,7 @@
   <ItemGroup>
     <InternalsVisibleTo Include="SpaceWarsHex.Core.Tests" />
     <InternalsVisibleTo Include="SpaceWarsHex.Mocks" />
+    <InternalsVisibleTo Include="SpaceWarsHex.ShipBuilder" />
   </ItemGroup>
 
 </Project>

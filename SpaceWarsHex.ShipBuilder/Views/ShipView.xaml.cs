@@ -24,6 +24,31 @@ namespace SpaceWarsHex.ShipBuilder.Views
                     vm => vm.Reactor,
                     v => v.ReactorHost.ViewModel)
                 .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
+                    vm => vm.Drive,
+                    v => v.DriveHost.ViewModel)
+                .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
+                    vm => vm.EnergyWeapons,
+                    v => v.EnergyWeapons.ItemsSource)
+                .DisposeWith(disposables);
+
+                this.Bind(ViewModel,
+                    vm => vm.SelectedEnergyWeapon,
+                    v => v.EnergyWeapons.SelectedItem)
+                .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.NewEnergyWeaponCommand,
+                    v => v.AddEnergyWeaponBtn)
+                .DisposeWith(disposables);
+
+                this.BindCommand(ViewModel,
+                    vm => vm.DeleteEnergyWeaponCommand,
+                    v => v.DelEnergyWeaponBtn)
+                .DisposeWith(disposables);
             });
         }
     }

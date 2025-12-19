@@ -1,26 +1,38 @@
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
-using SpaceWarsHex.Prototypes;
 using SpaceWarsHex.Model;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using SpaceWarsHex.Prototypes;
+using System.Reactive.Disposables.Fluent;
 using System.Reflection;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class EnergyWeaponViewModel : SystemViewModel, IViewModel<IEnergyWeaponPrototype>
+    public partial class EnergyWeaponViewModel : SystemViewModel, IViewModel<IEnergyWeaponPrototype>
     {
+        private static readonly FieldInfo _effectsField = typeof(EnergyWeaponPrototype).GetField("_effects", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetOrThrow();
+
         private IEnergyWeaponPrototype? _saved;
 
+        [Reactive]
         private int _maxDice;
+        [Reactive]
         private FireMode _fireMode;
+        [Reactive]
         private TurnPhase _firePhase;
+        [Reactive]
         private bool _visual;
+        [Reactive]
         private int _energyPerDie;
+        [Reactive]
         private int _maxRange;
+        [Reactive]
+        private WeaponEffectsViewModel _effects = new();
+
+        [ObservableAsProperty]
+        private int _maxEnergy;
 
         public EnergyWeaponViewModel()
             : this(new EnergyWeaponPrototype())
@@ -30,6 +42,13 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             : base(prototype)
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
+
+            _maxEnergyHelper = this
+                .WhenAnyValue(x => x.MaxDice, x => x.EnergyPerDie,
+                    (dice, energy) => dice * energy)
+                .ToProperty(this, x => x.MaxEnergy)
+                .DisposeWith(_disposables);
+
             LoadFrom(_saved);
         }
 
@@ -47,7 +66,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 EnergyPerDie = ep.EnergyPerDie;
                 MaxRange = ep.MaxRange;
 
-                Effects = new ObservableCollection<WeaponEffect>((ep.Effects ?? Enumerable.Empty<WeaponEffect>()).ToList());
+                Effects = new WeaponEffectsViewModel(ep.Effects ?? []);
             }
         }
 
@@ -68,12 +87,8 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                     concrete.MaxRange = MaxRange;
 
                     // _effects is internal in the prototype. Set it via reflection so the prototype's Effects reflect VM changes.
-                    var field = typeof(EnergyWeaponPrototype).GetField("_effects", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-                    if (field != null)
-                    {
-                        var list = Effects?.ToList() ?? new System.Collections.Generic.List<WeaponEffect>();
-                        field.SetValue(concrete, list);
-                    }
+                    var list = Effects.ToList() ?? [];
+                    _effectsField.SetValue(concrete, list);
                 }
                 else
                 {
@@ -81,53 +96,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                     var field = prototype.GetType().GetField("_effects", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
                     if (field != null)
                     {
-                        var list = Effects?.ToList() ?? [];
+                        var list = Effects.ToList() ?? [];
                         field.SetValue(prototype, list);
                     }
                 }
             }
         }
-
-        public int MaxDice
-        {
-            get => _maxDice;
-            set => this.RaiseAndSetIfChanged(ref _maxDice, value);
-        }
-
-        public FireMode FireMode
-        {
-            get => _fireMode;
-            set => this.RaiseAndSetIfChanged(ref _fireMode, value);
-        }
-
-        public TurnPhase FirePhase
-        {
-            get => _firePhase;
-            set => this.RaiseAndSetIfChanged(ref _firePhase, value);
-        }
-
-        public bool Visual
-        {
-            get => _visual;
-            set => this.RaiseAndSetIfChanged(ref _visual, value);
-        }
-
-        public int EnergyPerDie
-        {
-            get => _energyPerDie;
-            set => this.RaiseAndSetIfChanged(ref _energyPerDie, value);
-        }
-
-        public int MaxRange
-        {
-            get => _maxRange;
-            set => this.RaiseAndSetIfChanged(ref _maxRange, value);
-        }
-
-        /// <summary>
-        /// The list of effects for the weapon. This is a simple collection exposed for binding.
-        /// Saving will copy this collection back into the prototype (via reflection when necessary).
-        /// </summary>
-        public ObservableCollection<WeaponEffect> Effects { get; private set; } = new();
     }
 }

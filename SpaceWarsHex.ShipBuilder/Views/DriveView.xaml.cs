@@ -29,6 +29,11 @@ namespace SpaceWarsHex.ShipBuilder.Views
                         vmProperty => Convert.ToDouble(vmProperty),
                         viewProperty => Convert.ToInt32(viewProperty))
                     .DisposeWith(disposables);
+
+                this.Bind(ViewModel,
+                        vm => vm.DamageThresholds,
+                        v => v.ThresholdsView.ViewModel)
+                    .DisposeWith(disposables);
             });
         }
     }

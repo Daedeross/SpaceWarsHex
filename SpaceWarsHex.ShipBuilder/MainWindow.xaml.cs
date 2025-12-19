@@ -28,7 +28,7 @@ namespace SpaceWarsHex.ShipBuilder
             this.WhenActivated(disposables =>
             {
                 // Interactions
-                Interactions.Initialize(this);
+                ViewInteractions.Initialize(this);
 
                 this.OneWayBind(ViewModel,
                     vm => vm.Ships,

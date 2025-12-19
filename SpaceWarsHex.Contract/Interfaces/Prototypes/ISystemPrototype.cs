@@ -1,4 +1,5 @@
 ﻿using SpaceWarsHex.Model;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceWarsHex.Interfaces.Prototypes
@@ -11,7 +12,7 @@ namespace SpaceWarsHex.Interfaces.Prototypes
     /// Think of a prototype as the equivalent to the text and numbers that would define a system
     /// on the ship's sheet for the tabletop game.
     /// </remarks>
-    public interface ISystemPrototype: IPrototype, IHaveId
+    public interface ISystemPrototype: IPrototype, IHaveId, ICloneable
     {
         /// <summary>
         /// The name of the system.

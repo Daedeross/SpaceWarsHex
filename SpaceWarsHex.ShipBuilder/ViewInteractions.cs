@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace SpaceWarsHex.ShipBuilder
 {
-    public static class Interactions
+    public static class ViewInteractions
     {
         private static Window? _mainWindow;
 

@@ -22,5 +22,18 @@ namespace SpaceWarsHex.Prototypes
         /// <inheritdoc />
         [DataMember]
         public int MaxTurnsAtAttackPower { get; set; }
+
+        override public object Clone()
+        {
+            var clone = new ReactorPrototype()
+            {
+                CruisePower = CruisePower,
+                AttackPower = AttackPower,
+                EmergencyPower = EmergencyPower,
+                MaxTurnsAtAttackPower = MaxTurnsAtAttackPower
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

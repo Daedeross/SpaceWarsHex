@@ -26,7 +26,7 @@ namespace SpaceWarsHex.ShipBuilder.Views
 
         private void CreateLinearBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            Interactions.ShowEditDialog
+            ViewInteractions.ShowEditDialog
                 .Handle(new SimpleDynamicViewModel(new CreateLinearViewModel()))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Subscribe(result =>

@@ -47,5 +47,32 @@
         <Expander Grid.Row="2" Grid.Column="2" Header="Drive" IsExpanded="False" >
             <local:DriveView x:Name="DriveHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
         </Expander>
+        <Expander Grid.Row="3" Grid.Column="2" Header="Energy Weapons">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" x:Name="AddEnergyWeaponBtn">Add Weapon</Button>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="DelEnergyWeaponBtn">Delete Weapon</Button>
+                <TabControl x:Name="EnergyWeapons" Grid.Row="1" Grid.ColumnSpan="3">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="12" />
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <rxui:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
+            </Grid>
+        </Expander>
     </Grid>
 </rxui:ReactiveUserControl>

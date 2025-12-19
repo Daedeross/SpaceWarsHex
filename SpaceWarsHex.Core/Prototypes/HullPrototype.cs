@@ -10,5 +10,15 @@ namespace SpaceWarsHex.Prototypes
         /// <inheritdoc />
         [DataMember]
         public int MaxIntegrity { get; set; }
+
+        override public object Clone()
+        {
+            var clone = new HullPrototype()
+            {
+                MaxIntegrity = MaxIntegrity
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

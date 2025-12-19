@@ -56,6 +56,7 @@ namespace SpaceWarsHex.ShipBuilder
             Locator.SetLocator(new CastleWindsorDependencyResolver(_container));
             _container.Install(new ApplicationInstaller());
             _container.Install(new ViewModelInstaller());
+            _container.Install(new DefaultsInstaller());
             Locator.CurrentMutable.InitializeSplat();
             Locator.CurrentMutable.InitializeReactiveUI();
             return this;

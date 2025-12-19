@@ -13,13 +13,14 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
     public partial class ShipViewModel : ViewModelBase, IViewModel<IShipPrototype>, IDocumentViewModel
     {
         private ShipPrototype? _saved = null;
+        private readonly IDefaultValueProvider _defaultValueProvider;
         private ShipPrototype _current;
 
-        public ShipViewModel()
-            : this(new ShipPrototype())
+        public ShipViewModel(IDefaultValueProvider defaultValueProvider)
+            : this(defaultValueProvider.GetDefaultValue<ShipPrototype>(), defaultValueProvider)
         { }
 
-        public ShipViewModel(ShipPrototype prototype)
+        public ShipViewModel(ShipPrototype prototype, IDefaultValueProvider defaultValueProvider)
         {
             _visual = prototype.Visual ?? new RenderDefinition
             {
@@ -30,6 +31,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             _visualKey = prototype.VisualKey;
 
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
+            _defaultValueProvider = defaultValueProvider;
             _current = _saved;
 
             Reactor = _current.Reactor is ReactorPrototype rp ? new ReactorViewModel(rp) : new ReactorViewModel();
@@ -37,10 +39,10 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             Shields = _current.Shields is ShieldsPrototype sp ? new ShieldsViewModel(sp) : new ShieldsViewModel();
             Hull = _current.Hull is HullPrototype hp ? new HullViewModel(hp) : new HullViewModel();
 
-            EnergyWeapons = new ObservableCollectionExtended<OrdinanceViewModel>(
-                (_current.Ordinances ?? Enumerable.Empty<IOrdinancePrototype>())
-                .OfType<OrdinancePrototype>()
-                .Select(o => new OrdinanceViewModel(o))
+            EnergyWeapons = new ObservableCollectionExtended<EnergyWeaponViewModel>(
+                (_current.EnergyWeapons ?? Enumerable.Empty<IEnergyWeaponPrototype>())
+                .OfType<EnergyWeaponPrototype>()
+                .Select(o => new EnergyWeaponViewModel(o))
             );
 
             Ordinances = new ObservableCollectionExtended<OrdinanceViewModel>(
@@ -78,11 +80,12 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [Reactive]
         private HullViewModel _hull;
 
-        public IObservableCollection<OrdinanceViewModel> EnergyWeapons { get; }
-        public IObservableCollection<OrdinanceViewModel> Ordinances { get; }
+        public IObservableCollection<EnergyWeaponViewModel> EnergyWeapons { get; }
 
-        //public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        //public ReactiveCommand<Unit, Unit> ResetCommand { get; }
+        [Reactive]
+        private EnergyWeaponViewModel? _selectedEnergyWeapon;
+
+        public IObservableCollection<OrdinanceViewModel> Ordinances { get; }
 
         [ReactiveCommand]
         private void Save()
@@ -113,6 +116,39 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
             foreach (var ev in EnergyWeapons) ev.ResetCommand.Execute().Subscribe();
             foreach (var o in Ordinances) o.ResetCommand.Execute().Subscribe();
+        }
+
+        [ReactiveCommand]
+        private void NewEnergyWeapon()
+        {
+            var defaultEnergyWeapon = _defaultValueProvider.GetDefaultValue<EnergyWeaponPrototype>();
+            var newWeaponVM = new EnergyWeaponViewModel(defaultEnergyWeapon);
+            EnergyWeapons.Add(newWeaponVM);
+            SelectedEnergyWeapon ??= newWeaponVM;
+        }
+
+        [ReactiveCommand(CanExecute = nameof(DeleteEnergyWeaponCanExecute))]
+        private void DeleteEnergyWeapon()
+        {
+            var index = EnergyWeapons.IndexOf(SelectedEnergyWeapon!);
+            index = Math.Max(index - 1, 0);
+            EnergyWeapons.Remove(SelectedEnergyWeapon!);
+            SelectedEnergyWeapon = EnergyWeapons.ElementAtOrDefault(index);
+        }
+
+        private bool DeleteEnergyWeaponCanExecute()
+        {
+            return EnergyWeapons.Any()
+                && SelectedEnergyWeapon is not null
+                && EnergyWeapons.Contains(SelectedEnergyWeapon);
+        }
+
+        [ReactiveCommand]
+        private void NewOrdinance()
+        {
+            var defaultOrdinance = _defaultValueProvider.GetDefaultValue<OrdinancePrototype>();
+            var newOrdinanceVM = new OrdinanceViewModel(defaultOrdinance);
+            Ordinances.Add(newOrdinanceVM);
         }
     }
 }

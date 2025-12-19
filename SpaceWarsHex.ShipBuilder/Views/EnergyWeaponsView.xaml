@@ -1,0 +1,72 @@
+﻿<rxui:ReactiveUserControl x:Class="SpaceWarsHex.ShipBuilder.Views.EnergyWeaponsView"
+                          x:TypeArguments="vm:EnergyWeaponsViewModel"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                          xmlns:local="clr-namespace:SpaceWarsHex.ShipBuilder.Views"
+                          xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                          xmlns:rxui="http://reactiveui.net"
+                          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                          xmlns:h="clr-namespace:SpaceWarsHex.ShipBuilder.Helpers"
+                          xmlns:model="clr-namespace:SpaceWarsHex.Model;assembly=SpaceWarsHex.Contract"
+                          xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels;assembly=SpaceWarsHex.ShipBuilder.ViewModels"
+                          xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                          mc:Ignorable="d" 
+                          d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="WeaponsList">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridView.Columns>
+                        <GridViewColumn Header="Weapon"
+                                        h:MyListBoxItemAssist.FillRemaining="True"
+                                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Power"
+                                        DisplayMemberBinding="{Binding MaxEnergy, Mode=OneWay}" />
+                        <GridViewColumn Header="Dice">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <mah:NumericUpDown Value="{Binding Dice, Converter={StaticResource IntegerToDoubleConverter}}"
+                                                       Interval="1" Minimum="0" Maximum="100"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="2" />
+        <StackPanel Grid.Column="2" VerticalAlignment="Top"
+                    Margin="2,10,4,10">
+            <Button Name="AddBtn" Content="&lt;" />
+            <Button Name="RemoveBtn" Content="&gt;" />
+        </StackPanel>
+        <ListView x:Name="PremadeWeapons" Grid.Column="3"
+                  SizeChanged="PremadeWeapons_SizeChanged">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Weapon"
+                                        h:MyListBoxItemAssist.FillRemaining="True"
+                                        DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="V">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Visual}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="FireMode" DisplayMemberBinding="{Binding FireMode}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</rxui:ReactiveUserControl>

@@ -21,6 +21,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -40,5 +41,9 @@
                            Name="AccelerationSpin"
                            Minimum="0" Maximum="1000" />
 
+        <local:ThresholdsView Grid.Column="2"
+                              Grid.RowSpan="5"
+                              x:Name="ThresholdsView"
+                              />
     </Grid>
 </rxui:ReactiveUserControl>
