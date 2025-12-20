@@ -10,7 +10,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public partial class DriveViewModel : SystemViewModel, IViewModel<IDrivePrototype>
     {
-        private IDrivePrototype? _saved;
+        private IDrivePrototype _saved;
 
         [Reactive]
         private int _maxWarp;
@@ -26,6 +26,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         {
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             LoadFrom(_saved);
+        }
+
+        public IDrivePrototype GetPrototype()
+        {
+            return _saved;
         }
 
         public override void LoadFrom(ISystemPrototype prototype)

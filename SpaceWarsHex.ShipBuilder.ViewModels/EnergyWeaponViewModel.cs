@@ -14,7 +14,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
     {
         private static readonly FieldInfo _effectsField = typeof(EnergyWeaponPrototype).GetField("_effects", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public).GetOrThrow();
 
-        private IEnergyWeaponPrototype? _saved;
+        private IEnergyWeaponPrototype _saved;
 
         [Reactive]
         private int _maxDice;
@@ -50,6 +50,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 .DisposeWith(_disposables);
 
             LoadFrom(_saved);
+        }
+
+        public IEnergyWeaponPrototype GetPrototype()
+        {
+            return _saved;
         }
 
         public override void LoadFrom(ISystemPrototype prototype)

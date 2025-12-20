@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Prototypes;
+using SpaceWarsHex.ShipBuilder;
 using Xunit;
 
 namespace SpaceWarsHex.Serialization.Tests
@@ -16,10 +18,12 @@ namespace SpaceWarsHex.Serialization.Tests
             var energyWeapons = Mock.Prototypes.Ship1().EnergyWeapons.ToList();
             energyWeapons.AddRange(Mock.Prototypes.Ship2().EnergyWeapons);
 
-            ser.Serialize(stream, new
+            var pregen = new PregenWeapons
             {
-                EnergyWeapons = energyWeapons
-            });
+                _energyWeapons = [.. energyWeapons.OfType<EnergyWeaponPrototype>()]
+            };
+
+            ser.Serialize(stream, pregen);
             
         }
     }

@@ -9,7 +9,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class ShieldsViewModel : SystemViewModel, IViewModel<IShieldsPrototype>
     {
-        private IShieldsPrototype? _saved;
+        private IShieldsPrototype _saved;
 
         private int _maxPower;
 
@@ -43,6 +43,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             {
                 sp.MaxPower = MaxPower;
             }
+        }
+
+        public IShieldsPrototype GetPrototype()
+        {
+            return _saved;
         }
 
         public int MaxPower

@@ -20,4 +20,8 @@
     <ProjectReference Include="..\SpaceWarsHex.ShipBuilder.Contract\SpaceWarsHex.ShipBuilder.Contract.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="SpaceWarsHex.Serialization.Tests" />
+  </ItemGroup>
+
 </Project>

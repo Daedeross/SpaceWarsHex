@@ -11,8 +11,9 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public partial class HullViewModel : ViewModelBase, IViewModel<IHullPrototype>
     {
-        private IHullPrototype? _saved;
+        private IHullPrototype _saved;
 
+        [Reactive]
         private int _maxIntegrity;
 
         public HullViewModel()
@@ -61,10 +62,9 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public int MaxIntegrity
+        public IHullPrototype GetPrototype()
         {
-            get => _maxIntegrity;
-            set => this.RaiseAndSetIfChanged(ref _maxIntegrity, value);
+            return _saved;
         }
     }
 }

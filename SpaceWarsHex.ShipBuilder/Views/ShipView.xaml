@@ -48,7 +48,8 @@
             <local:DriveView x:Name="DriveHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
         </Expander>
         <Expander Grid.Row="3" Grid.Column="2" Header="Energy Weapons">
-            <Grid>
+            <local:EnergyWeaponsView x:Name="EnergyWeaponsHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition />
@@ -72,7 +73,7 @@
                         </DataTemplate>
                     </TabControl.ContentTemplate>
                 </TabControl>
-            </Grid>
+            </Grid>-->
         </Expander>
     </Grid>
 </rxui:ReactiveUserControl>

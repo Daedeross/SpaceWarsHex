@@ -24,14 +24,36 @@ namespace SpaceWarsHex.ShipBuilder.Views
 
             this.WhenActivated(d =>
             {
-                this.Bind(ViewModel,
-                    vm => vm.EnergyWeapons,
-                    v => v.WeaponsList.ItemsSource)
+                this.OneWayBind(ViewModel,
+                        vm => vm.EnergyWeapons,
+                        v => v.WeaponsList.ItemsSource)
                     .DisposeWith(d);
+                this.Bind(ViewModel,
+                        vm => vm.SelectedWeapon,
+                        v => v.WeaponsList.SelectedItem)
+                    .DisposeWith(d);
+
+                this.OneWayBind(ViewModel,
+                        vm => vm.StockEnergyWeapons,
+                        v => v.StockEnergyWeapons.ItemsSource)
+                    .DisposeWith(d);
+                this.Bind(ViewModel,
+                        vm => vm.SelectedStockWeapon,
+                        v => v.StockEnergyWeapons.SelectedItem)
+                    .DisposeWith(d);
+
+                //this.BindCommand(ViewModel,
+                //        vm => vm.AddEnergyWeaponCommand,
+                //        v => v.AddBtn)
+                //    .DisposeWith(d);
+                //this.BindCommand(ViewModel,
+                //        vm => vm.RemoveEnergyWeaponCommand,
+                //        v => v.RemoveBtn)
+                //    .DisposeWith(d);
             });
         }
 
-        private void PremadeWeapons_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 
             ListView listView = (ListView)sender;
@@ -45,7 +67,7 @@ namespace SpaceWarsHex.ShipBuilder.Views
             var remainingWidth = workingWidth - usedWidth;
             var columsToFill = gridView.Columns.Where(MyListBoxItemAssist.GetFillRemaining).ToList();
 
-            if (columsToFill.Any() && remainingWidth > 0)
+            if (columsToFill.Count != 0 && remainingWidth > 0)
             {
                 var each = remainingWidth / columsToFill.Count;
                 var remainder = remainingWidth % columsToFill.Count;

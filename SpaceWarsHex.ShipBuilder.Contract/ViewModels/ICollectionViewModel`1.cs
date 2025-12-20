@@ -1,10 +1,11 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
+using System.Collections.Generic;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public interface IViewModel<T> : IViewModel
+    public interface ICollectionViewModel<T>
         where T : class, IPrototype
     {
-        T GetPrototype();
+        ICollection<T> GetPrototypes();
     }
 }

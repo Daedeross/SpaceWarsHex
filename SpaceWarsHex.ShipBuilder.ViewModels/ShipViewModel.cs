@@ -12,15 +12,16 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public partial class ShipViewModel : ViewModelBase, IViewModel<IShipPrototype>, IDocumentViewModel
     {
-        private ShipPrototype? _saved = null;
+        private ShipPrototype _saved;
         private readonly IDefaultValueProvider _defaultValueProvider;
+        private readonly IViewModelFactory _viewModelFactory;
         private ShipPrototype _current;
 
-        public ShipViewModel(IDefaultValueProvider defaultValueProvider)
-            : this(defaultValueProvider.GetDefaultValue<ShipPrototype>(), defaultValueProvider)
+        public ShipViewModel(IDefaultValueProvider defaultValueProvider, IViewModelFactory viewModelFactory)
+            : this(defaultValueProvider.GetDefaultValue<ShipPrototype>(), defaultValueProvider, viewModelFactory)
         { }
 
-        public ShipViewModel(ShipPrototype prototype, IDefaultValueProvider defaultValueProvider)
+        public ShipViewModel(ShipPrototype prototype, IDefaultValueProvider defaultValueProvider, IViewModelFactory viewModelFactory)
         {
             _visual = prototype.Visual ?? new RenderDefinition
             {
@@ -32,6 +33,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
             _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
             _defaultValueProvider = defaultValueProvider;
+            _viewModelFactory = viewModelFactory;
             _current = _saved;
 
             Reactor = _current.Reactor is ReactorPrototype rp ? new ReactorViewModel(rp) : new ReactorViewModel();
@@ -39,11 +41,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             Shields = _current.Shields is ShieldsPrototype sp ? new ShieldsViewModel(sp) : new ShieldsViewModel();
             Hull = _current.Hull is HullPrototype hp ? new HullViewModel(hp) : new HullViewModel();
 
-            EnergyWeapons = new ObservableCollectionExtended<EnergyWeaponViewModel>(
-                (_current.EnergyWeapons ?? Enumerable.Empty<IEnergyWeaponPrototype>())
-                .OfType<EnergyWeaponPrototype>()
-                .Select(o => new EnergyWeaponViewModel(o))
-            );
+            EnergyWeapons = _viewModelFactory.For<EnergyWeaponsViewModel, EnergyWeaponPrototype>(_current.EnergyWeapons.OfType<EnergyWeaponPrototype>());
 
             Ordinances = new ObservableCollectionExtended<OrdinanceViewModel>(
                 (_current.Ordinances ?? Enumerable.Empty<IOrdinancePrototype>())
@@ -80,68 +78,74 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [Reactive]
         private HullViewModel _hull;
 
-        public IObservableCollection<EnergyWeaponViewModel> EnergyWeapons { get; }
+        [Reactive]
+        private EnergyWeaponsViewModel _energyWeapons;
 
         [Reactive]
         private EnergyWeaponViewModel? _selectedEnergyWeapon;
 
         public IObservableCollection<OrdinanceViewModel> Ordinances { get; }
 
+        public IShipPrototype GetPrototype()
+        {
+            return _saved;
+        }
+
         [ReactiveCommand]
         private void Save()
         {
-            if (_saved == null) throw new InvalidOperationException("No saved prototype available to save into.");
+            //if (_saved == null) throw new InvalidOperationException("No saved prototype available to save into.");
 
-            // Save nested systems (each will write into their saved prototype)
-            Reactor.SaveCommand.Execute().Subscribe();
-            Drive.SaveCommand.Execute().Subscribe();
-            Shields.SaveCommand.Execute().Subscribe();
-            Hull.SaveCommand.Execute().Subscribe();
+            //// Save nested systems (each will write into their saved prototype)
+            //Reactor.SaveCommand.Execute().Subscribe();
+            //Drive.SaveCommand.Execute().Subscribe();
+            //Shields.SaveCommand.Execute().Subscribe();
+            //Hull.SaveCommand.Execute().Subscribe();
 
-            // Save collection items if needed. Currently the OrdinanceViewModel/derived SaveCommand
-            // will mutate the underlying prototype instance if constructed with it.
-            foreach (var ev in EnergyWeapons) ev.SaveCommand.Execute().Subscribe();
-            foreach (var o in Ordinances) o.SaveCommand.Execute().Subscribe();
+            //// Save collection items if needed. Currently the OrdinanceViewModel/derived SaveCommand
+            //// will mutate the underlying prototype instance if constructed with it.
+            //foreach (var ev in EnergyWeapons) ev.SaveCommand.Execute().Subscribe();
+            //foreach (var o in Ordinances) o.SaveCommand.Execute().Subscribe();
         }
 
         [ReactiveCommand]
         private void Reset()
         {
-            if (_saved == null) throw new InvalidOperationException("No saved prototype available to reset from.");
+            //if (_saved == null) throw new InvalidOperationException("No saved prototype available to reset from.");
 
-            Reactor.ResetCommand.Execute().Subscribe();
-            Drive.ResetCommand.Execute().Subscribe();
-            Shields.ResetCommand.Execute().Subscribe();
-            Hull.ResetCommand.Execute().Subscribe();
+            //Reactor.ResetCommand.Execute().Subscribe();
+            //Drive.ResetCommand.Execute().Subscribe();
+            //Shields.ResetCommand.Execute().Subscribe();
+            //Hull.ResetCommand.Execute().Subscribe();
 
-            foreach (var ev in EnergyWeapons) ev.ResetCommand.Execute().Subscribe();
-            foreach (var o in Ordinances) o.ResetCommand.Execute().Subscribe();
+            //foreach (var ev in EnergyWeapons) ev.ResetCommand.Execute().Subscribe();
+            //foreach (var o in Ordinances) o.ResetCommand.Execute().Subscribe();
         }
 
-        [ReactiveCommand]
-        private void NewEnergyWeapon()
-        {
-            var defaultEnergyWeapon = _defaultValueProvider.GetDefaultValue<EnergyWeaponPrototype>();
-            var newWeaponVM = new EnergyWeaponViewModel(defaultEnergyWeapon);
-            EnergyWeapons.Add(newWeaponVM);
-            SelectedEnergyWeapon ??= newWeaponVM;
-        }
+        //[ReactiveCommand]
+        //private void NewEnergyWeapon()
+        //{
+        //    var defaultEnergyWeapon = _defaultValueProvider.GetDefaultValue<EnergyWeaponPrototype>();
+        //    var newWeaponVM = new EnergyWeaponViewModel(defaultEnergyWeapon);
+        //    EnergyWeapons.Add(newWeaponVM);
+        //    SelectedEnergyWeapon ??= newWeaponVM;
+        //}
 
-        [ReactiveCommand(CanExecute = nameof(DeleteEnergyWeaponCanExecute))]
-        private void DeleteEnergyWeapon()
-        {
-            var index = EnergyWeapons.IndexOf(SelectedEnergyWeapon!);
-            index = Math.Max(index - 1, 0);
-            EnergyWeapons.Remove(SelectedEnergyWeapon!);
-            SelectedEnergyWeapon = EnergyWeapons.ElementAtOrDefault(index);
-        }
+        //[ReactiveCommand(CanExecute = nameof(DeleteEnergyWeaponCanExecute))]
+        //private void DeleteEnergyWeapon()
+        //{
+        //    var index = EnergyWeapons.IndexOf(SelectedEnergyWeapon!);
+        //    index = Math.Max(index - 1, 0);
+        //    EnergyWeapons.Remove(SelectedEnergyWeapon!);
+        //    SelectedEnergyWeapon = EnergyWeapons.ElementAtOrDefault(index);
+        //}
 
-        private bool DeleteEnergyWeaponCanExecute()
-        {
-            return EnergyWeapons.Any()
-                && SelectedEnergyWeapon is not null
-                && EnergyWeapons.Contains(SelectedEnergyWeapon);
-        }
+        //private bool DeleteEnergyWeaponCanExecute()
+        //{
+        //    return EnergyWeapons.Any()
+        //        && SelectedEnergyWeapon is not null
+        //        && EnergyWeapons.Contains(SelectedEnergyWeapon);
+        //}
 
         [ReactiveCommand]
         private void NewOrdinance()

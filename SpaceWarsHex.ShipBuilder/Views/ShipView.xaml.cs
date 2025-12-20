@@ -32,23 +32,28 @@ namespace SpaceWarsHex.ShipBuilder.Views
 
                 this.OneWayBind(ViewModel,
                     vm => vm.EnergyWeapons,
-                    v => v.EnergyWeapons.ItemsSource)
+                    v => v.EnergyWeaponsHost.ViewModel)
                 .DisposeWith(disposables);
 
-                this.Bind(ViewModel,
-                    vm => vm.SelectedEnergyWeapon,
-                    v => v.EnergyWeapons.SelectedItem)
-                .DisposeWith(disposables);
+                //this.OneWayBind(ViewModel,
+                //    vm => vm.EnergyWeapons,
+                //    v => v.EnergyWeapons.ItemsSource)
+                //.DisposeWith(disposables);
 
-                this.BindCommand(ViewModel,
-                    vm => vm.NewEnergyWeaponCommand,
-                    v => v.AddEnergyWeaponBtn)
-                .DisposeWith(disposables);
+                //this.Bind(ViewModel,
+                //    vm => vm.SelectedEnergyWeapon,
+                //    v => v.EnergyWeapons.SelectedItem)
+                //.DisposeWith(disposables);
 
-                this.BindCommand(ViewModel,
-                    vm => vm.DeleteEnergyWeaponCommand,
-                    v => v.DelEnergyWeaponBtn)
-                .DisposeWith(disposables);
+                //this.BindCommand(ViewModel,
+                //    vm => vm.NewEnergyWeaponCommand,
+                //    v => v.AddEnergyWeaponBtn)
+                //.DisposeWith(disposables);
+
+                //this.BindCommand(ViewModel,
+                //    vm => vm.DeleteEnergyWeaponCommand,
+                //    v => v.DelEnergyWeaponBtn)
+                //.DisposeWith(disposables);
             });
         }
     }

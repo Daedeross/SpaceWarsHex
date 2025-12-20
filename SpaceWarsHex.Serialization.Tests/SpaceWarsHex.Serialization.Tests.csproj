@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SpaceWarsHex.Mocks\SpaceWarsHex.Mocks.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Serialization\SpaceWarsHex.Serialization.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.ShipBuilder.ViewModels\SpaceWarsHex.ShipBuilder.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

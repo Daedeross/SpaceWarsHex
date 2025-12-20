@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
 using System;
@@ -7,13 +8,17 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<ITorpedoTubePrototype>
+    public partial class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<ITorpedoTubePrototype>
     {
-        private ITorpedoTubePrototype? _saved;
+        private ITorpedoTubePrototype _saved;
 
+        [Reactive]
         private int _minWarp;
+        [Reactive]
         private int _maxWarp;
+        [Reactive]
         private bool _homing;
+        [Reactive]
         private bool _loadFire;
 
         public TorpedoTubeViewModel()
@@ -53,28 +58,9 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public int MinWarp
+        public override ITorpedoTubePrototype GetPrototype()
         {
-            get => _minWarp;
-            set => this.RaiseAndSetIfChanged(ref _minWarp, value);
-        }
-
-        public int MaxWarp
-        {
-            get => _maxWarp;
-            set => this.RaiseAndSetIfChanged(ref _maxWarp, value);
-        }
-
-        public bool Homing
-        {
-            get => _homing;
-            set => this.RaiseAndSetIfChanged(ref _homing, value);
-        }
-
-        public bool LoadFire
-        {
-            get => _loadFire;
-            set => this.RaiseAndSetIfChanged(ref _loadFire, value);
+            return _saved;
         }
     }
 }

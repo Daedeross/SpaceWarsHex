@@ -63,6 +63,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
+        public override ITransporterBombPrototype GetPrototype()
+        {
+            throw new NotImplementedException();
+        }
+
         public int DetonationDelay
         {
             get => _detonationDelay;

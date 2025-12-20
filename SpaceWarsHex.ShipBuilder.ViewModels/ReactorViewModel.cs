@@ -10,7 +10,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public partial class ReactorViewModel : SystemViewModel, IViewModel<IReactorPrototype>
     {
-        private IReactorPrototype? _saved;
+        private IReactorPrototype _saved;
 
         private int m_CruisePower;
         public int CruisePower
@@ -81,6 +81,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 rp.EmergencyPower = EmergencyPower;
                 rp.MaxTurnsAtAttackPower = MaxTurnsAtAttackPower;
             }
+        }
+
+        public IReactorPrototype GetPrototype()
+        {
+            return _saved;
         }
     }
 }

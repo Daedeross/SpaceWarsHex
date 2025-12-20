@@ -10,7 +10,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public class OrdinanceViewModel : SystemViewModel, IViewModel<IOrdinancePrototype>
     {
-        private IOrdinancePrototype? _saved;
+        private IOrdinancePrototype _saved;
 
         private FireMode _fireMode;
         private TurnPhase _firePhase;
@@ -56,6 +56,11 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
                 op.Strength = Strength;
                 op.MaxUses = MaxUses;
             }
+        }
+
+        public virtual IOrdinancePrototype GetPrototype()
+        {
+            return _saved;
         }
 
         public FireMode FireMode

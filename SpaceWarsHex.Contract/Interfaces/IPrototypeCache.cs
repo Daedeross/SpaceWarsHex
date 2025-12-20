@@ -1,5 +1,6 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
 using System;
+using System.Collections.Generic;
 
 namespace SpaceWarsHex.Interfaces
 {
@@ -15,15 +16,16 @@ namespace SpaceWarsHex.Interfaces
         /// <typeparam name="TPrototype"></typeparam>
         /// <param name="prototype"></param>
         /// <returns></returns>
-        TPrototype GetOrAdd<TPrototype>(TPrototype prototype);
+        TPrototype GetOrAdd<TPrototype>(TPrototype prototype)
+            where TPrototype : IPrototype, IHaveId;
 
         /// <summary>
-        /// Try to get a protoype from the cache.
+        /// Replaces the existing prototype with the same Id or addes it if none exists with the same Id.
         /// </summary>
-        /// <param name="id"></param>
+        /// <typeparam name="TPrototype"></typeparam>
         /// <param name="prototype"></param>
-        /// <returns></returns>
-        bool TryGetValue(Guid id, out IPrototype prototype);
+        void AddOrUpdate<TPrototype>(TPrototype prototype)
+            where TPrototype : IPrototype, IHaveId;
 
         /// <summary>
         /// Try to get a protoype from the cache and cast it the the given type.
@@ -31,7 +33,15 @@ namespace SpaceWarsHex.Interfaces
         /// <param name="id"></param>
         /// <param name="prototype"></param>
         /// <returns></returns>
-        bool TryGetValue<TPrototype>(Guid id, out TPrototype prototype)
+        bool TryGetValue<TPrototype>(Guid id, out TPrototype? prototype)
             where TPrototype : IPrototype, IHaveId;
+
+        /// <summary>
+        /// Gets all cached prototypes of the given type.
+        /// </summary>
+        /// <typeparam name="TPrototype">The type of prototype to get.</typeparam>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <typeparamref name="TPrototype"/>. Can be empty.</returns>
+        IEnumerable<TPrototype> GetAllOfType<TPrototype>()
+            where TPrototype : IPrototype;
     }
 }

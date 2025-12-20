@@ -21,7 +21,8 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ListView x:Name="WeaponsList">
+        <ListView x:Name="WeaponsList"
+                  SizeChanged="ListView_SizeChanged">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
                     <GridView.Columns>
@@ -30,11 +31,20 @@
                                         DisplayMemberBinding="{Binding Name}" />
                         <GridViewColumn Header="Power"
                                         DisplayMemberBinding="{Binding MaxEnergy, Mode=OneWay}" />
-                        <GridViewColumn Header="Dice">
+                        <GridViewColumn Header="Dice"
+                                        Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <mah:NumericUpDown Value="{Binding Dice, Converter={StaticResource IntegerToDoubleConverter}}"
+                                    <mah:NumericUpDown Value="{Binding MaxDice, Converter={StaticResource IntegerToDoubleConverter}}"
                                                        Interval="1" Minimum="0" Maximum="100"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="X">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding ViewModel.RemoveEnergyWeaponCommand, RelativeSource={RelativeSource AncestorType={x:Type local:EnergyWeaponsView}}}"
+                                            CommandParameter="{Binding}">&gt;</Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -43,27 +53,35 @@
             </ListView.View>
         </ListView>
         <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" Width="2" />
-        <StackPanel Grid.Column="2" VerticalAlignment="Top"
+        <!--<StackPanel Grid.Column="2" VerticalAlignment="Top"
                     Margin="2,10,4,10">
             <Button Name="AddBtn" Content="&lt;" />
             <Button Name="RemoveBtn" Content="&gt;" />
-        </StackPanel>
-        <ListView x:Name="PremadeWeapons" Grid.Column="3"
-                  SizeChanged="PremadeWeapons_SizeChanged">
+        </StackPanel>-->
+        <ListView x:Name="StockEnergyWeapons" Grid.Column="3"
+                  SizeChanged="ListView_SizeChanged">
             <ListView.View>
-                <GridView>
+                <GridView AllowsColumnReorder="False">
                     <GridView.Columns>
-                        <GridViewColumn Header="Weapon"
-                                        h:MyListBoxItemAssist.FillRemaining="True"
-                                        DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="V">
+                        <GridViewColumn Header="+">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Visual}" />
+                                    <Button Command="{Binding ViewModel.AddEnergyWeaponCommand, RelativeSource={RelativeSource AncestorType={x:Type local:EnergyWeaponsView}}}"
+                                            CommandParameter="{Binding}">&lt;</Button>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="FireMode" DisplayMemberBinding="{Binding FireMode}" />
+                        <GridViewColumn Header="FireMode" DisplayMemberBinding="{Binding FireMode, Mode=OneWay}" />
+                        <GridViewColumn Header="Visual">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsEnabled="False" IsChecked="{Binding Visual, Mode=OneWay}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Weapon"
+                                        h:MyListBoxItemAssist.FillRemaining="True"
+                                        DisplayMemberBinding="{Binding Name, Mode=OneWay}" />
                     </GridView.Columns>
                 </GridView>
             </ListView.View>
