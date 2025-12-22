@@ -1,49 +1,41 @@
 using ReactiveUI;
-using SpaceWarsHex.Interfaces.Prototypes;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Prototypes;
-using System;
-using System.Reactive;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class HullViewModel : ViewModelBase, IViewModel<IHullPrototype>
+    public partial class HullViewModel : ViewModelBase, IViewModel<HullPrototype>
     {
-        private IHullPrototype? _saved;
+        private HullPrototype _saved;
 
+        [Reactive]
         private int _maxIntegrity;
 
         public HullViewModel()
-            : this(new HullPrototype())
+            : this(new HullPrototype() { MaxIntegrity = 1 })
         { }
 
         public HullViewModel(HullPrototype prototype)
         {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
+            _saved = prototype.GetOrThrow();
 
-            SaveCommand = ReactiveCommand.Create(Save);
-            ResetCommand = ReactiveCommand.Create(Reset);
             LoadFrom(_saved);
         }
 
-        public void LoadFrom(IHullPrototype prototype)
+        public void LoadFrom(HullPrototype prototype)
         {
-            if (prototype is IHullPrototype hp)
-            {
-                _saved = hp;
-                MaxIntegrity = hp.MaxIntegrity;
-            }
+            _saved = prototype;
+            MaxIntegrity = prototype.MaxIntegrity;
         }
 
-        public void SaveTo(IHullPrototype prototype)
+        public void SaveTo(HullPrototype prototype)
         {
-            if (prototype is HullPrototype hp)
-            {
-                hp.MaxIntegrity = MaxIntegrity;
-            }
+            prototype.MaxIntegrity = MaxIntegrity;
         }
 
+        [ReactiveCommand]
         private void Save()
         {
             if (_saved != null)
@@ -52,6 +44,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
+        [ReactiveCommand]
         private void Reset()
         {
             if (_saved != null)
@@ -60,20 +53,16 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        /// <summary>
-        /// Save changes from ViewModel into the saved prototype instance.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-
-        /// <summary>
-        /// Reset ViewModel properties to the last saved prototype state.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> ResetCommand { get; }
-
-        public int MaxIntegrity
+        public HullPrototype GetLast()
         {
-            get => _maxIntegrity;
-            set => this.RaiseAndSetIfChanged(ref _maxIntegrity, value);
+            return _saved;
+        }
+
+        public HullPrototype Commit()
+        {
+            SaveTo(_saved);
+
+            return _saved;
         }
     }
 }

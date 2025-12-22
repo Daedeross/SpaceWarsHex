@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
@@ -8,13 +9,15 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class TransporterBombViewModel : OrdinanceViewModel, IViewModel<ITransporterBombPrototype>
+    public partial class TransporterBombViewModel : OrdinanceViewModel, IViewModel<TransporterBombPrototype>
     {
-        private ITransporterBombPrototype? _saved;
-
+        [Reactive]
         private int _detonationDelay;
+        [Reactive]
         private TurnPhase _detonationPhase;
+        [Reactive]
         private int _revealDelay;
+        [Reactive]
         private TurnPhase _revealPhase;
 
         public TransporterBombViewModel()
@@ -23,16 +26,13 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public TransporterBombViewModel(TransporterBombPrototype prototype)
             : base(prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(OrdinancePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is ITransporterBombPrototype tb)
+            if (prototype is TransporterBombPrototype tb)
             {
                 _saved = tb;
                 DetonationDelay = tb.DetonationDelay;
@@ -42,7 +42,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(OrdinancePrototype prototype)
         {
             base.SaveTo(prototype);
 
@@ -63,28 +63,14 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public int DetonationDelay
+        TransporterBombPrototype IViewModel<TransporterBombPrototype>.GetLast()
         {
-            get => _detonationDelay;
-            set => this.RaiseAndSetIfChanged(ref _detonationDelay, value);
+            return (TransporterBombPrototype)_saved;
         }
 
-        public TurnPhase DetonationPhase
+        TransporterBombPrototype IViewModel<TransporterBombPrototype>.Commit()
         {
-            get => _detonationPhase;
-            set => this.RaiseAndSetIfChanged(ref _detonationPhase, value);
-        }
-
-        public int RevealDelay
-        {
-            get => _revealDelay;
-            set => this.RaiseAndSetIfChanged(ref _revealDelay, value);
-        }
-
-        public TurnPhase RevealPhase
-        {
-            get => _revealPhase;
-            set => this.RaiseAndSetIfChanged(ref _revealPhase, value);
+            return (TransporterBombPrototype)base.Commit();
         }
     }
 }

@@ -1,79 +1,72 @@
 ﻿using ReactiveUI;
-using SpaceWarsHex.Interfaces.Prototypes;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Prototypes;
-using System;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class ReactorViewModel : SystemViewModel, IViewModel<IReactorPrototype>
+    public partial class ReactorViewModel : SystemViewModel<ReactorPrototype>
     {
-        private IReactorPrototype? _saved;
-        private int _cruisePower;
-        private int _attackPower;
+        private int m_CruisePower;
+        public int CruisePower
+        {
+            get => m_CruisePower;
+            set
+            {
+                if (value != m_CruisePower)
+                {
+                    this.RaiseAndSetIfChanged(ref m_CruisePower, value);
+                    AttackPower = Math.Max(AttackPower, CruisePower);
+                }
+            }
+        }
+
+        private int m_AttackPower;
+        public int AttackPower
+        {
+            get => m_AttackPower;
+            set
+            {
+                if (value != m_AttackPower)
+                {
+                    this.RaiseAndSetIfChanged(ref m_AttackPower, value);
+                    CruisePower = Math.Min(CruisePower, AttackPower);
+                }
+            }
+        }
+
+        [Reactive]
         private int _emergencyPower;
+        [Reactive]
         private int _maxTurnsAtAttackPower;
 
         public ReactorViewModel()
-            : this(new ReactorPrototype())
+            : this(new ReactorPrototype() { Name = "Reactor", Id = Guid.NewGuid() })
         { }
 
         public ReactorViewModel(ReactorPrototype prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+            : base(prototype)
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(ReactorPrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IReactorPrototype rp)
-            {
-                _saved = rp;
-                CruisePower = rp.CruisePower;
-                AttackPower = rp.AttackPower;
-                EmergencyPower = rp.EmergencyPower;
-                MaxTurnsAtAttackPower = rp.MaxTurnsAtAttackPower;
-            }
+            CruisePower = prototype.CruisePower;
+            AttackPower = prototype.AttackPower;
+            EmergencyPower = prototype.EmergencyPower;
+            MaxTurnsAtAttackPower = prototype.MaxTurnsAtAttackPower;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(ReactorPrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is ReactorPrototype rp)
-            {
-                rp.CruisePower = CruisePower;
-                rp.AttackPower = AttackPower;
-                rp.EmergencyPower = EmergencyPower;
-                rp.MaxTurnsAtAttackPower = MaxTurnsAtAttackPower;
-            }
-        }
-
-        public int CruisePower
-        {
-            get => _cruisePower;
-            set => this.RaiseAndSetIfChanged(ref _cruisePower, value);
-        }
-
-        public int AttackPower
-        {
-            get => _attackPower;
-            set => this.RaiseAndSetIfChanged(ref _attackPower, value);
-        }
-
-        public int EmergencyPower
-        {
-            get => _emergencyPower;
-            set => this.RaiseAndSetIfChanged(ref _emergencyPower, value);
-        }
-
-        public int MaxTurnsAtAttackPower
-        {
-            get => _maxTurnsAtAttackPower;
-            set => this.RaiseAndSetIfChanged(ref _maxTurnsAtAttackPower, value);
+            prototype.CruisePower = CruisePower;
+            prototype.AttackPower = AttackPower;
+            prototype.EmergencyPower = EmergencyPower;
+            prototype.MaxTurnsAtAttackPower = MaxTurnsAtAttackPower;
         }
     }
 }

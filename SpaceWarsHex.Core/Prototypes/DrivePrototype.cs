@@ -15,5 +15,15 @@ namespace SpaceWarsHex.Prototypes
         [DataMember]
         public int AccelerationClass { get; set; }
 
+        public override object Clone()
+        {
+            var clone = new DrivePrototype()
+            {
+                MaxWarp = MaxWarp,
+                AccelerationClass = AccelerationClass
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

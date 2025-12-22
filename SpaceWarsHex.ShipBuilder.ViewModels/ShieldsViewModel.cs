@@ -1,16 +1,13 @@
-using ReactiveUI;
-using SpaceWarsHex.Interfaces.Prototypes;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Prototypes;
-using System;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class ShieldsViewModel : SystemViewModel, IViewModel<IShieldsPrototype>
+    public partial class ShieldsViewModel : SystemViewModel<ShieldsPrototype>
     {
-        private IShieldsPrototype? _saved;
-
+        [Reactive]
         private int _maxPower;
 
         public ShieldsViewModel()
@@ -18,36 +15,21 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         { }
 
         public ShieldsViewModel(ShieldsPrototype prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+            : base(prototype)
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(ShieldsPrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IShieldsPrototype sp)
-            {
-                _saved = sp;
-                MaxPower = sp.MaxPower;
-            }
+            MaxPower = prototype.MaxPower;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(ShieldsPrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is ShieldsPrototype sp)
-            {
-                sp.MaxPower = MaxPower;
-            }
-        }
-
-        public int MaxPower
-        {
-            get => _maxPower;
-            set => this.RaiseAndSetIfChanged(ref _maxPower, value);
+            prototype.MaxPower = MaxPower;
         }
     }
 }

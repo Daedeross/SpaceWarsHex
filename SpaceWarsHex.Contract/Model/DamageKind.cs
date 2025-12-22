@@ -14,12 +14,16 @@
         /// </summary>
         Physical = 1,
         /// <summary>
+        /// Zap damage. Reduces target's acceleration.
+        /// </summary>
+        Zap = 2,
+        /// <summary>
         /// Direct Damage to hull, ignores shields.
         /// </summary>
         Direct,
         /// <summary>
-        /// Zap damage. Reduces target's acceleration.
+        /// Direct Damage to hull, ignores shields, does not scale with dice
         /// </summary>
-        Zap = 2,
+        DirectFlat,
     }
 }

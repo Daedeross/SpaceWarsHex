@@ -45,5 +45,19 @@ namespace SpaceWarsHex.Prototypes
         /// <inheritdoc />
         [DataMember]
         public int MaxUses { get; set; }
+
+        public override object Clone()
+        {
+            var clone = new OrdinancePrototype()
+            {
+                FireMode = FireMode,
+                FirePhase = FirePhase,
+                MaxRange = MaxRange,
+                Strength = Strength,
+                MaxUses = MaxUses
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

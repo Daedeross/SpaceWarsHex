@@ -2,12 +2,15 @@
 using SpaceWarsHex.Interfaces.Prototypes;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SpaceWarsHex.Serialization
 {
-    public class PrototypeDatabase
+    public class PrototypeDatabase : IPrototypeCache
     {
-        private readonly ConcurrentDictionary<Guid, IPrototype> _cache = new();
+        //private readonly ConcurrentDictionary<Guid, IPrototype> _cache = new();
+        private readonly ConcurrentDictionary<Type, ConcurrentDictionary<Guid, IPrototype>> _cache = new();
 
         /// <summary>
         /// Adds a prototype to the DB if it does not exist yet,
@@ -19,7 +22,18 @@ namespace SpaceWarsHex.Serialization
         public TPrototype GetOrAdd<TPrototype>(TPrototype prototype)
             where TPrototype : IPrototype, IHaveId
         {
-            var output = _cache.GetOrAdd(prototype.Id, prototype);
+            var dict = _cache.AddOrUpdate(
+                typeof(TPrototype),
+                _ => new ConcurrentDictionary<Guid, IPrototype>
+                {
+                    [prototype.Id] = prototype,
+                },
+                (_, dict) => {
+                    dict.AddOrUpdate(prototype.Id, prototype, (id, p) => prototype);
+                    return dict;
+                });
+
+            var output = dict[prototype.Id];
 
             if (output is TPrototype prototype1)
             {
@@ -29,26 +43,52 @@ namespace SpaceWarsHex.Serialization
                 $"The existing prototype with id {prototype.Id} is not of type {typeof(TPrototype)}");
         }
 
-        public bool TryGetValue(Guid id, out IPrototype? prototype)
+        public void AddOrUpdate<TPrototype>(TPrototype prototype)
+            where TPrototype : IPrototype, IHaveId
         {
-            return _cache.TryGetValue(id, out prototype);
+            _cache.AddOrUpdate(
+                typeof(TPrototype),
+                _ => new ConcurrentDictionary<Guid, IPrototype>
+                {
+                    [prototype.Id] = prototype,
+                },
+                (_, dict) => {
+                    dict.AddOrUpdate(prototype.Id, prototype, (id, p) => prototype);
+                    return dict;
+                });
         }
 
-
         public bool TryGetValue<TPrototype>(Guid id, out TPrototype? prototype)
-            where TPrototype: IPrototype, IHaveId
+            where TPrototype : IPrototype, IHaveId
         {
-            if (_cache.TryGetValue(id, out IPrototype? value))
+            if (_cache.TryGetValue(typeof(TPrototype), out var dict))
             {
-                if (value is TPrototype prototype2)
+                if (dict.TryGetValue(id, out var obj))
                 {
-                    prototype = prototype2;
-                    return true;
+                    if (obj is TPrototype proto)
+                    {
+                        prototype = proto;
+                        return true;
+                    }
                 }
             }
-
+            // fallthough
             prototype = default;
+
             return false;
+        }
+
+        public IEnumerable<TPrototype> GetAllOfType<TPrototype>()
+            where TPrototype : IPrototype
+        {
+            if (_cache.TryGetValue(typeof(TPrototype), out var dict))
+            {
+                return dict.Values
+                    .Cast<TPrototype>()
+                    .ToList();
+            }
+
+            return [];
         }
     }
 }

@@ -6,22 +6,74 @@
                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                           xmlns:local="clr-namespace:SpaceWarsHex.ShipBuilder.Views"
                           xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels;assembly=SpaceWarsHex.ShipBuilder.ViewModels"
                           mc:Ignorable="d" 
                           d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Label>Name</Label>
-        <TextBox Name="NameText" Grid.Column="1" />
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label FontSize="24" Grid.Column="0" Margin="5,0">Name</Label>
+            <TextBox Name="NameText" VerticalContentAlignment="Center" Grid.Column="1"
+                     HorizontalAlignment="Stretch"
+                     FontSize="18" d:Text="Ship Name Here"/>
+            <Border Grid.Column="2" Width="2"
+                    Background="Black"
+                    VerticalAlignment="Stretch" />
+            <Label FontSize="24" Grid.Column="3" Margin="5,0">Hull</Label>
+            <mah:NumericUpDown Grid.Column="4" MinWidth="100" 
+                               Name="HullSpin"
+                               Minimum="1" Maximum="1000"
+                               VerticalContentAlignment="Center"
+                               FontSize="18"
+                               d:Value="100"/>
+        </Grid>
+        <Expander Grid.Row="1" Grid.Column="2" Header="Reactor" IsExpanded="False" >
+            <local:ReactorView x:Name="ReactorHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        </Expander>
+        <Expander Grid.Row="2" Grid.Column="2" Header="Drive" IsExpanded="False" >
+            <local:DriveView x:Name="DriveHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+        </Expander>
+        <Expander Grid.Row="3" Grid.Column="2" Header="Energy Weapons">
+            <local:EnergyWeaponsView x:Name="EnergyWeaponsHost" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" x:Name="AddEnergyWeaponBtn">Add Weapon</Button>
+                <Button Grid.Column="1" Grid.Row="0" x:Name="DelEnergyWeaponBtn">Delete Weapon</Button>
+                <TabControl x:Name="EnergyWeapons" Grid.Row="1" Grid.ColumnSpan="3">
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="12" />
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <rxui:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </TabControl>
+            </Grid>-->
+        </Expander>
     </Grid>
 </rxui:ReactiveUserControl>

@@ -1,4 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
+using System.Collections.Generic;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
@@ -6,7 +7,13 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
     {
         T Create<T>() where T : class, IViewModel;
 
+        T Create<T>(IDefaultValueProvider defaultValueProvider) where T : class, IViewModel;
+
         TViewModel For<TViewModel, TModel>(TModel model) where TViewModel : class, IViewModel<TModel> where TModel : class, IPrototype;
+
+        TViewModel For<TViewModel, TModel>(IEnumerable<TModel> models) where TViewModel : class, ICollectionViewModel<TModel> where TModel : class, IPrototype;
+
+        TViewModel For<TViewModel, TModel>(TModel model, IDefaultValueProvider defaultValueProvider) where TViewModel : class, IViewModel<TModel> where TModel : class, IPrototype;
 
         IViewContainer CreateContainer(string title, IViewModel content, bool ownsContent);
 

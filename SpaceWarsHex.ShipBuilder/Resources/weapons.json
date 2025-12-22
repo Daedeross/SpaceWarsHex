@@ -1,0 +1,350 @@
+{
+  "EnergyWeapons": [
+    {
+      "Effects": [
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 1
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": true,
+      "EnergyPerDie": 1,
+      "MaxRange": 0,
+      "Name": "Visual Phasor"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 2
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": false,
+      "EnergyPerDie": 3,
+      "MaxRange": 0,
+      "Name": "Gamma Phasor"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Physical",
+          "DamageValue": 1
+        },
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 1
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": true,
+      "EnergyPerDie": 2,
+      "MaxRange": 0,
+      "Name": "Visual Photon Torpedo"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Physical",
+          "DamageValue": 1
+        },
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 1
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": false,
+      "EnergyPerDie": 3,
+      "MaxRange": 0,
+      "Name": "Gamma Photon Torpedo"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 1
+        },
+        {
+          "DamageKind": "Physical",
+          "DamageValue": 1
+        },
+        {
+          "DamageKind": "DirectFlat",
+          "DamageValue": 1
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": true,
+      "EnergyPerDie": 3,
+      "MaxRange": 0,
+      "Name": "Visual Quantum Torpedo"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Physical",
+          "DamageValue": 2
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": false,
+      "EnergyPerDie": 3,
+      "MaxRange": 0,
+      "Name": "Magma Torpedo"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Direct",
+          "DamageValue": 1
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "DirectFire",
+      "FirePhase": "Weapons1",
+      "Visual": false,
+      "EnergyPerDie": 4,
+      "MaxRange": 0,
+      "Name": "Mass Driver"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Physical",
+          "DamageValue": 5
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "Beam",
+      "FirePhase": "Weapons2",
+      "Visual": false,
+      "EnergyPerDie": 5,
+      "MaxRange": 6,
+      "Name": "Magma Beam"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 5
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "Beam",
+      "FirePhase": "Weapons1",
+      "Visual": true,
+      "EnergyPerDie": 5,
+      "MaxRange": 30,
+      "Name": "Constant Beam"
+    },
+    {
+      "Effects": [
+        {
+          "DamageKind": "Energy",
+          "DamageValue": 5
+        }
+      ],
+      "DamageThresholds": [
+        {
+          "HullStrength": 1.0,
+          "SystemMultiplier": 1.0
+        },
+        {
+          "HullStrength": 0.75,
+          "SystemMultiplier": 0.875
+        },
+        {
+          "HullStrength": 0.5,
+          "SystemMultiplier": 0.75
+        },
+        {
+          "HullStrength": 0.25,
+          "SystemMultiplier": 0.5
+        }
+      ],
+      "MaxDice": 1,
+      "FireMode": "Pulse",
+      "FirePhase": "Weapons2",
+      "Visual": false,
+      "EnergyPerDie": 2,
+      "MaxRange": 6,
+      "Name": "Pulse"
+    }
+  ]
+}

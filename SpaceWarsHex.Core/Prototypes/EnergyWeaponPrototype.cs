@@ -42,5 +42,25 @@ namespace SpaceWarsHex.Prototypes
 #pragma warning disable CS8618
         internal List<WeaponEffect> _effects;
 #pragma warning restore CS8618
+
+        public override object Clone()
+        {
+            var clone = new EnergyWeaponPrototype()
+            {
+                MaxDice = MaxDice,
+                FireMode = FireMode,
+                FirePhase = FirePhase,
+                Visual = Visual,
+                EnergyPerDie = EnergyPerDie,
+                MaxRange = MaxRange,
+                _effects = [.. _effects.Select(effect => new WeaponEffect
+                {
+                    DamageKind = effect.DamageKind,
+                    DamageValue = effect.DamageValue
+                })]
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

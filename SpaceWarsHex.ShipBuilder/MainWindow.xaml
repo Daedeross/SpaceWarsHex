@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:SpaceWarsHex.ShipBuilder.ViewModels;assembly=SpaceWarsHex.ShipBuilder.ViewModels"
         xmlns:local="clr-namespace:SpaceWarsHex.ShipBuilder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="768" Width="1024">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -36,7 +36,7 @@
             </TabControl.ContentTemplate>
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding Name}" FontSize="12" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
         </TabControl>

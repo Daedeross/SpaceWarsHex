@@ -1,12 +1,19 @@
 ﻿using DynamicData.Binding;
 using ReactiveUI.SourceGenerators;
+using SpaceWarsHex.Interfaces.Prototypes;
+using SpaceWarsHex.Prototypes;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
     public partial class WorkspaceViewModel : ViewModelBase
     {
-        public WorkspaceViewModel()
+        private readonly IViewModelFactory _viewModelFactory;
+        private readonly IDefaultValueProvider _defaultValueProvider;
+
+        public WorkspaceViewModel(IViewModelFactory viewModelFactory, IDefaultValueProvider defaultValueProvider)
         {
+            _viewModelFactory = viewModelFactory;
+            _defaultValueProvider = defaultValueProvider;
         }
 
         public IObservableCollection<ShipViewModel> Ships { get; } = new ObservableCollectionExtended<ShipViewModel>();
@@ -19,7 +26,9 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand]
         private void NewShip()
         {
-            Ships.Add(new ShipViewModel() {  Name = "New Ship" });
+            var proto = _defaultValueProvider.GetDefaultValue<ShipPrototype>();
+            var vm = _viewModelFactory.For<ShipViewModel, ShipPrototype>(proto);
+            Ships.Add(vm);
             CurrentShip = Ships[^1];
         }
 
@@ -32,6 +41,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand(CanExecute = nameof(SaveShipCanExecute))]
         private void SaveShip()
         {
+            CurrentShip?.SaveAsCommand?.Execute().Subscribe();
         }
 
         private bool SaveShipCanExecute() => _currentShip is not null;
@@ -39,7 +49,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand]
         private void SaveShipAs()
         {
-            // TODO
+            CurrentShip?.SaveAsCommand?.Execute().Subscribe();
         }
 
         [ReactiveCommand]

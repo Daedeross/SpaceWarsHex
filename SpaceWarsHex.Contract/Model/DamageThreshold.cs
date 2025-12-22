@@ -14,7 +14,7 @@ namespace SpaceWarsHex.Model
     /// its reactor max power available is reduced to 90% (assumed round-down, but the specifics are up to the individual system)
     /// </remarks>
     [Serializable]
-    public struct DamageThreshold : IComparable<DamageThreshold>
+    public struct DamageThreshold : IComparable<DamageThreshold>, ICloneable
     {
         private int? _hash;
 
@@ -44,6 +44,15 @@ namespace SpaceWarsHex.Model
             }
 
             return _hash.Value;
+        }
+
+        public object Clone()
+        {
+            return new DamageThreshold
+            {
+                HullStrength = this.HullStrength,
+                SystemMultiplier = this.SystemMultiplier
+            };
         }
     }
 }

@@ -55,6 +55,9 @@ namespace SpaceWarsHex.ShipBuilder.Configuration
 
         private Func<IViewFor?> CreateDelegate(Type type)
         {
+            // Determine the actual type to resolve
+            // If it's a class, find the interface named I{ClassName}
+            // Otherwise, use the type itself
             Type actualType;
             if (type.IsClass)
             {

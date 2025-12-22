@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
 using System;
@@ -7,56 +8,35 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class DriveViewModel : SystemViewModel, IViewModel<IDrivePrototype>
+    public partial class DriveViewModel : SystemViewModel<DrivePrototype>
     {
-        private IDrivePrototype? _saved;
-
+        [Reactive]
         private int _maxWarp;
+        [Reactive]
         private int _accelerationClass;
 
         public DriveViewModel()
-            : this(new DrivePrototype())
+            : this(new DrivePrototype() { Name = "Drive", Id = Guid.NewGuid(), MaxWarp = 1, AccelerationClass = 1 })
         { }
 
         public DriveViewModel(DrivePrototype prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+            : base(prototype)
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(DrivePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IDrivePrototype dp)
-            {
-                _saved = dp;
-                MaxWarp = dp.MaxWarp;
-                AccelerationClass = dp.AccelerationClass;
-            }
+            MaxWarp = prototype.MaxWarp;
+            AccelerationClass = prototype.AccelerationClass;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(DrivePrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is DrivePrototype dp)
-            {
-                dp.MaxWarp = MaxWarp;
-                dp.AccelerationClass = AccelerationClass;
-            }
-        }
-
-        public int MaxWarp
-        {
-            get => _maxWarp;
-            set => this.RaiseAndSetIfChanged(ref _maxWarp, value);
-        }
-
-        public int AccelerationClass
-        {
-            get => _accelerationClass;
-            set => this.RaiseAndSetIfChanged(ref _accelerationClass, value);
+            prototype.MaxWarp = MaxWarp;
+            prototype.AccelerationClass = AccelerationClass;
         }
     }
 }

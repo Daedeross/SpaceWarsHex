@@ -1,6 +1,5 @@
 ﻿using SpaceWarsHex.Interfaces.Prototypes;
-using System;
-using System.Collections.Generic;
+using SpaceWarsHex.Model;
 using System.Runtime.Serialization;
 
 namespace SpaceWarsHex.Prototypes
@@ -9,7 +8,7 @@ namespace SpaceWarsHex.Prototypes
     /// <inheritdoc />
     [Serializable]
     [DataContract]
-    public class ShipPrototype : SingleHexObjectPrototypeBase, IShipPrototype
+    public class ShipPrototype : SingleHexObjectPrototypeBase, IShipPrototype, ICloneable
     {
         [DataMember(Name = "Reactor")]
         internal ReactorPrototype _reactor;
@@ -24,10 +23,10 @@ namespace SpaceWarsHex.Prototypes
         internal HullPrototype _hull;
 
         [DataMember(Name = "EnergyWeapons")]
-        internal List<EnergyWeaponPrototype> _energyWeapons;
+        internal List<EnergyWeaponPrototype> _energyWeapons = [];
 
         [DataMember(Name = "Ordinances")]
-        internal List<IOrdinancePrototype> _ordinances;
+        internal List<IOrdinancePrototype> _ordinances = [];
 
         /// <inheritdoc />
         [IgnoreDataMember]
@@ -53,5 +52,30 @@ namespace SpaceWarsHex.Prototypes
         [IgnoreDataMember]
         public IHullPrototype Hull => _hull;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+        public object Clone()
+        {
+#pragma warning disable CS8601 // Possible null reference assignment.
+            var clone = new ShipPrototype()
+            {
+                Name = Name,
+                Visual = Visual == null
+                ? null
+                : new RenderDefinition
+                {
+                    Kind = Visual.Kind,
+                    Path = Visual.Path
+                },
+                VisualKey = VisualKey,
+                _reactor = (ReactorPrototype)_reactor.Clone(),
+                _drive = (DrivePrototype)_drive.Clone(),
+                _shields = (ShieldsPrototype)_shields.Clone(),
+                _hull = (HullPrototype)_hull.Clone(),
+                _energyWeapons = [.. _energyWeapons.Select(ew => (EnergyWeaponPrototype)ew.Clone())],
+                _ordinances = [.. _ordinances.Select(o => (IOrdinancePrototype)o.Clone())]
+            };
+#pragma warning restore CS8601 // Possible null reference assignment.
+            return clone;
+        }
     }
 }

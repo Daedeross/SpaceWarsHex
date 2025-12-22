@@ -1,19 +1,19 @@
-﻿using ReactiveUI;
-using SpaceWarsHex.Interfaces.Prototypes;
+﻿using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Prototypes;
-using System;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<ITorpedoTubePrototype>
+    public partial class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<TorpedoTubePrototype>
     {
-        private ITorpedoTubePrototype? _saved;
-
+        [Reactive]
         private int _minWarp;
+        [Reactive]
         private int _maxWarp;
+        [Reactive]
         private bool _homing;
+        [Reactive]
         private bool _loadFire;
 
         public TorpedoTubeViewModel()
@@ -26,13 +26,12 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             LoadFrom(_saved);
         }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(OrdinancePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is ITorpedoTubePrototype tp)
+            if (prototype is TorpedoTubePrototype tp)
             {
-                _saved = tp;
                 MinWarp = tp.MinWarp;
                 MaxWarp = tp.MaxWarp;
                 Homing = tp.Homing;
@@ -40,7 +39,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(OrdinancePrototype prototype)
         {
             base.SaveTo(prototype);
 
@@ -53,28 +52,16 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public int MinWarp
+        TorpedoTubePrototype IViewModel<TorpedoTubePrototype>.Commit()
         {
-            get => _minWarp;
-            set => this.RaiseAndSetIfChanged(ref _minWarp, value);
+            SaveTo(_saved);
+
+            return (TorpedoTubePrototype)_saved;
         }
 
-        public int MaxWarp
+        TorpedoTubePrototype IViewModel<TorpedoTubePrototype>.GetLast()
         {
-            get => _maxWarp;
-            set => this.RaiseAndSetIfChanged(ref _maxWarp, value);
-        }
-
-        public bool Homing
-        {
-            get => _homing;
-            set => this.RaiseAndSetIfChanged(ref _homing, value);
-        }
-
-        public bool LoadFire
-        {
-            get => _loadFire;
-            set => this.RaiseAndSetIfChanged(ref _loadFire, value);
+            return (TorpedoTubePrototype)_saved;
         }
     }
 }

@@ -10,5 +10,15 @@ namespace SpaceWarsHex.Prototypes
         /// <inheritdoc />
         [DataMember]
         public int MaxPower { get; set; }
+
+        override public object Clone()
+        {
+            var clone = new ShieldsPrototype()
+            {
+                MaxPower = MaxPower
+            };
+            CopyTo(clone);
+            return clone;
+        }
     }
 }

@@ -37,7 +37,6 @@ namespace SpaceWarsHex.ShipBuilder
 {
     using Castle.Windsor;
     using ReactiveUI;
-    //using ReactiveUI.Builder;
     using SpaceWarsHex.ShipBuilder.Configuration;
     using SpaceWarsHex.ShipBuilder.ViewModels;
     using Splat;
@@ -57,34 +56,22 @@ namespace SpaceWarsHex.ShipBuilder
             Locator.SetLocator(new CastleWindsorDependencyResolver(_container));
             _container.Install(new ApplicationInstaller());
             _container.Install(new ViewModelInstaller());
+            _container.Install(new DefaultsInstaller());
             Locator.CurrentMutable.InitializeSplat();
             Locator.CurrentMutable.InitializeReactiveUI();
-            Locator.CurrentMutable.RegisterLazySingleton(() => _container.Resolve<IViewLocator>(nameof(WindsorViewLocator)), typeof(IViewLocator));
             return this;
         }
 
         public void DisplayRootView()
         {
-            //var app = RxAppBuilder.CreateReactiveUIBuilder(new CastleWindsorDependencyResolver(_container))
-            //    .WithWpf()
-            //    .Build();
-
-
             var rootView = _container.Resolve<IViewFor<WorkspaceViewModel>>() as System.Windows.Window;
             rootView.Show();
-
-            //app.Current.
         }
 
         public void Dispose()
         {
             _container?.Dispose();
-        }
-
-        private object ResolveLocator()
-        {
-            var foo = _container.Resolve<IViewLocator>(nameof(WindsorViewLocator));
-            return foo;
+            GC.SuppressFinalize(this);
         }
     }
 }

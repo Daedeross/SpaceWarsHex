@@ -6,7 +6,7 @@ namespace SpaceWarsHex.Interfaces.Prototypes
     /// <summary>
     /// Interface for ship prototypes.
     /// </summary>
-    public interface IShipPrototype : ISingleHexObjectPrototype
+    public interface IShipPrototype : ISingleHexObjectPrototype, ICloneable
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         IReactorPrototype Reactor { get; }
