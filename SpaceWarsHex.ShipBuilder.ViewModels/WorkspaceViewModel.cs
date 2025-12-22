@@ -27,7 +27,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         private void NewShip()
         {
             var proto = _defaultValueProvider.GetDefaultValue<ShipPrototype>();
-            var vm = _viewModelFactory.For<ShipViewModel, IShipPrototype>(proto);
+            var vm = _viewModelFactory.For<ShipViewModel, ShipPrototype>(proto);
             Ships.Add(vm);
             CurrentShip = Ships[^1];
         }
@@ -41,6 +41,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand(CanExecute = nameof(SaveShipCanExecute))]
         private void SaveShip()
         {
+            CurrentShip?.SaveAsCommand?.Execute().Subscribe();
         }
 
         private bool SaveShipCanExecute() => _currentShip is not null;
@@ -48,7 +49,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [ReactiveCommand]
         private void SaveShipAs()
         {
-            // TODO
+            CurrentShip?.SaveAsCommand?.Execute().Subscribe();
         }
 
         [ReactiveCommand]

@@ -1,17 +1,12 @@
-﻿using ReactiveUI;
-using ReactiveUI.SourceGenerators;
-using SpaceWarsHex.Interfaces.Prototypes;
+﻿using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Prototypes;
-using System;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<ITorpedoTubePrototype>
+    public partial class TorpedoTubeViewModel : OrdinanceViewModel, IViewModel<TorpedoTubePrototype>
     {
-        private ITorpedoTubePrototype _saved;
-
         [Reactive]
         private int _minWarp;
         [Reactive]
@@ -31,13 +26,12 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             LoadFrom(_saved);
         }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(OrdinancePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is ITorpedoTubePrototype tp)
+            if (prototype is TorpedoTubePrototype tp)
             {
-                _saved = tp;
                 MinWarp = tp.MinWarp;
                 MaxWarp = tp.MaxWarp;
                 Homing = tp.Homing;
@@ -45,7 +39,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(OrdinancePrototype prototype)
         {
             base.SaveTo(prototype);
 
@@ -58,9 +52,16 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public override ITorpedoTubePrototype GetPrototype()
+        TorpedoTubePrototype IViewModel<TorpedoTubePrototype>.Commit()
         {
-            return _saved;
+            SaveTo(_saved);
+
+            return (TorpedoTubePrototype)_saved;
+        }
+
+        TorpedoTubePrototype IViewModel<TorpedoTubePrototype>.GetLast()
+        {
+            return (TorpedoTubePrototype)_saved;
         }
     }
 }

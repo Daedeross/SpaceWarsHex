@@ -1,16 +1,7 @@
-﻿using ReactiveUI;
+﻿using Microsoft.Win32;
+using ReactiveUI;
 using SpaceWarsHex.ShipBuilder.ViewModels;
 using System.Reactive.Disposables.Fluent;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SpaceWarsHex.ShipBuilder
 {
@@ -30,6 +21,22 @@ namespace SpaceWarsHex.ShipBuilder
                 // Interactions
                 ViewInteractions.Initialize(this);
 
+                Interactions.ShowSaveDialog.RegisterHandler(
+                    interaction =>
+                    {
+                        var path = ShowDialog(new SaveFileDialog());
+                        interaction.SetOutput(path);
+                    })
+                .DisposeWith(disposables);
+
+                Interactions.ShowOpenDialog.RegisterHandler(
+                    interaction =>
+                    {
+                        var path = ShowDialog(new OpenFileDialog());
+                        interaction.SetOutput(path);
+                    })
+                .DisposeWith(disposables);
+
                 this.OneWayBind(ViewModel,
                     vm => vm.Ships,
                     v => v.ShipsItemsControl.ItemsSource)
@@ -39,11 +46,6 @@ namespace SpaceWarsHex.ShipBuilder
                     vm => vm.CurrentShip,
                     v => v.ShipsItemsControl.SelectedItem)
                     .DisposeWith(disposables);
-
-                //this.OneWayBind(ViewModel,
-                //    vm => vm.CurrentShip,
-                //    v => v.VMHost.ViewModel)
-                //    .DisposeWith(disposables);
 
                 this.BindCommand(ViewModel,
                     vm => vm.NewShipCommand,
@@ -77,6 +79,17 @@ namespace SpaceWarsHex.ShipBuilder
             });
 
             DataContext = viewModel;
+        }
+
+        private static string? ShowDialog(FileDialog dialog)
+        {
+            dialog.DefaultExt = ".swp";
+            dialog.Filter = "SpaceWars Prototype|*.swp";
+            var result = dialog.ShowDialog();
+
+            return result == true
+                ? dialog.FileName
+                : null;
         }
     }
 }

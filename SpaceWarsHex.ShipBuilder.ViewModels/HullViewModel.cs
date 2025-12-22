@@ -1,17 +1,14 @@
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
-using System;
-using System.Reactive;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class HullViewModel : ViewModelBase, IViewModel<IHullPrototype>
+    public partial class HullViewModel : ViewModelBase, IViewModel<HullPrototype>
     {
-        private IHullPrototype _saved;
+        private HullPrototype _saved;
 
         [Reactive]
         private int _maxIntegrity;
@@ -27,21 +24,15 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             LoadFrom(_saved);
         }
 
-        public void LoadFrom(IHullPrototype prototype)
+        public void LoadFrom(HullPrototype prototype)
         {
-            if (prototype is IHullPrototype hp)
-            {
-                _saved = hp;
-                MaxIntegrity = hp.MaxIntegrity;
-            }
+            _saved = prototype;
+            MaxIntegrity = prototype.MaxIntegrity;
         }
 
-        public void SaveTo(IHullPrototype prototype)
+        public void SaveTo(HullPrototype prototype)
         {
-            if (prototype is HullPrototype hp)
-            {
-                hp.MaxIntegrity = MaxIntegrity;
-            }
+            prototype.MaxIntegrity = MaxIntegrity;
         }
 
         [ReactiveCommand]
@@ -62,8 +53,15 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
             }
         }
 
-        public IHullPrototype GetPrototype()
+        public HullPrototype GetLast()
         {
+            return _saved;
+        }
+
+        public HullPrototype Commit()
+        {
+            SaveTo(_saved);
+
             return _saved;
         }
     }
