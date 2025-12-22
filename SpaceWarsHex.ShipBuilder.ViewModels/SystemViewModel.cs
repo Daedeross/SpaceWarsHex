@@ -1,19 +1,15 @@
-﻿using DynamicData.Binding;
-using ReactiveUI;
-using ReactiveUI.SourceGenerators;
+﻿using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
-using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
-using System;
-using System.Reactive;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public abstract partial class SystemViewModel : ViewModelBase
+    public abstract partial class SystemViewModel<TPrototype> : ViewModelBase, IViewModel<TPrototype>
+        where TPrototype : class, ISystemPrototype
     {
-        protected ISystemPrototype? _savedPrototype;
+        protected TPrototype _saved;
 
         [Reactive]
         private Guid _id;
@@ -22,58 +18,62 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         [Reactive]
         private ThresholdsViewModel _damageThresholds;
 
-        public SystemViewModel(ISystemPrototype systemPrototype)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        public SystemViewModel(TPrototype prototype)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
-            _savedPrototype = systemPrototype.GetOrThrow();
-            _id = systemPrototype.Id;
-            _name = systemPrototype.Name ?? string.Empty;
-            _damageThresholds = new ThresholdsViewModel(systemPrototype.DamageThresholds ?? []);
+            ArgumentNullException.ThrowIfNull(prototype);
+            _saved = prototype.GetOrThrow();
+            LoadFrom(prototype);
         }
 
         /// <summary>
         /// Load VM properties from provided prototype. Implementations should call base.LoadFrom(...) first.
         /// </summary>
-        public virtual void LoadFrom(ISystemPrototype prototype)
+        public virtual void LoadFrom(TPrototype prototype)
         {
             ArgumentNullException.ThrowIfNull(prototype);
 
-            _savedPrototype = prototype;
+            _saved = prototype;
             Id = prototype.Id;
             Name = prototype.Name ?? string.Empty;
-            _damageThresholds.Dispose();
+            _damageThresholds?.Dispose();
             _damageThresholds = new ThresholdsViewModel(prototype.DamageThresholds ?? []);
         }
 
         /// <summary>
         /// Save VM properties into provided prototype. Implementations should call base.SaveTo(...) first.
         /// </summary>
-        public virtual void SaveTo(ISystemPrototype prototype)
+        public virtual void SaveTo(TPrototype prototype)
         {
             ArgumentNullException.ThrowIfNull(prototype);
 
+            prototype.Id = Id;
             if (prototype is SystemPrototypeBase spb)
             {
-                spb.Id = Id;
                 spb.Name = Name ?? string.Empty;
+                spb._damageThresholds = _damageThresholds
+                    .GetThresholds()
+                    .ToList();
             }
         }
 
         [ReactiveCommand]
-        private void Save()
+        public void Reset()
         {
-            if (_savedPrototype != null)
-            {
-                SaveTo(_savedPrototype);
-            }
+            LoadFrom(_saved);
         }
 
-        [ReactiveCommand]
-        private void Reset()
+        public TPrototype GetLast()
         {
-            if (_savedPrototype != null)
-            {
-                LoadFrom(_savedPrototype);
-            }
+            return _saved;
+        }
+
+        public TPrototype Commit()
+        {
+            SaveTo(_saved);
+
+            return _saved;
         }
     }
 }

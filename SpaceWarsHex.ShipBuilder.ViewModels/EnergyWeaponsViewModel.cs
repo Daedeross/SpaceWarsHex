@@ -35,7 +35,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public ICollection<EnergyWeaponPrototype> GetPrototypes()
         {
-            return EnergyWeapons.Select(vm => vm.GetPrototype()).Cast<EnergyWeaponPrototype>().ToList();
+            return EnergyWeapons.Select(vm => vm.GetLast()).Cast<EnergyWeaponPrototype>().ToList();
         }
 
         #region Commands

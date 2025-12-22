@@ -8,10 +8,8 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class DriveViewModel : SystemViewModel, IViewModel<IDrivePrototype>
+    public partial class DriveViewModel : SystemViewModel<DrivePrototype>
     {
-        private IDrivePrototype _saved;
-
         [Reactive]
         private int _maxWarp;
         [Reactive]
@@ -23,37 +21,22 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public DriveViewModel(DrivePrototype prototype)
             : base(prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+        { }
 
-        public IDrivePrototype GetPrototype()
-        {
-            return _saved;
-        }
-
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(DrivePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IDrivePrototype dp)
-            {
-                _saved = dp;
-                MaxWarp = dp.MaxWarp;
-                AccelerationClass = dp.AccelerationClass;
-            }
+            MaxWarp = prototype.MaxWarp;
+            AccelerationClass = prototype.AccelerationClass;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(DrivePrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is DrivePrototype dp)
-            {
-                dp.MaxWarp = MaxWarp;
-                dp.AccelerationClass = AccelerationClass;
-            }
+            prototype.MaxWarp = MaxWarp;
+            prototype.AccelerationClass = AccelerationClass;
         }
     }
 }

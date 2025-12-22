@@ -1,17 +1,13 @@
 ﻿using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Prototypes;
-using System;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class ReactorViewModel : SystemViewModel, IViewModel<IReactorPrototype>
+    public partial class ReactorViewModel : SystemViewModel<ReactorPrototype>
     {
-        private IReactorPrototype _saved;
-
         private int m_CruisePower;
         public int CruisePower
         {
@@ -51,41 +47,26 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public ReactorViewModel(ReactorPrototype prototype)
             : base(prototype)
-        {
-            _saved = prototype.GetOrThrow();
-            LoadFrom(_saved);
-        }
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(ReactorPrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IReactorPrototype rp)
-            {
-                _saved = rp;
-                CruisePower = rp.CruisePower;
-                AttackPower = rp.AttackPower;
-                EmergencyPower = rp.EmergencyPower;
-                MaxTurnsAtAttackPower = rp.MaxTurnsAtAttackPower;
-            }
+            CruisePower = prototype.CruisePower;
+            AttackPower = prototype.AttackPower;
+            EmergencyPower = prototype.EmergencyPower;
+            MaxTurnsAtAttackPower = prototype.MaxTurnsAtAttackPower;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(ReactorPrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is ReactorPrototype rp)
-            {
-                rp.CruisePower = CruisePower;
-                rp.AttackPower = AttackPower;
-                rp.EmergencyPower = EmergencyPower;
-                rp.MaxTurnsAtAttackPower = MaxTurnsAtAttackPower;
-            }
-        }
-
-        public IReactorPrototype GetPrototype()
-        {
-            return _saved;
+            prototype.CruisePower = CruisePower;
+            prototype.AttackPower = AttackPower;
+            prototype.EmergencyPower = EmergencyPower;
+            prototype.MaxTurnsAtAttackPower = MaxTurnsAtAttackPower;
         }
     }
 }

@@ -1,4 +1,5 @@
 using ReactiveUI;
+using ReactiveUI.SourceGenerators;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
@@ -8,14 +9,17 @@ using System;
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public class OrdinanceViewModel : SystemViewModel, IViewModel<IOrdinancePrototype>
+    public partial class OrdinanceViewModel : SystemViewModel<OrdinancePrototype>
     {
-        private IOrdinancePrototype _saved;
-
+        [Reactive]
         private FireMode _fireMode;
+        [Reactive]
         private TurnPhase _firePhase;
+        [Reactive]
         private int _maxRange;
+        [Reactive]
         private int _strength;
+        [Reactive]
         private int _maxUses;
 
         public OrdinanceViewModel()
@@ -24,73 +28,36 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public OrdinanceViewModel(OrdinancePrototype prototype)
             : base(prototype)
-        {
-            _saved = prototype ?? throw new ArgumentNullException(nameof(prototype));
-            LoadFrom(_saved);
-        }
+        { }
 
-        public override void LoadFrom(ISystemPrototype prototype)
+        public override void LoadFrom(OrdinancePrototype prototype)
         {
             base.LoadFrom(prototype);
 
-            if (prototype is IOrdinancePrototype op)
-            {
-                _saved = op;
-                FireMode = op.FireMode;
-                FirePhase = op.FirePhase;
-                MaxRange = op.MaxRange;
-                Strength = op.Strength;
-                MaxUses = op.MaxUses;
-            }
+            FireMode = prototype.FireMode;
+            FirePhase = prototype.FirePhase;
+            MaxRange = prototype.MaxRange;
+            Strength = prototype.Strength;
+            MaxUses = prototype.MaxUses;
         }
 
-        public override void SaveTo(ISystemPrototype prototype)
+        public override void SaveTo(OrdinancePrototype prototype)
         {
             base.SaveTo(prototype);
 
-            if (prototype is OrdinancePrototype op)
-            {
-                op.FireMode = FireMode;
-                op.FirePhase = FirePhase;
-                op.MaxRange = MaxRange;
-                op.Strength = Strength;
-                op.MaxUses = MaxUses;
-            }
+            prototype.FireMode = FireMode;
+            prototype.FirePhase = FirePhase;
+            prototype.MaxRange = MaxRange;
+            prototype.Strength = Strength;
+            prototype.MaxUses = MaxUses;
         }
 
-        public virtual IOrdinancePrototype GetPrototype()
+        public virtual OrdinancePrototype ToPrototype()
         {
-            return _saved;
-        }
+            var proto = new OrdinancePrototype();
+            SaveTo(proto);
 
-        public FireMode FireMode
-        {
-            get => _fireMode;
-            set => this.RaiseAndSetIfChanged(ref _fireMode, value);
-        }
-
-        public TurnPhase FirePhase
-        {
-            get => _firePhase;
-            set => this.RaiseAndSetIfChanged(ref _firePhase, value);
-        }
-
-        public int MaxRange
-        {
-            get => _maxRange;
-            set => this.RaiseAndSetIfChanged(ref _maxRange, value);
-        }
-
-        public int Strength
-        {
-            get => _strength;
-            set => this.RaiseAndSetIfChanged(ref _strength, value);
-        }
-
-        public int MaxUses
-        {
-            get => _maxUses;
-            set => this.RaiseAndSetIfChanged(ref _maxUses, value);
+            return proto;
         }
     }
 }

@@ -1,27 +1,30 @@
 using DynamicData.Binding;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
+using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Interfaces.Prototypes;
 using SpaceWarsHex.Model;
 using SpaceWarsHex.Prototypes;
+using System.Reactive;
 using System.Reactive.Linq;
 
 #nullable enable
 
 namespace SpaceWarsHex.ShipBuilder.ViewModels
 {
-    public partial class ShipViewModel : ViewModelBase, IViewModel<IShipPrototype>, IDocumentViewModel
+    public partial class ShipViewModel : DocumentViewModelBase<ShipPrototype>, IViewModel<ShipPrototype>, IDocumentViewModel
     {
-        private ShipPrototype _saved;
         private readonly IDefaultValueProvider _defaultValueProvider;
         private readonly IViewModelFactory _viewModelFactory;
         private ShipPrototype _current;
 
-        public ShipViewModel(IDefaultValueProvider defaultValueProvider, IViewModelFactory viewModelFactory)
-            : this(defaultValueProvider.GetDefaultValue<ShipPrototype>(), defaultValueProvider, viewModelFactory)
+        public ShipViewModel(IDefaultValueProvider defaultValueProvider, IViewModelFactory viewModelFactory, IPrototypeSerializer serializer)
+            : this(defaultValueProvider.GetDefaultValue<ShipPrototype>(), defaultValueProvider, viewModelFactory, serializer)
         { }
 
-        public ShipViewModel(ShipPrototype prototype, IDefaultValueProvider defaultValueProvider, IViewModelFactory viewModelFactory)
+        public ShipViewModel(ShipPrototype prototype, IDefaultValueProvider defaultValueProvider,
+            IViewModelFactory viewModelFactory, IPrototypeSerializer serializer)
+            : base(prototype, serializer)
         {
             _visual = prototype.Visual ?? new RenderDefinition
             {
@@ -86,40 +89,40 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
 
         public IObservableCollection<OrdinanceViewModel> Ordinances { get; }
 
-        public IShipPrototype GetPrototype()
+        public override void SaveTo(ShipPrototype prototype)
         {
-            return _saved;
+            prototype.Name = _name;
+            prototype.Visual = _visual;
+            prototype.VisualKey = _visualKey;
+            Reactor.SaveTo(prototype._reactor);
+            Drive.SaveTo(prototype._drive);
+            Shields.SaveTo(prototype._shields);
+            Hull.SaveTo(prototype._hull);
+
+            prototype._ordinances = Ordinances.Select(o => o.ToPrototype()).Cast<IOrdinancePrototype>().ToList();
+            prototype._energyWeapons = [];
+            foreach (var ew in EnergyWeapons.EnergyWeapons)
+            {
+                var proto = new EnergyWeaponPrototype();
+                ew.SaveTo(proto);
+                prototype._energyWeapons.Add(proto);
+            }
         }
 
-        [ReactiveCommand]
-        private void Save()
+        public override void LoadFrom(ShipPrototype prototype)
         {
-            //if (_saved == null) throw new InvalidOperationException("No saved prototype available to save into.");
-
-            //// Save nested systems (each will write into their saved prototype)
-            //Reactor.SaveCommand.Execute().Subscribe();
-            //Drive.SaveCommand.Execute().Subscribe();
-            //Shields.SaveCommand.Execute().Subscribe();
-            //Hull.SaveCommand.Execute().Subscribe();
-
-            //// Save collection items if needed. Currently the OrdinanceViewModel/derived SaveCommand
-            //// will mutate the underlying prototype instance if constructed with it.
-            //foreach (var ev in EnergyWeapons) ev.SaveCommand.Execute().Subscribe();
-            //foreach (var o in Ordinances) o.SaveCommand.Execute().Subscribe();
+            Name = prototype.Name;
+            Visual = prototype.Visual;
+            Reactor.LoadFrom(prototype._reactor);
+            Drive.LoadFrom(prototype._drive);
+            Shields.LoadFrom(prototype._shields);
+            Hull.LoadFrom(prototype._hull);
         }
 
         [ReactiveCommand]
         private void Reset()
         {
-            //if (_saved == null) throw new InvalidOperationException("No saved prototype available to reset from.");
-
-            //Reactor.ResetCommand.Execute().Subscribe();
-            //Drive.ResetCommand.Execute().Subscribe();
-            //Shields.ResetCommand.Execute().Subscribe();
-            //Hull.ResetCommand.Execute().Subscribe();
-
-            //foreach (var ev in EnergyWeapons) ev.ResetCommand.Execute().Subscribe();
-            //foreach (var o in Ordinances) o.ResetCommand.Execute().Subscribe();
+            LoadFrom(_saved);
         }
 
         //[ReactiveCommand]

@@ -5,6 +5,8 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
     public interface IViewModel<T> : IViewModel
         where T : class, IPrototype
     {
-        T GetPrototype();
+        T GetLast();
+
+        T Commit();
     }
 }
