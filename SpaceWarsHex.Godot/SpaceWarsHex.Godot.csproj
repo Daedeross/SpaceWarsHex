@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <!--<AssemblyName>SpaceWarsHex</AssemblyName>-->
     <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>SpaceWarsHex</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

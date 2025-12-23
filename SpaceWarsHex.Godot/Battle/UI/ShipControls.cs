@@ -13,6 +13,7 @@ namespace SpaceWarsHex
     {
         #region Controls
 
+#pragma warning disable CS8618 // These will be assigned to in the editor or in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         private Label _shipNameText;
         private ResourceBar _hullBar;
         private ResourceBar _powerBar;
@@ -23,11 +24,12 @@ namespace SpaceWarsHex
         private EnergyWeapons _energyWeapons;
         private Label _cruiseValue;
         private Label _attackValue;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         #endregion
 
-        private IShip _ship;
-        public IShip Ship
+        private IShip? _ship;
+        public IShip? Ship
         {
             get { return _ship; }
             set
@@ -102,18 +104,18 @@ namespace SpaceWarsHex
 
         public void OnReactorToggleToggled(bool toggled)
         {
-            Ship.Reactor.CurrentState = toggled ? ReactorState.Attack : ReactorState.Cruise;
+            Ship!.Reactor.CurrentState = toggled ? ReactorState.Attack : ReactorState.Cruise;
             UpdateUI();
         }
 
         public void OnEmergencyPowerToggled(bool toggled)
         {
-            Ship.Reactor.UsingEmergencyPower = toggled;
+            Ship!.Reactor.UsingEmergencyPower = toggled;
         }
 
         #endregion // Control Callbacks
 
-        private void OnShipPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnShipPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             UpdateUI();
         }

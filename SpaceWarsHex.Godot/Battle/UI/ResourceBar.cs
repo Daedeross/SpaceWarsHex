@@ -2,8 +2,10 @@ using Godot;
 
 public partial class ResourceBar : ReferenceRect
 {
+#pragma warning disable CS8618 // These will be assigned to in the editor or in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
     private ProgressBar _bar;
     private Label _label;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     [Export]
     public double Value

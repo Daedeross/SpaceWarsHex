@@ -7,7 +7,9 @@ namespace SpaceWarsHex.Entities
     public abstract partial class WrapperNode3D<T> : Node3D, IWrapper<T>
         where T : INotifyPropertyChanged
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private T _entity;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public T Entity
         {
             get => _entity;
@@ -29,7 +31,7 @@ namespace SpaceWarsHex.Entities
                 }
             }
         }
-        private void OnEntityPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnEntityPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (!Equals(_entity, sender))
             {
@@ -40,7 +42,7 @@ namespace SpaceWarsHex.Entities
             OnEntityChanged(e.PropertyName);
         }
 
-        protected abstract void OnEntityChanged(string propName);
+        protected abstract void OnEntityChanged(string? propName);
 
         public override void _ExitTree()
         {

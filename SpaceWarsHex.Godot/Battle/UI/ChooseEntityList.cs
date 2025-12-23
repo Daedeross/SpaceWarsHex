@@ -9,7 +9,7 @@ namespace SpaceWarsHex
     public partial class ChooseEntityList : ItemList
     {
         private readonly List<IHexObject> _items = [];
-        private Action<IHexObject> _onSelect;
+        private Action<IHexObject>? _onSelect;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()

@@ -12,8 +12,10 @@ namespace SpaceWarsHex.Entities
 
         #region Child References
 
+#pragma warning disable CS8618 // These will be assigned to in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         protected Sprite2D _velocitySprite;
         protected Line2D _velocityLine;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         #endregion // Child References
 
@@ -57,7 +59,7 @@ namespace SpaceWarsHex.Entities
             AlignToVelocity();
         }
 
-        protected override void OnEntityChanged(string propName)
+        protected override void OnEntityChanged(string? propName)
         {
             base.OnEntityChanged(propName);
             if (propName == nameof(IMovingHexObject.Velocity))

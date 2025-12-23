@@ -1,6 +1,7 @@
 using Godot;
 using SpaceWarsHex.Interfaces;
 using SpaceWarsHex.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,6 +11,7 @@ namespace SpaceWarsHex.Godot
     {
         #region Child Nodes
 
+#pragma warning disable CS8618 // These will be assigned to in the editor or in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         private Label _energyWeaponPower;
         private Button _energyWeaponFire;
         private OptionButton _energyWeaponSelect;
@@ -17,13 +19,15 @@ namespace SpaceWarsHex.Godot
 
         #endregion
 
-        private PendingEnergyWeaponOrder _currentOrder;
+        private PendingEnergyWeaponOrder? _currentOrder;
 
-        private Dictionary<IShip, PendingEnergyWeaponOrder> _orders = [];
+        private readonly Dictionary<IShip, PendingEnergyWeaponOrder> _orders = [];
 
         private bool isTargeting = false;
 
         private Battle2D _battle;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -44,7 +48,7 @@ namespace SpaceWarsHex.Godot
             }
             else if (_currentOrder is null || _currentOrder?.Ship.Id != ship.Id)
             {
-                _currentOrder = _orders.GetOrAdd(ship, () => new PendingEnergyWeaponOrder(ship, ship.CurrentEnergyWeaponOrder));
+                _currentOrder = _orders.GetOrAdd(ship, () => new PendingEnergyWeaponOrder(ship, ship.CurrentEnergyWeaponOrder!));
             }
 
             UpdateEnergyWeapons();
@@ -90,7 +94,7 @@ namespace SpaceWarsHex.Godot
                 _energyWeaponSlider.MaxValue = weapon.CurrentMaxDice * weapon.EnergyPerDie;
                 _energyWeaponSlider.Step = weapon.EnergyPerDie;
                 _energyWeaponSlider.Editable = true;
-                _energyWeaponSlider.Value = (double)_currentOrder.Power;
+                _energyWeaponSlider.Value = Convert.ToDouble(_currentOrder.Power);
                 _energyWeaponFire.Disabled = false;
                 _energyWeaponFire.ButtonPressed = false;
             }
@@ -111,6 +115,7 @@ namespace SpaceWarsHex.Godot
 
         public void OnEnergyWeaponSelectItemSelected(int index)
         {
+            if (_currentOrder is null) { throw new InvalidOperationException($"{nameof(OnEnergyWeaponSelectItemSelected)} should not be called when _currentOrder is null.") ; }
             // TODO: Support other fire modes.
             var oldOrder = _currentOrder;
             var oldIndex = oldOrder?.WeaponIndex ?? -1;
@@ -155,7 +160,7 @@ namespace SpaceWarsHex.Godot
 
         public void OnFireToggled(bool toggled_on)
         {
-            if (toggled_on && _currentOrder.Ship != null)
+            if (toggled_on && _currentOrder?.Ship != null)
             {
                 _energyWeaponFire.Text = "Cancel Target";
                 _battle.SelectTarget(_currentOrder.Ship, SetDirectFireTarget);
@@ -169,7 +174,7 @@ namespace SpaceWarsHex.Godot
 
         private void SetDirectFireTarget(ITargetable target)
         {
-            _currentOrder.TargetId = target.Id;
+            _currentOrder!.TargetId = target.Id;
             _currentOrder.GiveOrder();
             _energyWeaponFire.ButtonPressed = false;
         }

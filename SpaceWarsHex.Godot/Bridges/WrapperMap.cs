@@ -6,14 +6,14 @@ namespace SpaceWarsHex.Bridges
 {
     public class WrapperMap
     {
-        private readonly Dictionary<IHexObject, WrapperNode2D<IHexObject>> _map = new();
+        private readonly Dictionary<IHexObject, WrapperNode2D<IHexObject>> _map = [];
 
         public void AddItem(WrapperNode2D<IHexObject> item)
         {
             _map.Add(item.Entity, item);
         }
 
-        public bool TryGetItem(IHexObject key, out WrapperNode2D<IHexObject> item)
+        public bool TryGetItem(IHexObject key, out WrapperNode2D<IHexObject>? item)
         {
             return _map.TryGetValue(key, out item);
         }

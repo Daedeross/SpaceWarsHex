@@ -16,7 +16,9 @@ namespace SpaceWarsHex.Entities
 
         protected List<Node2D> _scaledChildren = [];
 
+#pragma warning disable CS8618 // These will be assigned to in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         protected Sprite2D _mainSprite;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public Texture2D MainSprite
         {
             get => _mainSprite.Texture;
@@ -80,7 +82,7 @@ namespace SpaceWarsHex.Entities
         /// Calback to notify wrapper that a property on the underlying entity has changed.
         /// </summary>
         /// <param name="propName"></param>
-        protected override void OnEntityChanged(string propName)
+        protected override void OnEntityChanged(string? propName)
         {
             if (propName == nameof(IHexObject.Position))
             {

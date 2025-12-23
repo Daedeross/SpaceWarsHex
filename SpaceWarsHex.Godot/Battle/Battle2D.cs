@@ -13,6 +13,7 @@ namespace SpaceWarsHex
 {
     public partial class Battle2D : Node2D
     {
+#pragma warning disable CS8618 // These will be assigned to in the editor or in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         private Director _director;
         private ShipControls _shipControls;
         private GodotEntityFactory _godotEntityFactory;
@@ -22,13 +23,14 @@ namespace SpaceWarsHex
 
         private InputContext _inputContext = InputContext.Normal;
 
-        private ISelectable _selected;
+        private ISelectable? _selected;
 
         private ChooseEntityList _selectList;
         private TargetLine _targetLine;
         private SelectionReticle _selectReticle;
         private Action<ITargetable> _onTarget;
         private Func<ITargetable, bool> _targetFilter;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -194,7 +196,7 @@ namespace SpaceWarsHex
             }
         }
 
-        private void ChangeSelection(ISelectable selectable)
+        private void ChangeSelection(ISelectable? selectable)
         {
             _selected = selectable;
             switch (selectable)
@@ -260,7 +262,7 @@ namespace SpaceWarsHex
 
         #region InputContext Change
 
-        public void SelectTarget(IHexObject source, Action<ITargetable> onTarget, Func<ITargetable, bool> filter = null)
+        public void SelectTarget(IHexObject source, Action<ITargetable> onTarget, Func<ITargetable, bool>? filter = null)
         {
             _targetFilter = filter is null
                 ? obj => obj.TeamNumber != source.TeamNumber
@@ -288,21 +290,21 @@ namespace SpaceWarsHex
 
         #region Helpers
 
-        private HexVector2 GetHex(Vector2 viewPos, Viewport viewport = null)
+        private HexVector2 GetHex(Vector2 viewPos, Viewport? viewport = null)
         {
             viewport = viewport ?? GetViewport();
             var worldPos = viewport.CanvasTransform.AffineInverse() * viewPos;
             return worldPos.GetHex();
         }
 
-        private void TargetLine(IShip ship)
+        private void TargetLine(IShip? ship)
         {
             var order = ship?.CurrentEnergyWeaponOrder;
-            if (order?.TargetId != null)
+            if (ship is not null && order?.TargetId != null)
             {
                 if (_director.TryGetEntity(order.TargetId.Value, out var target))
                 {
-                    _targetLine.SetPoints(ship.Position, target.Position);
+                    _targetLine.SetPoints(ship.Position, target!.Position);
                     _targetLine.Visible = true;
                     return;
                 }

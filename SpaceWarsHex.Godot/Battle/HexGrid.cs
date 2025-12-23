@@ -8,7 +8,9 @@ public partial class HexGrid : MeshInstance2D
     private const float GridCutoffSize = 30f;
     private const float GridOpacityScale = 35f;
 
+#pragma warning disable CS8618 // These will be assigned to in the editor or in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
     private Camera2D _camera;
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
     private Rect2 _lastRect;
 

@@ -11,11 +11,13 @@ namespace SpaceWarsHex
         public const int ServerPort = 6500;
         public const int MaxPlayers = 64;
 
+#pragma warning disable CS8618 // These will be assigned to in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         [Export]
         public PackedScene LobbyScene { get; set; }
 
         [Export]
         public PackedScene BattleScene { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
         [Signal]
         public delegate void PlayerListChangedEventHandler();
