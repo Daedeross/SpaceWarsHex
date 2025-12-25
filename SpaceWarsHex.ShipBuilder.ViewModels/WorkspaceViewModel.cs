@@ -27,6 +27,7 @@ namespace SpaceWarsHex.ShipBuilder.ViewModels
         private void NewShip()
         {
             var proto = _defaultValueProvider.GetDefaultValue<ShipPrototype>();
+            proto.Id = Guid.NewGuid();
             var vm = _viewModelFactory.For<ShipViewModel, ShipPrototype>(proto);
             Ships.Add(vm);
             CurrentShip = Ships[^1];

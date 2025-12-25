@@ -1,13 +1,14 @@
 ﻿using MahApps.Metro.Controls;
 using ReactiveUI;
 using System;
+using System.Linq.Expressions;
 
 namespace SpaceWarsHex.ShipBuilder
 {
     public static class BindingExtensions
     {
         public static IDisposable BindSpin<TViewModel>(this IViewFor<TViewModel> view,
-            System.Linq.Expressions.Expression<Func<TViewModel, int>> vmProperty,
+            Expression<Func<TViewModel, int>> vmProperty,
             NumericUpDown spinControl)
             where TViewModel : class
         {

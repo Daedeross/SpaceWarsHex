@@ -9,7 +9,7 @@ namespace SpaceWarsHex.Bridges
     public class GodotEntityFactory : IWrapperFactory<IHexObject, GodotHexObject>
     {
         private readonly Node _root;
-        private readonly PackedScene _shipScene;
+        private readonly PackedScene _shipScene;    // TODO: Only supporting Ship entities for now.
 
         /// <summary>
         /// Constructor for <see cref="GodotEntityFactory"/>

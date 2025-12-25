@@ -14,6 +14,9 @@ namespace SpaceWarsHex.Prototypes
     [KnownType(nameof(KnownTypes))]
     public abstract class HexObjectPrototypeBase : IHexObjectPrototype
     {
+        [DataMember]
+        public Guid Id { get; set; }
+
         /// <inheritdoc/>
         [DataMember]
         public string Name { get; set; }

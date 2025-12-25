@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b65luvvd1xc4t"]
 
-[ext_resource type="Script" uid="uid://cxwrt30y2qpa2" path="res://Lobby/Lobby.cs" id="1_4ktdg"]
+[ext_resource type="Script" uid="uid://cxwrt30y2qpa2" path="res://Lobby/GodotLobby.cs" id="1_s2wi3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4ktdg"]
 font_size = 32
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_4ktdg")
+script = ExtResource("1_s2wi3")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -45,7 +45,8 @@ layout_mode = 2
 text = "Blueprints"
 horizontal_alignment = 1
 
-[node name="ItemList" type="ItemList" parent="PanelContainer/VBoxContainer/HSplitContainer/VBoxContainer"]
+[node name="BlueprintList" type="ItemList" parent="PanelContainer/VBoxContainer/HSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -58,7 +59,8 @@ layout_mode = 2
 text = "Fleet"
 horizontal_alignment = 1
 
-[node name="ItemList" type="ItemList" parent="PanelContainer/VBoxContainer/HSplitContainer/VBoxContainer2"]
+[node name="FleetList" type="ItemList" parent="PanelContainer/VBoxContainer/HSplitContainer/VBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 

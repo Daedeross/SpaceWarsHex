@@ -31,6 +31,11 @@ namespace SpaceWarsHex.ShipBuilder.Views
                 .DisposeWith(disposables);
 
                 this.OneWayBind(ViewModel,
+                    vm => vm.Shields,
+                    v => v.ShieldsHost.ViewModel)
+                .DisposeWith(disposables);
+
+                this.OneWayBind(ViewModel,
                     vm => vm.EnergyWeapons,
                     v => v.EnergyWeaponsHost.ViewModel)
                 .DisposeWith(disposables);

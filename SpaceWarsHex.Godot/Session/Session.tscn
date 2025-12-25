@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://x2a0apntnxcv"]
+[gd_scene load_steps=4 format=3 uid="uid://x2a0apntnxcv"]
 
 [ext_resource type="Script" uid="uid://blam7oao5vr2c" path="res://Session/Session.cs" id="1_mb3nb"]
+[ext_resource type="PackedScene" uid="uid://b65luvvd1xc4t" path="res://Lobby/GodotLobby.tscn" id="2_ukxag"]
 [ext_resource type="PackedScene" uid="uid://b5k1n1g5o285u" path="res://Battle/Battle2D.tscn" id="2_x548d"]
 
 [node name="Session" type="Node"]
 script = ExtResource("1_mb3nb")
+LobbyScene = ExtResource("2_ukxag")
 BattleScene = ExtResource("2_x548d")

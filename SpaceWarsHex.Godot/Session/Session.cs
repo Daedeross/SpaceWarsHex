@@ -11,6 +11,8 @@ namespace SpaceWarsHex
         public const int ServerPort = 6500;
         public const int MaxPlayers = 64;
 
+        private Node? _currentScene;
+
 #pragma warning disable CS8618 // These will be assigned to in _Ready(), if not then something went wrong and any resulting exceptions should be thrown.
         [Export]
         public PackedScene LobbyScene { get; set; }
@@ -51,6 +53,8 @@ namespace SpaceWarsHex
             var peer = new ENetMultiplayerPeer();
             peer.CreateServer(ServerPort, MaxPlayers);
             GetTree().GetMultiplayer().MultiplayerPeer = peer;
+
+            ChangeScene(CreateLobby(true));
         }
 
         public void ConnectToServer(string address, int port)
@@ -58,6 +62,14 @@ namespace SpaceWarsHex
             var peer = new ENetMultiplayerPeer();
             peer.CreateClient(address, port);
             GetTree().GetMultiplayer().MultiplayerPeer = peer;
+
+            ChangeScene(CreateLobby(false));
+        }
+
+        private void ChangeScene(Node scene)
+        {
+            _currentScene = scene;
+            AddChild(scene);
         }
 
         //public void LoadCampaign(Campaign campaign)
@@ -85,5 +97,13 @@ namespace SpaceWarsHex
         }
 
         #endregion
+
+        private GodotLobby CreateLobby(bool host)
+        {
+            var lobby = LobbyScene.Instantiate<GodotLobby>();
+            lobby._isHost = host;
+
+            return lobby;
+        }
     }
 }

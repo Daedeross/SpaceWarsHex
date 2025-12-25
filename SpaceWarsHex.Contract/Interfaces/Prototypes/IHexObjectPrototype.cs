@@ -3,7 +3,7 @@
     /// <summary>
     /// Root interface for all entity prototypes.
     /// </summary>
-    public interface IHexObjectPrototype: IPrototype
+    public interface IHexObjectPrototype: IPrototype, IHaveId
     {
         /// <summary>
         /// The name of the entity.

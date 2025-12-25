@@ -295,5 +295,31 @@ namespace SpaceWarsHex
         {
             return weapon.CurrentMaxDice * weapon.EnergyPerDie;
         }
+
+        public static long GetLongPart(this Guid guid)
+        {
+            return BitConverter.ToInt64(guid.ToByteArray(), 8);
+        }
+
+        public static long GetLongId(this IHaveId obj)
+        {
+            return obj.Id.GetLongPart();
+        }
+
+        /// <summary>
+        /// Creates a GUID where the first 8 bytes are 0 (zero) and the remaining bytes are the
+        /// same as the given 64-bit integer (little endian). 
+        /// </summary>
+        /// <param name="id">The 64-bit integer to use.</param>
+        /// <returns><see cref="Guid"/></returns>
+        public static Guid ToGuid(this long id)
+        {
+            return new Guid(0, 0, 0, BitConverter.GetBytes(id));
+        }
+
+        public static void SetId(this IHaveId obj, long id)
+        {
+            obj.Id = id.ToGuid();
+        }
     }
 }

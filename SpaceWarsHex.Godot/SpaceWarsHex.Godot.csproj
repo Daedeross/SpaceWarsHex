@@ -12,6 +12,7 @@
     <ProjectReference Include="..\SpaceWarsHex.Contract\SpaceWarsHex.Contract.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Core\SpaceWarsHex.Core.csproj" />
     <ProjectReference Include="..\SpaceWarsHex.Mocks\SpaceWarsHex.Mocks.csproj" />
+    <ProjectReference Include="..\SpaceWarsHex.Serialization\SpaceWarsHex.Serialization.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="Godot.SourceGenerators" Version="4.5.1" />
