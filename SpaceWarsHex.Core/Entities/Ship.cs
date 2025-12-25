@@ -265,7 +265,7 @@ namespace SpaceWarsHex.Entities
         {
             // is unchanged?
             if (order.UseEmergencyPower && _reactor.UsingEmergencyPower
-             && order.State == _reactor.CurrentState)
+             && order.DesiredState == _reactor.CurrentState)
             {
                 return OrderResult.NotModified(Accepted);
             }
@@ -275,12 +275,12 @@ namespace SpaceWarsHex.Entities
             {
                 return OrderResult.NotValid("Cannot use emergency power two turns in a row.");
             }
-            if (order.State == ReactorState.Attack && _reactor.TurnsSpentAtAttackPower >= _reactor.MaxTurnsAtAttackPower)
+            if (order.DesiredState == ReactorState.Attack && _reactor.TurnsSpentAtAttackPower >= _reactor.MaxTurnsAtAttackPower)
             {
                 return OrderResult.NotValid("Ship has spent its maximum number of turns at attack power.");
             }
 
-            _reactor.CurrentState = order.State;
+            _reactor.CurrentState = order.DesiredState;
             _reactor.UsingEmergencyPower = order.UseEmergencyPower;
 
             RecalcPowerAllocation();

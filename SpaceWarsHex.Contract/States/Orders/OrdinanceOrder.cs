@@ -1,12 +1,12 @@
 ﻿using ProtoBuf;
+using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Model;
 using System;
-using System.Collections.Generic;
 
 namespace SpaceWarsHex.States.Orders
 {
     [ProtoContract]
-    public class OrdinanceOrder: WeaponOrder
+    public class OrdinanceOrder: WeaponOrder, IOrdinanceOrder
     {
         [ProtoMember(3)]
         public bool Clear { get; set; }

@@ -1,12 +1,12 @@
 ﻿using ProtoBuf;
+using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Model;
 using System;
-using System.Collections.Generic;
 
 namespace SpaceWarsHex.States.Orders
 {
     [ProtoContract]
-    public class MoveOrder : OrderBase
+    public class MoveOrder : OrderBase, IMoveOrder
     {
         [ProtoMember(1)]
         public HexVector2 Acceleration { get; set; }

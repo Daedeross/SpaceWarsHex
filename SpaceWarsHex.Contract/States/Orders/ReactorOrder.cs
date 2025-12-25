@@ -1,11 +1,12 @@
 ﻿using ProtoBuf;
+using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Model;
 using System;
 
 namespace SpaceWarsHex.States.Orders
 {
     [ProtoContract]
-    public class ReactorOrder : OrderBase
+    public class ReactorOrder : OrderBase, IReactorOrder
     {
         [ProtoMember(1)]
         public ReactorState DesiredState { get; set; }

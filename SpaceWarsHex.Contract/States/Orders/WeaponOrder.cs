@@ -1,4 +1,5 @@
 ﻿using ProtoBuf;
+using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Model;
 using System;
 
@@ -7,7 +8,7 @@ namespace SpaceWarsHex.States.Orders
     [ProtoContract]
     [ProtoInclude(10, typeof(EnergyWeaponOrder))]
     [ProtoInclude(11, typeof(OrdinanceOrder))]
-    public class WeaponOrder : OrderBase
+    public class WeaponOrder : OrderBase, IWeaponOrder
     {
         [ProtoMember(1)]
         public int WeaponIndex { get; set; }

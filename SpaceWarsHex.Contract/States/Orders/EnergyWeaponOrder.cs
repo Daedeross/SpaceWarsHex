@@ -1,11 +1,12 @@
 ﻿using ProtoBuf;
+using SpaceWarsHex.Interfaces.Orders;
 using SpaceWarsHex.Model;
 using System;
 
 namespace SpaceWarsHex.States.Orders
 {
     [ProtoContract]
-    public class EnergyWeaponOrder : WeaponOrder
+    public class EnergyWeaponOrder : WeaponOrder, IEnergyWeaponOrder
     {
         [ProtoMember(1)]
         public int Power { get; set; }

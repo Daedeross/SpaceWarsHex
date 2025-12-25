@@ -10,7 +10,7 @@ namespace SpaceWarsHex.Interfaces.Orders
         /// <summary>
         /// The desired state for this turn.
         /// </summary>
-        public ReactorState State { get; }
+        public ReactorState DesiredState { get; }
 
         /// <summary>
         /// True if desired to use EmergencyPower this turn.
